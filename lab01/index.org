@@ -8,7 +8,7 @@
 
 * Passwords Crossword Puzzle
 
-Our first lab will consist in solving a crossword puzzle. The idea of a puzzle was inspired by [[http://xkcd.com/1286/][xkcd]]:
+Our first lab will consist in solving a crossword puzzle by "cracking" some real passwords data. The idea of a puzzle was inspired by [[http://xkcd.com/1286/][xkcd]]:
 
 [[./encryptic.png]]
 
@@ -23,7 +23,7 @@ In groups of 2 or 3 people, try to solve as many clues as you can.
 Each clue is a hashed password. The key problem with these passwords is that they were encrypted without a [[http://en.wikipedia.org/wiki/Salt_(cryptography)][salt]]. This means that if two people used the same
 password, then the hash would be identical. 
 
-The hash does not tell us much (it is likely it is a [[http://en.wikipedia.org/wiki/Cryptographic_hash_function][one-way hash function]], anyways). But the leaked data also had the user's hint that the user would use to
+The hash does not tell us much (it is likely a [[http://en.wikipedia.org/wiki/Cryptographic_hash_function][one-way hash function]], anyways). But the leaked data also had the user's hint that the user would use to
 remember the password. In general, one clue would not be of much use, but because we have lots of clues for every hashed password, they can be useful. For
 example, these are /clues/ for the hashed password ~EQ7fIpT7i/Q=~ which appeared a total of 1,911,867 times in the data. These are the top "clues" to this
 password, along with their frequency. Can you guess what the password is?
@@ -58,19 +58,28 @@ password, along with their frequency. Can you guess what the password is?
 |      1183 | sequencia  |
 |      1166 | 1 to 6     |
 |      1121 | one to six |
-|           |            |
 
 
 ** Your job
 
-Solve this crossword puzzle. You will need the passwords file. That is in connex under resources/labs/lab01. This file is very simple:
-
-Its format is simple: three fields, separated by =|=. The first is the frequency of the combination =<password,hint>=. The second is the hashed password, and
-the third the hint.
+Solve this crossword puzzle. You will need the passwords file. That is in connex under resources/labs/lab01. This file format is very simple: each line is one
+record.  Each record is composed of three fields, separated by =|=. The first field is the frequency of the combination =<password,hint>=. The second is the
+hashed password, and the third the hint. I have only included the most common passwords.
 
 #+BEGIN_EXAMPLE
 1|nPay03ioxG6CatHBw==|Lol, forgot again? Just remember. E-mail.
-5758|eONYUIJwFakd6VkaOIVkcg==|my pet
+698|NagFBK05Y27ioxG6CatHBw==|movie
+293|NagFBK05Y27ioxG6CatHBw==|film
+126|NagFBK05Y27ioxG6CatHBw==|star
+121|NagFBK05Y27ioxG6CatHBw==|favorite movie
+90|NagFBK05Y27ioxG6CatHBw==|Movie
+79|NagFBK05Y27ioxG6CatHBw==|luke
+59|NagFBK05Y27ioxG6CatHBw==|sw
+58|NagFBK05Y27ioxG6CatHBw==|jedi
+21|NagFBK05Y27ioxG6CatHBw==|Favorite movie
+12|NagFBK05Y27ioxG6CatHBw==|Favorite Movie 
+1|NagFBK05Y27ioxG6CatHBw==|there are 6 films over 
+1|NagFBK05Y27ioxG6CatHBw==|duh-duh-duh duh
 ...
 #+END_EXAMPLE
 
@@ -78,7 +87,12 @@ You can either use command line tools (grep, cut, uniq, etc) or write one or mor
 
 ** What to submit
 
-Submit a paper copy of your puzzle solved at the end of the lab.
+Submit a paper copy of your puzzle solved at the end of the lab.  For each answer write down three hints found in the data. Solve as many as you can.
+
+
+
+
+
 
 
  
