@@ -14,10 +14,6 @@ Our first lab will consist off solving a crossword puzzle by "cracking" some rea
 
 For this lab you will need two files: the crossword puzzle (found here) and the datafile that you can download from connex (under resources).
 
-** Your job
-
-In groups of 2 or 3 people, try to solve as many clues as you can.
-
 ** The clues.
 
 Each clue is a hashed password. The key problem with these passwords is that they were encrypted without a [[http://en.wikipedia.org/wiki/Salt_(cryptography)][salt]]. This means that if two people used the same
@@ -62,9 +58,9 @@ password, along with their frequency. Can you guess what the password is?
 
 ** Your job
 
-Solve this crossword puzzle. You will need the passwords file. That is in connex under resources/labs/lab01. This file format is very simple: each line is one
-record.  Each record is composed of three fields, separated by =|=. The first field is the frequency of the combination =<password,hint>=. The second is the
-hashed password, and the third the hint. I have only included the most common passwords.
+Solve as many clues in this crossword puzzle as you can. You will need the passwords file. That is in connex under resources/labs/lab01. This file format is
+very simple: each line is one record.  Each record is composed of three fields, separated by =|=. The first field is the frequency of the combination
+=<password,hint>=. The second is the hashed password, and the third the hint. I have only included the most common passwords.
 
 #+BEGIN_EXAMPLE
 1|nPay03ioxG6CatHBw==|Lol, forgot again? Just remember. E-mail.
