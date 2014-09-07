@@ -6,9 +6,9 @@
 #+TITLE: Lab 01 for Seng360: Password
 #+CATEGORY: todo
 
-* Passwords Crossword Puzzle
+* The Greatest Puzzle in History of The World
 
-Our first lab will consist in solving a crossword puzzle by "cracking" some real passwords data. The idea of a puzzle was inspired by [[http://xkcd.com/1286/][xkcd]]:
+Our first lab will consist off solving a crossword puzzle by "cracking" some real passwords data. The idea of a puzzle was inspired by [[http://xkcd.com/1286/][xkcd]]:
 
 [[./encryptic.png]]
 
@@ -88,6 +88,14 @@ You can either use command line tools (grep, cut, uniq, etc) or write one or mor
 ** What to submit
 
 Submit a paper copy of your puzzle solved at the end of the lab.  For each answer write down three hints found in the data. Solve as many as you can.
+
+** Warning
+
+I have checked every one of the answers. We don't really know what the actual answer is for every password. Hence, in the case that you find an error in the puzzle
+(you think another word is a better answer to the clues) then simply write it down in your submission.
+
+
+
 
 
 
