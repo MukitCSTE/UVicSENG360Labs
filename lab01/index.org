@@ -8,3 +8,80 @@
 
 * Passwords Crossword Puzzle
 
+Our first lab will consist in solving a crossword puzzle. The idea of a puzzle was inspired by [[http://xkcd.com/1286/][xkcd]]:
+
+[[./encryptic.png]]
+
+For this lab you will need two files: the crossword puzzle (found here) and the datafile that you can download from connex (under resources).
+
+** Your job
+
+In groups of 2 or 3 people, try to solve as many clues as you can.
+
+** The clues.
+
+Each clue is a hashed password. The key problem with these passwords is that they were encrypted without a [[http://en.wikipedia.org/wiki/Salt_(cryptography)][salt]]. This means that if two people used the same
+password, then the hash would be identical. 
+
+The hash does not tell us much (it is likely it is a [[http://en.wikipedia.org/wiki/Cryptographic_hash_function][one-way hash function]], anyways). But the leaked data also had the user's hint that the user would use to
+remember the password. In general, one clue would not be of much use, but because we have lots of clues for every hashed password, they can be useful. For
+example, these are /clues/ for the hashed password ~EQ7fIpT7i/Q=~ which appeared a total of 1,911,867 times in the data. These are the top "clues" to this
+password, along with their frequency. Can you guess what the password is?
+
+| Frequency | Hint       |
+|-----------+------------|
+|     53380 | 1to6       |
+|     23444 | numbers    |
+|     14660 | 123        |
+|     14330 | 654321     |
+|     14081 | numeros    |
+|     11877 | 1-6        |
+|     10758 | number     |
+|      6906 | 1          |
+|      4445 | 12         |
+|      3959 | num        |
+|      3570 | 1234567    |
+|      3428 | 12345      |
+|      3400 | 123456789  |
+|      3290 | ??         |
+|      2925 | numero     |
+|      2841 | 16         |
+|      2509 | 6          |
+|      2491 | 1234       |
+|      2395 | no         |
+|      2198 | count      |
+|      1489 | ????       |
+|      1475 | #          |
+|      1369 | Numbers    |
+|      1269 | ???        |
+|      1183 | zahlen     |
+|      1183 | sequencia  |
+|      1166 | 1 to 6     |
+|      1121 | one to six |
+|           |            |
+
+
+** Your job
+
+Solve this crossword puzzle. You will need the passwords file. That is in connex under resources/labs/lab01. This file is very simple:
+
+Its format is simple: three fields, separated by =|=. The first is the frequency of the combination =<password,hint>=. The second is the hashed password, and
+the third the hint.
+
+#+BEGIN_EXAMPLE
+1|nPay03ioxG6CatHBw==|Lol, forgot again? Just remember. E-mail.
+5758|eONYUIJwFakd6VkaOIVkcg==|my pet
+...
+#+END_EXAMPLE
+
+You can either use command line tools (grep, cut, uniq, etc) or write one or more programs to solve the puzzle. Good luck!
+
+** What to submit
+
+Submit a paper copy of your puzzle solved at the end of the lab.
+
+
+ 
+
+
+
