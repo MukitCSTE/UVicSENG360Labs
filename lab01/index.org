@@ -59,7 +59,7 @@ password, along with their frequency. Can you guess what the password is?
 ** Your job
    
 Solve as many clues in this crossword puzzle as you can. You will need the passwords file. That is in connex under resources/labs/lab01. This file format is
-very simple: each line is one record.  Each record is composed of two fields, separated by =|=. The first field is the hashed password, and the third the
+very simple: each line is one record.  Each record is composed of two fields, separated by =|=. The first field is the hashed password, and the second the
 hint. I have only included the most common 5000 passwords. Each record can appear more than once (if two records are identical it means that two different
 people had the same password and the same hint.
 
