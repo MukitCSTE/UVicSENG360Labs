@@ -19,10 +19,11 @@ For this lab you will need two files: the crossword puzzle (found here) and the 
 Each clue is a hashed password. The key problem with these passwords is that they were not properly stored. In particular, if two people had the same exact
 password, then the hashed password would also be identical.
 
-The hash of each password does not tell us much (it is likely a [[http://en.wikipedia.org/wiki/Cryptographic_hash_function][one-way hash function]], anyways). But the leaked data also had the /hint/ that the user would use
-to remember the password. In general, one clue would not be of much use, but because we have lots of clues for every hashed password, they can be useful. For
-example, these are /clues/ for the hashed password ~EQ7fIpT7i/Q=~ which appeared a total of 1,911,867 times in the data. These are the top "clues" for this
-password, along with their frequency. Can you guess what the password is?
+The hash of each password does not tell us much (it is likely a [[http://en.wikipedia.org/wiki/Cryptographic_hash_function][one-way hash function]], anyways; correction, passwords have been encrypted, and by doing that,
+there is[[http://nakedsecurity.sophos.com/2013/11/04/anatomy-of-a-password-disaster-adobes-giant-sized-cryptographic-blunder/][ extra information leaked about them]]). But the leaked data also had the /hint/ that the user would use to remember the password. In general, one clue
+would not be of much use, but because we have lots of clues for every hashed password, they can be useful. For example, these are /clues/ for the hashed
+password ~EQ7fIpT7i/Q=~ which appeared a total of 1,911,867 times in the data. These are the top "clues" for this password, along with their frequency. Can you
+guess what the password is?
 
 | Frequency | Hint       |
 |-----------+------------|
