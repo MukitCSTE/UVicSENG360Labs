@@ -31,7 +31,7 @@ For applications that require true randomness, you should always use [[http://en
 buy PCI cards that serve this purpose. New Intel chips have implemented hardware random generators, although some believe this could be backdoor to secure
 applications (I guess at the end you have to trust somebody).
 
-Otherwise you can choose to use a Random number generators are usually called /Pseudo-random number generator/ (PRNG).  One particular type of generator that we
+Otherwise you can choose to use a random number generator, which are called /Pseudo-random number generator/ (PRNG).  One particular type of generator that we
  need to know is the /Cryptographically Secure Pseudo-Random Number Generator/ (CSPRNG).
 
 Most programming languages provide PRNG. But why trust a middle-person when you can go directly to the source for random numbers? Most operating systems provide
