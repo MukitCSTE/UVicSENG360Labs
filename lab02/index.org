@@ -73,10 +73,10 @@ Use =skeleton.c= and the =Makefile= provided as the basis for your programs.
 
 ** Part 2. Benchmark them.
 
-Using the command =timeout= (do =man timeout=) you can run any program for a certain period. Run both programs =urandom= and =random= as follows:
+Using the command =timeout= (do =man timeout=) you can run any program for a certain period. Run =urandom= for 60 seconds  and =random= for 5 minutes:
 
 #+begin_src bash
-timeout -s SIGINT 60 ./random > random.out 
+timeout -s SIGINT 300 ./random > random.out 
 timeout -s SIGINT 60 ./urandom > urandom.out
 #+end_src
 
