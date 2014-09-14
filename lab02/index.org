@@ -31,26 +31,26 @@ For applications that require true randomness, you should always use [[http://en
 buy PCI cards that serve this purpose. New Intel chips have implemented hardware random generators, although some believe this could be backdoor to secure
 applications (I guess at the end you have to trust somebody).
 
-Otherwise you can choose to use a random number generator, which are called /Pseudo-random number generator/ (PRNG).  One particular type of generator that we
- need to know is the /Cryptographically Secure Pseudo-Random Number Generator/ (CSPRNG).
+Otherwise you can choose to use a software random number generator, which are called /Pseudo-random number generator/ (PRNG).  One particular type of generator that we
+ need to know is /Cryptographically Secure Pseudo-Random Number Generators/ (CSPRNG).
 
-Most programming languages provide PRNG. But why trust a middle-person when you can go directly to the source for random numbers? Most operating systems provide
-some features to create them too. In this lab we'll use the Linux random generators.
+Most programming languages provide PRNG, and some provide CSPRNG. But why trust a middle-person when you can go directly to the source for random numbers? Most
+operating systems provide PRNGs. In this lab we'll use the Linux PRNGs.
 
-In Linux, random numbers are can be created by the kernel and made available via the =/dev/random= and =/dev/urandom= files. To learn about them read their main
+In Linux, random numbers are can be created by the kernel and are made available via the =/dev/random= and =/dev/urandom= pseudo-files. To learn about them read their main
 page:
 
 #+being_code
 man -s 4 random
 #+end_code
 
-Both device files (=/dev/random= and =/dev/urandom=) behave like any other file: all you have to do is read as many bytes as you need. If you need a 32-bits
+Both pseudo-files (=/dev/random= and =/dev/urandom=) behave like any other file: all you have to do is read as many bytes as you need. If you need a 32-bits
 integer, you read 4 bytes.
 
 For this part you will implement two programs, both of them identical except that one reads =/dev/random= and one =/dev/urandom=. Call the first program
 =random.c= and the second =urandom.c=.
 
-Each program should read from their corresponding random-generator file a byte (8 bits) and output it one per line as a value between 0 and 255. These numbers should be generated to standard output, like this:
+Each program should read from their corresponding random-generator file a byte (8 bits) and output it one per line as a value between 0 and 255. These numbers should be output to standard output, like this:
 
 #+begin_example
 34
@@ -65,20 +65,20 @@ Once Ctrl-C (=SIGING=) or a kill signal (SIGKIL) is sent to the program, your pr
 standard error. For example:
 
 #+begin_example
+Received SIGINT
 Generated 53563 values.
 #+end_example
 
 Use =skeleton.c= and the =Makefile= provided as the basis for your programs. 
 
-
 ** Part 2. Benchmark them.
 
 Using the command =timeout= (do =man timeout=) you can run any program for a certain period. Run both programs =urandom= and =random= as follows:
 
-#+being_code
+#+being_src bash
 timeout -s SIGINT 60 ./random > random.out 
 timeout -s SIGINT 60 ./urandom > urandom.out
-#+end_code
+#+end_src
 
 - How many numbers were you able to generate with each method?
 
@@ -134,9 +134,9 @@ dev.off()
 
 You can run an R script using:
 
-#+begin_example
+#+begin_src bash
 Rscript <filename>
-#+end_example
+#+end_src bash
 
 
 ** Part 4. Answer the following questions
@@ -155,5 +155,5 @@ Submit, via connex, in a single file:
 
 In paper:
 
-- The answers to the questions of Part 1, Part 2, and part 4.
+- The answers to the questions of Part 2, and part 4.
 
