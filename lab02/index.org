@@ -73,15 +73,14 @@ Use =skeleton.c= and the =Makefile= provided as the basis for your programs.
 
 ** Part 2. Benchmark them.
 
-Using the command =timeout= (do =man timeout=) you can run any program for a certain period. Run =urandom= for 60 seconds  and =random= for 5 minutes:
+Using the command =timeout= (do =man timeout=) you can run any program for a certain period. Run =random= for 5 minutes  and =urandom= for 60 seconds.
 
 #+begin_src bash
 timeout -s SIGINT 300 ./random > random.out 
 timeout -s SIGINT 60 ./urandom > urandom.out
 #+end_src
 
-- How many numbers were you able to generate with each method?
-
+- How many numbers per second were you able to generate with each method?
 
 ** Part 3. Count the distribution of numbers
 
