@@ -8,13 +8,13 @@
 
 * Generating random numbers
 
-Generating random numbers in any computer is hard. The theory was laid down long ago in Knuth's Art's of Computer Programming. But in security, random numbers are an important building block.
-For example, they can be used for:
+Generating random numbers in a computer is hard. The theory was laid down long ago in Knuth's Art's of Computer Programming. In security, random numbers are an important building block.
+For example, they can be used for creating:
 
 - Salts
 - [[http://en.wikipedia.org/wiki/Cryptographic_nonce][Nonces]]
 - [[http://en.wikipedia.org/wiki/One-time_pad][One-time pads]]
-- Key generation
+- Keys
 
 It is often the case that security is broken not because the algorithms are weak, but because the random number generation is not properly implemented. For
 example, one of the first successful attacks of a web browser (Netscape) involved [[http://www.cs.berkeley.edu/~daw/papers/ddj-netscape.html][exploiting the poor random number generator]] (used to generate cryptographic
@@ -109,8 +109,8 @@ Save the output of as =urandom.report= and =random.report=. Compute the minimum,
 ** Plot them
 
 How do we know if the numbers are truly random? Well, that is a good question. We would require statistics to properly do it. Instead, we will simply visualize
-the results. For this we are going to use =R=. We will only plot the first 1000 values.  Create two file called =random.R= and =urandom.R= by reusing the
-following script. Replace =data= with =random= and =urandom= to process the corresponding files.  Each script create two png files, the first with the points
+the results. For this we are going to use =R=. We will only plot the first 1000 values.  Create two files called =random.R= and =urandom.R= by reusing the
+following script. Replace =data= with =random= and =urandom= to process the corresponding files.  Each script creates two png files, the first with the points
 plotted in the order they were generated, and the second with them in order.
 
 #+begin_src R 
@@ -119,7 +119,7 @@ data<-read.table('data.out',col.names=c('values'))
 summary(data)
 
 subset<-head(data$values,1000)
-summary(subset$values)
+summary(subset)
 
 png("dataRandom.png", width=600, height=600)
 plot(subset)
@@ -132,7 +132,7 @@ dev.off()
 
 #+end_src
 
-You can run this script using:
+You can run an R script using:
 
 #+begin_example
 Rscript <filename>
@@ -143,7 +143,8 @@ Rscript <filename>
 
 - Why are PRNGs called "Pseudo"?
 - What are the properties that CSPRNG should have?
-- Explain why reading from =/dev/urandom= is significantly slower than =/dev/random/=.
+- Explain why reading from =/dev/urandom= is significantly faster than =/dev/random/=.
+
 
 ** What to submit
 
