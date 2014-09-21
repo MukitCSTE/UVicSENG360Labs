@@ -17,7 +17,7 @@ For example, they can be used for creating:
 - Keys
 
 It is often the case that security is broken not because the algorithms are weak, but because the random number generation is not properly implemented. For
-example, one of the first successful attacks of a web browser (Netscape) involved [[http://www.cs.berkeley.edu/~daw/papers/ddj-netscape.html][exploiting the poor random number generator]] (used to generate cryptographic
+example, one of the first successful attacks of a web browser (Netscape) involved [[http://www.cs.berkeley.edu/~daw/papers/ddj-netscape.html][exploiting poorly written random number generator]] (used to generate cryptographic
 keys that were to be used during a SSL session).
 
 What you really need to understand is that:

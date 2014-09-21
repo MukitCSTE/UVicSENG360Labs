@@ -1,0 +1,201 @@
+
+* Working as both users in the same computer
+
+In the lab only one user can be login at the same. To bypass this restriction let the other person login into the same computer from a terminal. The idea is
+that you are both connected to as both users, so you both can run =pgp= as yourselves.
+
+* Create a personal public/private key
+
+Before we can do anything, we must create a key. Each of you, in your corresponding accounts generate a key.
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+gpg --gen-key
+
+Choose options:  RSA and RSA (default), and size 2048 bits.
+
+Indicate that the key should expire in 90 days (at least) so I can use your key.  Use your netlink email as the email of your key. You will also be asked for a
+/pass-phrase/. This is a password that will protect your key from prying eyes. Make sure you can remember this pass-phrase or you will never be able to use the
+key. You will be asked to generate entropy also.
+
+
+* Export your keys
+
+At this point you both have a pair of private/public keys. For somebody to contact you privately, they would need your public key. Let us export it. Type:
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+gpg --export -a 
+
+You will get an output like this. This in fact is my public key.
+
+
+Save your public key (redirect the output of pgp to a file) and share the file with your lab partner and at least 4 other people in the lab. Use email or a USB
+stick to do it.
+
+** Importing keys
+
+Download from connect the file with my key (dmg-public-key.txt). Your TA will also provide you a public key. Import them into your keyring.
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+gpg --import dmg-public-key.txt
+
+Do the same for the other 4 public keys you have received.
+
+When you import from dmg-public-key.txt, you will see it contains two keys. That is ok. 
+
+** List keys
+
+List all the keys in your keyring:
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+gpg --list-key
+
+It should list your own key plus all the keys you imported. 
+
+
+* Confidentiality
+
+We are ready to encrypt some data. Create a simple text file. Write in it a simple message.
+
+Encrypt the file for your lab partner. Let us do in what is known as ascii-armour (base64 encoded so it can be easily transfered):
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+gpg --encrypt -a -r <email> <filename>
+
+This will create the encrypted file as =<filename>.asc=
+
+Before you give it to your lab partner to decode, try it yourself:
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+gpg --decrypt <filename>
+
+As you can see, the encrypted file contains the name of the recipient who is the only one who can decode the file.
+
+Give it to your partner and decode it.
+
+* Integrity
+
+We can also sign documents using our private key to verify their integrity and to make sure they come from us.
+
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+gpg  --sign -a message.txt
+
+This will create a file =message.txt.asc=. Inspect it.
+
+Pass this file to your teammate and see if he/she can verify the key:
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+gpg --verify message.txt.asc
+
+You probably got a message that says that there is no indication that the signature belongs to the owner. 
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+rachel@iodine:~$ gpg --verify /tmp/rip.rip.asc
+gpg: Signature made Sun 21 Sep 2014 03:13:56 AM PDT using DSA key ID 6BD06DB8
+gpg: Good signature from "Daniel M German <dmg@uvic.ca>" [uncertain]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 9B90 8602 3BEE 6BD3 16F4  E6E8 8003 C5D2 6BD0 6DB8
+
+
+You can read about the keys of others, to make sure
+that those keys come from the people who they claim to be.
+
+Signatures can also be created as separate files:
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+gpg --detach-sig message.txt
+
+In this case only the signature will be included in the file =message.txt=. You need both the source file and the signature file to verify it:
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+gpg --verify message.txt.asc message.txt
+
+
+** Test the integrity of the file
+
+Modify the original file or the signature. Verify the integrity of the file.
+
+* Symmetric cryptography
+
+You can also use symmetric cryptography. Run
+
+#+BEGIN_EXAMPLE
+#+END_EXAMPLE
+gpg --version
+
+to see what the current algorithms are. They can be divided into three groups: symmetric algorithms, public key, and hashing algorithms.
+
+Look up the full names of these acronyms.
+
+Encrypt a file using BlowFish with a key (read GPG's documentation to find how). Now, if you send an encrypted file to another person the problem is sharing a
+key. You can solve that problem by encrypting the key.
+
+Create a simple text file called key.txt. In it include only the key you used to encrypt the file.
+
+Get the public key of a member of another team. Encrypt the key you just created with this key. Send this person the encrypted file. At some point, that team
+should send you their corresponding encrypted file. Decrypt it.
+
+* Using gpg for more practical uses
+
+The main problem of cryptography is making it easy to use. Encryption should be a easy and non-intrusive.  My personal favorite is org-mode, in emacs. Learn
+about it at http://orgmode.org/worg/org-tutorials/encrypting-files.html (Encrypting Specific Entries in an org File with org-cry).
+
+** Configure emacs
+
+Download the file emacs.zip from connex.
+
+It contains two files: =.emacs= and =org-crypt.el=. Place =.emacs= in your home directory. Create a directory called =emacs= and place the other file there.
+
+Modify =.emacs= to point to your own key. The /ID/ of your key is the 8 alphanumeric characters that uniquely identify your key. Use ==gpg --list-keys== to
+retrieve it. 
+
+Run =emacs=. Make sure you get no errors.
+
+Create a file called =test.org= (the extension is important). This is org-mode, a simple, but powerful way to keep notes, todos, and many other types of
+information in simple text files. Read about it here: http://orgmode.org/manual/Summary.html
+
+Insert into your file. Remove the space from =:cry pt:=. If I leave the space in emacs --which is what I am using to create this document-- would encrypt it
+with my secret key.
+
+#+BEGIN_EXAMPLE
+* Intro
+
+** This is a test of encryption 		:cry pt:		      
+
+This text is expected to be encrypted.
+
+#+END_EXAMPLE
+
+Read the documentation in =org-crypt.el= to find out how to decrypt your entry. In =emacs= you can run commands by name by using =ESC X= (Esc key followed by
+x). 
+
+
+* What to submit
+
+Each of you should export your own public keys. Export them win ascii-format (as we did above). Save them into a file with your lastname_firstname.key.asc.
+Submit this file via connex.
+
+
+
+
+
+
+
+
+
+
+
+
+
