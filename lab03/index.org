@@ -1,16 +1,17 @@
 
-* Working as both users in the same computer
+* Both working on the same computer
 
-In the lab only one user can be login at the same. To bypass this restriction let the other person login into the same computer from a terminal. The idea is
-that you are both connected to as both users, so you both can run =pgp= as yourselves.
+In the lab only one user can be logged in at the same. To bypass this restriction let the other person login into the same computer from a terminal. The idea is
+that you are both connected, so you both can run =pgp= as your own user.
 
 * Create a personal public/private key
 
 Before we can do anything, we must create a key. Each of you, in your corresponding accounts generate a key.
 
 #+BEGIN_EXAMPLE
-#+END_EXAMPLE
 gpg --gen-key
+#+END_EXAMPLE
+
 
 Choose options:  RSA and RSA (default), and size 2048 bits.
 
@@ -24,8 +25,8 @@ key. You will be asked to generate entropy also.
 At this point you both have a pair of private/public keys. For somebody to contact you privately, they would need your public key. Let us export it. Type:
 
 #+BEGIN_EXAMPLE
-#+END_EXAMPLE
 gpg --export -a 
+#+END_EXAMPLE
 
 You will get an output like this. This in fact is my public key.
 
@@ -38,8 +39,9 @@ stick to do it.
 Download from connect the file with my key (dmg-public-key.txt). Your TA will also provide you a public key. Import them into your keyring.
 
 #+BEGIN_EXAMPLE
-#+END_EXAMPLE
 gpg --import dmg-public-key.txt
+#+END_EXAMPLE
+
 
 Do the same for the other 4 public keys you have received.
 
@@ -50,8 +52,8 @@ When you import from dmg-public-key.txt, you will see it contains two keys. That
 List all the keys in your keyring:
 
 #+BEGIN_EXAMPLE
-#+END_EXAMPLE
 gpg --list-key
+#+END_EXAMPLE
 
 It should list your own key plus all the keys you imported. 
 
@@ -63,16 +65,17 @@ We are ready to encrypt some data. Create a simple text file. Write in it a simp
 Encrypt the file for your lab partner. Let us do in what is known as ascii-armour (base64 encoded so it can be easily transfered):
 
 #+BEGIN_EXAMPLE
-#+END_EXAMPLE
 gpg --encrypt -a -r <email> <filename>
+#+END_EXAMPLE
+
 
 This will create the encrypted file as =<filename>.asc=
 
 Before you give it to your lab partner to decode, try it yourself:
 
 #+BEGIN_EXAMPLE
-#+END_EXAMPLE
 gpg --decrypt <filename>
+#+END_EXAMPLE
 
 As you can see, the encrypted file contains the name of the recipient who is the only one who can decode the file.
 
@@ -92,19 +95,19 @@ This will create a file =message.txt.asc=. Inspect it.
 Pass this file to your teammate and see if he/she can verify the key:
 
 #+BEGIN_EXAMPLE
-#+END_EXAMPLE
 gpg --verify message.txt.asc
+#+END_EXAMPLE
 
 You probably got a message that says that there is no indication that the signature belongs to the owner. 
 
 #+BEGIN_EXAMPLE
-#+END_EXAMPLE
 rachel@iodine:~$ gpg --verify /tmp/rip.rip.asc
 gpg: Signature made Sun 21 Sep 2014 03:13:56 AM PDT using DSA key ID 6BD06DB8
 gpg: Good signature from "Daniel M German <dmg@uvic.ca>" [uncertain]
 gpg: WARNING: This key is not certified with a trusted signature!
 gpg:          There is no indication that the signature belongs to the owner.
 Primary key fingerprint: 9B90 8602 3BEE 6BD3 16F4  E6E8 8003 C5D2 6BD0 6DB8
+#+END_EXAMPLE
 
 
 You can read about the keys of others, to make sure
@@ -113,15 +116,14 @@ that those keys come from the people who they claim to be.
 Signatures can also be created as separate files:
 
 #+BEGIN_EXAMPLE
-#+END_EXAMPLE
 gpg --detach-sig message.txt
+#+END_EXAMPLE
 
 In this case only the signature will be included in the file =message.txt=. You need both the source file and the signature file to verify it:
 
 #+BEGIN_EXAMPLE
-#+END_EXAMPLE
 gpg --verify message.txt.asc message.txt
-
+#+END_EXAMPLE
 
 ** Test the integrity of the file
 
@@ -132,8 +134,8 @@ Modify the original file or the signature. Verify the integrity of the file.
 You can also use symmetric cryptography. Run
 
 #+BEGIN_EXAMPLE
-#+END_EXAMPLE
 gpg --version
+#+END_EXAMPLE
 
 to see what the current algorithms are. They can be divided into three groups: symmetric algorithms, public key, and hashing algorithms.
 
