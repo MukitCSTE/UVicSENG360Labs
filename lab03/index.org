@@ -167,7 +167,7 @@ Download the file emacs.zip from connex.
 
 It contains two files: =.emacs= and =org-crypt.el=. Place =.emacs= in your home directory. Create a directory called =emacs= and place the other file there.
 
-Modify =.emacs= to point to your own key. The /ID/ of your key is the 8 alphanumeric characters that uniquely identify your key. Use ==gpg --list-keys== to
+Modify =.emacs= to point to your own key. The /ID/ of your key is the 8 alphanumeric characters that uniquely identify your key. Use =gpg --list-keys= to
 retrieve it. 
 
 Run =emacs=. Make sure you get no errors.
@@ -175,7 +175,7 @@ Run =emacs=. Make sure you get no errors.
 Create a file called =test.org= (the extension is important). This is org-mode, a simple, but powerful way to keep notes, todos, and many other types of
 information in simple text files. Read about it here: http://orgmode.org/manual/Summary.html
 
-Insert into your file. Remove the space from =:cry pt:=. If I leave the space in emacs --which is what I am using to create this document-- would encrypt it
+Insert into your file =test.org= the following. Remove the space in =:cry pt:=. If I leave the space in emacs --which is what I am using to create this document-- would encrypt it
 with my secret key.
 
 #+BEGIN_EXAMPLE
