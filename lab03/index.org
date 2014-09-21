@@ -1,5 +1,9 @@
 
-* Both working on the same computer
+* Encrypting
+
+In this lab you will learn how to use encryption software.
+
+** Both working on the same computer
 
 In the lab only one user can be logged in at the same. To bypass this restriction let the other person login into the same computer from a terminal. The idea is
 that you are both connected, so you both can run =pgp= as your own user.
