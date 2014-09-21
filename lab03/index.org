@@ -132,9 +132,9 @@ In this case only the signature will be included in the file =message.txt=. You 
 gpg --verify message.txt.asc message.txt
 #+END_EXAMPLE
 
-** Test the integrity of the file
+** Test the signature of the file
 
-Modify the original file or the signature. Verify the integrity of the file.
+Modify the original file or the signature. Verify the validity of the signature.
 
 * Symmetric cryptography
 
