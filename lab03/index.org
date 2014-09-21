@@ -66,7 +66,7 @@ gpg --list-key
 It should list your own key plus all the keys you imported. 
 
 
-* Confidentiality
+* Encryption
 
 We are ready to encrypt some data. Create a simple text file. Write in it a simple message.
 
@@ -89,10 +89,9 @@ As you can see, the encrypted file contains the name of the recipient who is the
 
 Give it to your partner and decode it.
 
-* Integrity
+* Digital signatures
 
-We can also sign documents using our private key to verify their integrity and to make sure they come from us.
-
+We can also sign documents using our private key.
 
 #+BEGIN_EXAMPLE
 #+END_EXAMPLE
@@ -192,10 +191,21 @@ Read the documentation in =org-crypt.el= to find out how to decrypt your entry. 
 x). 
 
 
+* Answer the following questions
+
+We discussed 3 main security properties. For each of them:
+
+- Does cryptography address this goal?
+- If so, how?
+
+- Can cryptography address no-repudiation?
+
 * What to submit
 
 Each of you should export your own public keys. Export them win ascii-format (as we did above). Save them into a file with your lastname_firstname.key.asc.
-Submit this file via connex.
+Digitally sign your answers file. Zip them into a single file, and submit your answers via connex.
+
+
 
 
 
