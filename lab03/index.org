@@ -5,8 +5,7 @@ In this lab you will learn how to use encryption software.
 
 ** Both working on the same computer
 
-In the lab only one user can be logged in at the same. To bypass this restriction let the other person login into the same computer from a terminal. The idea is
-that you are both connected, so you both can run =pgp= as your own user.
+In this lab you should each run the commands below. 
 
 * GPG 
 
@@ -170,7 +169,11 @@ It contains two files: =.emacs= and =org-crypt.el=. Place =.emacs= in your home 
 Modify =.emacs= to point to your own key. The /ID/ of your key is the 8 alphanumeric characters that uniquely identify your key. Use =gpg --list-keys= to
 retrieve it. 
 
-Run =emacs=. Make sure you get no errors.
+Run =emacs=. Make sure you get no errors. You can run =emacs= in terminal mode with:
+
+#+BEGIN_EXAMPLE
+emacs -nw
+#+END_EXAMPLE
 
 Create a file called =test.org= (the extension is important). This is org-mode, a simple, but powerful way to keep notes, todos, and many other types of
 information in simple text files. Read about it here: http://orgmode.org/manual/Summary.html
@@ -195,10 +198,10 @@ x).
 
 We discussed 3 main security properties. For each of them:
 
-- Does cryptography address this goal?
+- Does cryptography address it?
 - If so, how?
 
-- Can cryptography address no-repudiation?
+- Can cryptography address non-repudiation? How?
 
 * What to submit
 
