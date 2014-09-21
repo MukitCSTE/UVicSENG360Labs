@@ -1,5 +1,5 @@
 
-* Encrypting
+* Encryption
 
 In this lab you will learn how to use encryption software.
 
