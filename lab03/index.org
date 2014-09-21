@@ -8,6 +8,10 @@ In this lab you will learn how to use encryption software.
 In the lab only one user can be logged in at the same. To bypass this restriction let the other person login into the same computer from a terminal. The idea is
 that you are both connected, so you both can run =pgp= as your own user.
 
+* GPG 
+
+We will use gpg GNU Privacy Guard. https://www.gnupg.org/. Its documentation is at https://www.gnupg.org/documentation/index.html
+
 * Create a personal public/private key
 
 Before we can do anything, we must create a key. Each of you, in your corresponding accounts generate a key.
@@ -35,8 +39,8 @@ gpg --export -a
 You will get an output like this. This in fact is my public key.
 
 
-Save your public key (redirect the output of pgp to a file) and share the file with your lab partner and at least 4 other people in the lab. Use email or a USB
-stick to do it.
+Save your public key (redirect the output of pgp to a file) and share the file with your lab partner and at least 4 other people in the lab. Use email, a USB
+stick to do it, or the file system (=/tmp/=).
 
 ** Importing keys
 
