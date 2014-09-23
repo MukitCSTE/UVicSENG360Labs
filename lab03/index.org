@@ -93,8 +93,8 @@ Give it to your partner and decode it.
 We can also sign documents using our private key.
 
 #+BEGIN_EXAMPLE
-#+END_EXAMPLE
 gpg  --sign -a message.txt
+#+END_EXAMPLE
 
 This will create a file =message.txt.asc=. Inspect it.
 
