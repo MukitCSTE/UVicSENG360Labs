@@ -128,7 +128,7 @@ gpg --detach-sig message.txt
 In this case only the signature will be included in the file =message.txt=. You need both the source file and the signature file to verify it:
 
 #+BEGIN_EXAMPLE
-gpg --verify message.txt.asc message.txt
+gpg --verify message.txt.sig message.txt
 #+END_EXAMPLE
 
 ** Test the signature of the file
