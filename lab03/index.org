@@ -46,7 +46,7 @@ stick to do it, or the file system (=/tmp/=).
 Download from connect the file with my key (dmg-public-key.txt). Your TA will also provide you a public key. Import them into your keyring.
 
 #+BEGIN_EXAMPLE
-gpg --import dmg-public-key.txt
+gpg --import dmg-public-keys.txt
 #+END_EXAMPLE
 
 
