@@ -62,9 +62,9 @@ The secret key is the same for all files is =Our true secret.= (128 bit long). A
 
 * Answer the following questions.
 
-- Look at the file encoded in Electronic Code Book mode. As discussed in class, ECB has a major vulnerability. Can you find a repeated block? What do you learn about the
+- Look at the file encoded in Electronic Code Book mode. As discussed in class, ECB has a major vulnerability. Can you find a repeated block? What do you learn about the original message.
   original message from this information?
-- Look at the first encoded block in the four files. What files have the same first block? Why?
+- Look at the first encoded block in the four files. What files have the same first block? Why? (look at the definition of the different modes in the  Wikipedia entry "Block cipher mode of operation").
 - How do you avoid this problem?
 
 *Hint*. Write a simple python program that dumps the message in hex, one block at a time.
