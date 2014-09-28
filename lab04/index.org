@@ -62,8 +62,7 @@ The secret key is the same for all files is =Our true secret.= (128 bit long). A
 
 * Answer the following questions.
 
-- Look at the file encoded in Electronic Code Book mode. As discussed in class, ECB has a major vulnerability. Can you find a repeated block? What do you learn about the original message.
-  original message from this information?
+- Look at the file encoded in Electronic Code Book mode. As discussed in class, ECB has a major vulnerability. Can you find a repeated block? What does this vulnerability disclose about the original message.
 - Look at the first encoded block in the four files. What files have the same first block? Why? (look at the definition of the different modes in the  Wikipedia entry "Block cipher mode of operation").
 - How do you avoid this problem?
 
@@ -71,7 +70,7 @@ The secret key is the same for all files is =Our true secret.= (128 bit long). A
 
 * Decrypt the files
 
-Read the documentation of pycrypto and decode the original files.  Save all decrypted messages into files the same basename with extension =.txt= instead of =.ct=.
+Read the documentation of pycrypto and decode the original files.  Save all decrypted messages into files the same basename with extension =.txt= instead of =.ct=. Call this program =decrypt.py=
 
 ** Hints
 
@@ -81,7 +80,6 @@ Read the documentation of pycrypto and decode the original files.  Save all decr
 - Open the files in *binary mode*.
 - They all contain the same message. Hence, all decrypted files should be identical.
 
-Call this program =decrypt.py=
 
 * Implementing Cipher Block Chaining (CBC) mode
 
