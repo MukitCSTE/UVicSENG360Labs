@@ -99,6 +99,7 @@ As with CBC, implement OFB. This program should be called =my-ofb.py=.
 
 In a zip file, submit:
 
+- The original message file: =message.txt=
 - Your implementation for decryption: =decrypt.py=
 - Your implementation for CBC mode: =my-cbc.py=
 - Your implementation for OFB mode: =my-ofb.py=
