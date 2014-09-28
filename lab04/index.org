@@ -79,7 +79,7 @@ bytes long). For Counter mode, the nonce is zero and the counter starts at zero.
 1. Look at the first encoded block in the four files. What files have the same first block? Why? (look at the definition of the different modes in the  Wikipedia entry "Block cipher mode of operation").
 1. How do you avoid this problem?
 
-*Hint*. Write a simple python program that dumps the message in hex, one block at a time.
+*Hint*. Write a simple python program that dumps the message in hex, one block at a time. It is easier to compare the streams if they are in hex.
 
 * Decrypt the files
 
@@ -87,7 +87,6 @@ Read the documentation of pycrypto and decode the original files.  Save all decr
 
 ** Hints
 
-- Create a cipher object for each file. Do not reuse the same cipher object for different messages.
 - The  size of the block is 16 bytes. This means the size of IV should be 16 bytes, all zeroes.
 - The counter mode requires a counter parameter. Use a =Crypto.Util.Counter= object initialized to zero.
 - Open the files in *binary mode*.
