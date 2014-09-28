@@ -57,8 +57,21 @@ From connex, download the files for this lab. They include:
 - =aes-ctr.ct=. Message encrypted using AES using Counter mode.
 - =aes-ofb.ct=. Message encrypted using AES using Output FeedBack mode.
 
-For the sake of simplicity, we will use for IV a sequence of 0 bits (16 bytes). For Counter mode, the nonce is zero and the counter starts at zero. As you know, this information is public.
-The secret key is the same for all files is =Our true secret.= (128 bit long). All of these files contain the exact same message encoded.
+All of these files contain the exact same message encoded.
+
+** Secret
+
+The secret key is the same for all files is the following. This key is 128 bit long:
+
+#+BEGIN_SRC
+Our true secret.
+#+END_SRC
+
+** Shared information
+
+As you know, some operation modes require some information that is exchanged in the clear. 
+For the sake of simplicity, we will use for /IV/ a sequence of 0 bits (16
+bytes long). For Counter mode, the nonce is zero and the counter starts at zero. 
 
 * Answer the following questions.
 
