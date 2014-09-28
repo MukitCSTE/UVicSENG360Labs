@@ -8,10 +8,10 @@
 
 * AES and Encryption Modes 
 
-AES is a /widely/ used cipher with no known vulnerabilities. But, like any block cipher, it needs to be used with a block encryption mode.  As the Wikipedia
-states "/A block cipher by itself is only suitable for the secure cryptographic transformation (encryption or decryption) of one fixed-length group of bits
+AES is a widely used cipher with no known vulnerabilities. But, like any block cipher, it needs to be used with a block encryption mode.  As the Wikipedia
+states: /A block cipher by itself is only suitable for the secure cryptographic transformation (encryption or decryption) of one fixed-length group of bits
 called a block. A mode of operation describes how to repeatedly apply a cipher's single-block operation to securely transform amounts of data larger than a
-block./".
+block/.
 
 In this lab we will learn how to use the python implementation of AES and we will implement a couple of modes.
 
