@@ -11,7 +11,7 @@
 AES is a widely used cipher with no known vulnerabilities. But, like any block cipher, it needs to be used with a block encryption mode.  As the Wikipedia
 states: /A block cipher by itself is only suitable for the secure cryptographic transformation (encryption or decryption) of one fixed-length group of bits called a block. A mode of operation describes how to repeatedly apply a cipher's single-block operation to securely transform amounts of data larger than a block/.
 
-In this lab we will learn how to use the python implementation of AES and we will implement a couple of modes.
+In this lab we will learn how to use the [[https://www.dlitz.net/software/pycrypto/][pycrypto]] implementation of AES and we will implement a couple of modes.
 
 * Install pycrypt
 
@@ -57,7 +57,7 @@ From connex, download the files for this lab. They include:
 - =aes-ctr.ct=. Message encrypted using AES using Counter mode.
 - =aes-ofb.ct=. Message encrypted using AES using Output FeedBack mode.
 
-We use for IV the a sequence of 0 bits (16 bytes). For Counter mode, the nonce is zero and the counter starts at zero. As you know, this information is public.
+For the sake of simplicity, we will use for IV a sequence of 0 bits (16 bytes). For Counter mode, the nonce is zero and the counter starts at zero. As you know, this information is public.
 The secret key is the same for all files is =Our true secret.= (128 bit long). All of these files contain the exact same message encoded.
 
 * Answer the following questions.
