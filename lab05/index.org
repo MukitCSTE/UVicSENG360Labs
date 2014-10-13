@@ -33,10 +33,10 @@ valid for one year. Talk about printing money!
 If you are going to do e-commerce you must buy a valid CA from one of the Web CAs. There is no way around it, unfortunately. This will allow any browser to
 authenticate your server (to this day the practice is that we don't authenticate users, only servers, one day this might change).
 
-Start firefox and go to http://www.uvic.ca. Click on the icon just before the URL (looks like a globe--world). Click on "More Information". Under "Technical
+Start firefox and go to http://mail.uvic.ca. Click on the icon just before the URL (looks like a globe--world). Click on "More Information". Under "Technical
 Details" it will tell you that  the connection is not encrypted. This is expected.
 
-Now head to https://www.uvic.ca. Click again on the icon (this time a small lock with a grey triangle with an exclamation point).  
+Now head to https://mail.uvic.ca. Click again on the icon (this time a small lock with a grey triangle with an exclamation point).  
 
 /Question 1./ Who is its Signing CA?
 
@@ -56,25 +56,17 @@ echo -n | openssl s_client -connect <hostname>:443
 
 As you can see, one of them comes from a CA and the other is self-signed. More on that later.
 
-Save the certificate of /www.uvic.ca/ into a file =uvic.cert=. It starts with =-----BEGIN CERTIFICATE-----= and ends with =-----END CERTIFICATE-----== included.
+Save the certificate of /mail.uvic.ca/ into a file =uvic.cert=. It starts with =-----BEGIN CERTIFICATE-----= and ends with =-----END CERTIFICATE-----== included.
 
 * Verifying a certificate
 
-Run again:
+Run openssl with these options on the two servers (sail and mail).
 
 #+BEGIN_EXAMPLE
-echo -n | openssl s_client -connect <hostname>:443 
+echo -n | openssl s_client  -verify_return_error -connect <hostname>:443 
 #+END_EXAMPLE
 
-The Certificate chain is the way in which the certification is verified. The verify return value should be 0.
-You will see that there is an error in the verification (return value 1). openSSL is not capable of verifying the certificate. To do it we need to give openSSL the
-certificate of the root CA. Any modern OS includes certificates of Root CAs pre-loaded. Run it again with the CApath option:
-
-#+BEGIN_EXAMPLE
-echo -n | openssl s_client -CApath /etc/ssl/certs -connect <hostname>:443 
-#+END_EXAMPLE
-
-Actually, the certificates on this computer are a bit old and you will still get an error. If one of you has a computer with SSL in it, try this command.
+The Certificate chain is the way in which the certification is verified. 
 
 * Encryption used by a server and a client
 
@@ -96,4 +88,10 @@ What conclusion do you reach about UVic cipher?
 
 There are many reasons why we might want to sign our own certificates (saving money is one of them). For example, I run my own VPN client, and it uses TLS to
 authenticate the client and the server. To learn to do this follow the tutorial here: http://pki-tutorial.readthedocs.org/en/latest/simple
+
+* What to Submit
+
+The answers to the five questions above.
+
+
 
