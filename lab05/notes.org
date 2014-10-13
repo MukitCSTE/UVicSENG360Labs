@@ -1,5 +1,0 @@
-To verify certificate:
-
-openssl verify uvic.cert
-
-This will fail because it needs the root certificate.
