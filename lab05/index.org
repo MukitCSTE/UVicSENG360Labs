@@ -91,7 +91,7 @@ authenticate the client and the server. To learn to do this follow the tutorial 
 
 * What to Submit
 
-The answers to the six questions above.
+The answers to the six questions above in a text file, include both group members names and student numbers. 
 
 
 
