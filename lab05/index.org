@@ -33,7 +33,7 @@ valid for one year. Talk about printing money!
 If you are going to do e-commerce you must buy a valid CA from one of the Web CAs. There is no way around it, unfortunately. This will allow any browser to
 authenticate your server (to this day the practice is that we don't authenticate users, only servers, one day this might change).
 
-Start firefox and go to http://mail.uvic.ca. Click on the icon just before the URL (looks like a globe--world). Click on "More Information". Under "Technical
+Start firefox and go to http://www.uvic.ca. Click on the icon just before the URL (looks like a globe--world). Click on "More Information". Under "Technical
 Details" it will tell you that  the connection is not encrypted. This is expected.
 
 Now head to https://mail.uvic.ca. Click again on the icon (this time a small lock with a grey triangle with an exclamation point).  
