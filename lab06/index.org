@@ -164,7 +164,7 @@ grant select on test to public;
 #+end_src
 
 
-Insert 10 tuples into it. So it looks something like this:
+Insert 10 tuples into the table =test=. The table should looks something like this. Make sure you include a tuple with /id=5/
 
 #+begin_example
 lab5=# select * from test ;
