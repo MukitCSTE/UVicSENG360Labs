@@ -149,14 +149,20 @@ Modify your script attack to try other commands. Try to execute, for example =ls
 
 * Set up a database
 
-Your user =seng360= has a postgres database called =lab5=. Using psql connect to it. Create a table called =test= with the following schema
+Your user =seng360= has a postgres database called =lab5=. Using psql connect to it. Create a table called =test= with the following schema.  
 
 #+begin_src sql
 create table test(
    id integer primary key,
    value integer);
+#+end_src
+
+Allow anybody =select= to the table =test=:
+
+#+begin_src sql
 grant select on test to public;
 #+end_src
+
 
 Insert 10 tuples into it. So it looks something like this:
 
