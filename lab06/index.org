@@ -27,7 +27,7 @@ Make sure that the following ports are been forwared in the your virtual machine
 
 http://stackoverflow.com/questions/5906441/how-to-ssh-to-a-virtualbox-guest-externally-through-a-host)
 
-| Name | Protocol | host Port | Guest IP | Guest Port |
+| Name | Protocol | Host Port | Guest IP | Guest Port |
 |------+----------+-----------+----------+------------|
 | HTTP | TCP      | 3080      |          | 80         |
 | SSH  | TCP      | 3030      |          | 22         |
