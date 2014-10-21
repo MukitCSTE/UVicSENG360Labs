@@ -11,7 +11,7 @@ For this lab you will run a virtual box virtual machine that you can fully confi
 Each of the lab machines has a directory =/seng/seng360/=. In it create a directory with your username, and inside a directory called =vm=. For example, for me
 it will be called =/seng/seng360/dmg/vm=.
 
-1. Download the following file: http://turingmachine.org/~dmg/temp/vmLab5.tar.bz2. Uncompress/untar it and place it under the =vm= directory you just created.
+1. Download the VM (the instructor will tell you where from. Uncompress/untar it and place it under the =vm= directory you just created.
 2. Run virtual box with the command =virtualbox=
 3. At this point no virtual box is setup up. Go to /File,Preferences/ and in the /General/ section change the /Default Machine Folder/ to point to the directory
    you created above (in my case =/seng/seng360/dmg/vm=). Leave everything else the same.
