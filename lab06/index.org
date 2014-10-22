@@ -84,9 +84,18 @@ Your virtual machine is already running Apache on port 80 (port 3080 for this ho
 
 ** Enable cgi
 
-Enable =cgid= module. See https://help.ubuntu.com/10.04/serverguide/httpd.html
+Enable the cgi module using:
 
-The documentation on =cgid= is http://httpd.apache.org/docs/current/mod/mod_cgid.html
+#+begin_example
+a2enmod cgi
+#+end_example
+
+restart the apache server.
+
+#+begin_example
+server apache restart
+#+end_example
+
 
 ** Create a script to test cgi
 
@@ -198,10 +207,18 @@ lab5=# select * from test ;
 
 Create a user called =web= with password =webserver=. See http://www.postgresql.org/docs/9.1/static/app-createuser.html
 
+You will need to do it as user postgres. Do the following (as root):
+
+#+begin_example
+su postgres
+cd
+createuser -P web
+#+end_example
+
 Test that the user =web= can connect to the database and see the table
 
 #+begin_example
-psql -h localhost -U web lab5
+psql -h localhost -U web lab6
 #+end_example
 
 * Python and sql
