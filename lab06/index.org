@@ -244,6 +244,8 @@ print "</table>"
 
 Convert this program into a cgi-script that uses POST method to set the value of =id=. It respond to this request:
 
+See http://www.tutorialspoint.com/python/python_cgi_programming.htm for information on how to do this.
+
 #+begin_example
 http://localhost/cgi-bin/sql.py?id=5
 #+end_example
