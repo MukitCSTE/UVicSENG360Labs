@@ -90,7 +90,7 @@ The documentation on =cgid= is http://httpd.apache.org/docs/current/mod/mod_cgid
 
 ** Create a script to test cgi
 
-Create a simple "hello world" script in whichever language you choose. Test it. Call this script =test.cgi=. Place it such that http://localhost/test.cgi (if you are in the VM)
+Create a simple "hello world" script in whichever language you choose. Test it. Call this script =test.cgi=. Place it such that http://localhost/cgi-bin/test.cgi (if you are in the VM)
 or http://localhost:3080/cgi-bin/test.cgi (from the host machine) to test it.
 
 If necessary, you can inspect the access/error logs of apache. They are located at =/var/log/apache2=
