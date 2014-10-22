@@ -36,19 +36,19 @@ http://stackoverflow.com/questions/5906441/how-to-ssh-to-a-virtualbox-guest-exte
 * Start your virtual machine
 
 Once you run the virtual machine you should be able to SSH to the virtual machine using port 3080 in the localmachine, and the webserver will be running in port 3080
-You can test both with telnet
+You can test port 3080 by going to http://localhost:3080
+
+To test if ssh is working do:
 
 #+BEGIN_SRC
-telnet localhost 3030
+ssh -p 3030 -l user360 localhost
 #+END_SRC
 
-and
+To become root in the virtual machine you will need to use (use the root password provided). 
 
 #+BEGIN_SRC
-telnet localhost 3080
+su 
 #+END_SRC
-
-You can then use ssh to connect to the virtual machine, or you can login into the machine directly.
 
 
 * Login to the virtual box and change the passwords
