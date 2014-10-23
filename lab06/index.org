@@ -248,6 +248,8 @@ except:
 
 
 rows = cur.fetchall()
+print "Content-type: text/html";
+print ""
 print "<h2>Data</h2>"
 print "<table border=1>"
 for row in rows:
