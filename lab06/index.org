@@ -93,7 +93,7 @@ a2enmod cgi
 restart the apache server.
 
 #+begin_example
-server apache restart
+service apache2 restart
 #+end_example
 
 
