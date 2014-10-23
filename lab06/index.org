@@ -161,7 +161,7 @@ Try the same attack on this script. It simply prints the environment variables t
 #!/usr/bin/perl
 print "Content-type: text/html\n\n";
 foreach $key (keys %ENV) {
-print "$key --> $ENV{$key}<br>";
+print "$key --> $ENV{$key}<br>\n";
 }
 #+end_src
 
