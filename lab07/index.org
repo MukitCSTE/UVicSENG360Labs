@@ -335,11 +335,11 @@ This attack is very pernicious. It is capable of stealing all the cookies of a s
 
 Try the same attacks on Chromium.
 
-*Q8: Which of the attacks did not succeed when using Chromium?*
+*Q8: Which of the attacks did not succeed when using Chromium? Why?*
 
-* Part 4
+* Part 4 Fix the vulnerability of Part 2 and Part 3
 
-Fix the vulnerabilities in your scripts. Hint: see cgi.escape in https://docs.python.org/2/library/cgi.html
+Fix the vulnerabilities in your scripts. Hint: see /cgi.escape/ in https://docs.python.org/2/library/cgi.html
 
 * What to submit
 
