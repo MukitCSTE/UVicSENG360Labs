@@ -121,7 +121,7 @@ sql = "SELECT id, field from test where id = "  + id
 
 
 
-print "<h3>query to evaluate: "+sql + "</h3"
+print "<h3>query to evaluate: "+sql + "</h3>"
 
 try:
 
@@ -148,7 +148,7 @@ except:
 
 ** Test the script
 
-Load =sqlForm.html" again in your browser. Test  it with any of the following values: 1,5,10. Try both forms. Answer the following questions:
+Load =sqlForm.html= again in your browser. Test  it with any of the following values: 1,5,10. Try both forms. Answer the following questions:
 
 *Q1: What is the difference between using a POST and GET form to call a CGI-script* 
 
