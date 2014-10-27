@@ -169,7 +169,7 @@ Reload the form. Use  the following as the value for id:
 
 As you can see, we now get all the values in the table. 
 
-*Q4: Explain why the new value of =id= tricks our form and is able to retrieve all the tuples in the table.*
+*Q4: Explain why the new value of /id/ tricks our form and is able to retrieve all the tuples in the table.*
 
 ** Fix the script
 
@@ -179,11 +179,11 @@ Stack Overflow: http://stackoverflow.com/questions/7929364/python-best-practice-
 
 Fix your script. Test your script until the attack is no longer effective.
 
-* Part2 Cross-scripting attacks
+* Part 2: Cross-scripting attacks
 
 Cross-scripting attacks are another common way to Web applications.
 
-For this part of the assignment make sure that you use <b>Firefox</b>.
+For this part of the assignment make sure that you use *Firefox*.
 
 ** Create another form
 
@@ -246,11 +246,11 @@ then try this:
 <h1>dmg</h1>
 #+end_src
 
-*Q5: Explain why the effect of the attack*
+*Q5: Explain the impact of the attack and how it works*
 
 ** A more active attack
 
-Are you using <b>Firefox</b>? If not, then do. This next attack requires Firefox.
+Are you using *Firefox*? If not, then use it. This next attack requires Firefox.
 
 Input the following value in the /user/ field and hit submit again:
 
@@ -329,6 +329,7 @@ but inspect the URL that you were trying to retrieve.
 
 *Q7: What is the full URL that is actually the link is followed? Why is this an attack?*
 
+This attack is very pernicious. It is capable of stealing all the cookies of a site by simply logging the access to the destination Website.
 
 * Part3 Cross-scripting attacks using Chromium
 
