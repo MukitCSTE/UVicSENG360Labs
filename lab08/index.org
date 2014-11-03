@@ -37,7 +37,7 @@ void main()
 
 Compile it (=gcc -o smashing smashing.c=)
 
-*Q1. What is the warning you receive when you compile it?*
+*Q1. What is the warning you receive when you compile it? Based on the behaviour of this program, explain why it is warning.*
 
 *Q2. What happens when you give it a long input?*
 
