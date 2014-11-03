@@ -215,15 +215,14 @@ nm -D /lib64/libc.so.6 | grep '\<exit\>'   | cut -f1 -d' '
 nm -D /lib64/libc.so.6 | grep '\<system\>' | cut -f1 -d' '
   #+END_SRC
 4. You need to change the payload string to the =%0130d= to =%0256d= to compensate for the bytes we have added.
-
 My values are:
 
-| base             | 0x000000392ba00000 |
-| gadget           |            0x20338 |
-| system           | 0x000000392ba3e900 |
-| exit             | 0x000000392ba35a50 |
-| address of array |     0x7fffffffddd0 |
-
+   | base             | 0x000000392ba00000 |
+   | gadget           |            0x20338 |
+   | system           | 0x000000392ba3e900 |
+   | exit             | 0x000000392ba35a50 |
+   | address of array |     0x7fffffffddd0 |
+   
 5. There is an error in his execution of the attack. He does not include any input to the command. Try the command below instead (remember to calculate your own
    values for base, gadget, system, and address of array).
 
