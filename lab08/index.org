@@ -216,14 +216,12 @@ nm -D /lib64/libc.so.6 | grep '\<system\>' | cut -f1 -d' '
   #+END_SRC
 4. You need to change the payload string to the =%0130d= to =%0256d= to compensate for the bytes we have added.
 My values are:
-
    | base             | 0x000000392ba00000 |
    | gadget           |            0x20338 |
    | system           | 0x000000392ba3e900 |
    | exit             | 0x000000392ba35a50 |
    | address of array |     0x7fffffffddd0 |
-   
-5. There is an error in his execution of the attack. He does not include any input to the command. Try the command below instead (remember to calculate your own
+5. There is an error in his execution of the attack. He does not include any input to the shell command. Try the command below instead (remember to calculate your own
    values for base, gadget, system, and address of array).
 
 #+BEGIN_SRC bash
@@ -244,12 +242,12 @@ The goal is to replace the stack with the following data:
 |----------------------------+--------------------------------------------------|
 | address of function system |                                                  |
 | address of /bin/sh         |                                                  |
-| address of gadget          | this was the return address of the original call |
-|                            |                                                  |
+| address of gadget          | <- this was the return address of the original call |
 |----------------------------+--------------------------------------------------|
 
-Let me explain the /gadget/. This is the code that is needed to execute (=pop rdi= then =retq=). These two instructions are simply two bytes 0x5f followed by
-0xc3. Ben (the author of the page) shows us that all we need is to find those two bytes /somewhere/ (anywhere) in the executable section of the library of libc.
+Let me explain the /gadget/. This is the code that is needed to execute =pop rdi= then =retq=. These two instructions are simply two bytes: 0x5f followed by
+0xc3. Ben (the author of the page) shows us that all we need is to find those two bytes /somewhere/ (anywhere) in the executable section of the library of libc. 
+gcc will not complain if we jump to a section of the valid code. 
 
 So here is the play by play:
 
