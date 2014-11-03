@@ -245,9 +245,9 @@ The goal is to replace the stack with the following data:
 | address of gadget          | <- this was the return address of the original call |
 |----------------------------+--------------------------------------------------|
 
-Let me explain the /gadget/. This is the code that is needed to execute =pop rdi= then =retq=. These two instructions are simply two bytes: 0x5f followed by
-0xc3. Ben (the author of the page) shows us that all we need is to find those two bytes /somewhere/ (anywhere) in the executable section of the library of libc. 
-gcc will not complain if we jump to a section of the valid code. 
+Let me explain the /gadget/. This is the code that is needed to put the address of =/bin/sh= into =rdi= (execute =pop rdi= then =retq=). These two instructions
+are simply two bytes: 0x5f followed by 0xc3. Ben (the author of the page) shows us that all we need is to find those two bytes /somewhere/ (anywhere) in the
+executable section of the library of libc.  gcc will not complain if we jump to a section of the valid code.
 
 So here is the play by play:
 
