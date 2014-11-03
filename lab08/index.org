@@ -14,7 +14,7 @@ different than what it was originally intended to do.
 * Stack overflow
 
 As you are probably well aware, C gives you total programming power. But with great power, comes great responsibility. One of the biggest problems with C is that
-many programmers do not check that the data structures that they allocate in the stack are not overflown.
+many programmers do not check whether the data structures that they allocate in the stack are overflown.
 
 Compile and test the following simple program. Call it =smashing.c=
 
@@ -72,12 +72,11 @@ void do_not_execute(void)
 }
 
 void function(void) {
-  long int *stackTop = 0;
-  stackTop = (long int*)&stackTop;
+  long int stackTop[0];
   for (i=0;i<16;i++) {
     printf("stack offset %d from stackTop: %x value %x\n",i, stackTop + i, *(stackTop+i));
   }
-  *(stackTop + 4) = (long int)do_not_execute;
+  *(stackTop + 3) = (long int)do_not_execute;
   printf("return to %x\n\n", *(stackTop+8));
 }
 
@@ -95,6 +94,7 @@ void main() {
 }
 #+END_SRC
 
+Don't you love that C allows you to define arrays of size zero?
 
 *Q4. Why does it execute the function do_not_execute?* Hint, you should know what a stack frame is (remember your assembly programming?). If not head here: http://eli.thegreenplace.net/2011/09/06/stack-frame-layout-on-x86-64/
 
