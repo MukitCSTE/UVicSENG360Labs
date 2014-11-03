@@ -96,7 +96,7 @@ void main() {
 #+END_SRC
 
 
-*Q4. Why does it execute the /function do_not_execute/?* Hint, you should know what a stack frame is (remember your assembly programming?). If not head here: http://eli.thegreenplace.net/2011/09/06/stack-frame-layout-on-x86-64/
+*Q4. Why does it execute the function do_not_execute?* Hint, you should know what a stack frame is (remember your assembly programming?). If not head here: http://eli.thegreenplace.net/2011/09/06/stack-frame-layout-on-x86-64/
 
 ** Try Stack-Smashing Protector in this program
 
