@@ -8,7 +8,7 @@
 
 * Introduction
 
-This week we are going to learn how programs exploit bad programming. In particular, how well-crafted input can subjugate to execute a something completely
+This week we are going to learn how programs exploit bad programming. In particular, how well-crafted input can force a program to execute something completely
 different than what it was originally intended to do.
 
 * Stack overflow
