@@ -122,7 +122,7 @@ time we need to be crafty. And fortuantely Ben Lynn (a PhD graduate from Standfo
 reuse.  Now head to https://crypto.stanford.edu/~blynn/rop/ and do the first part of the exercise (all the way to /The Importance of Being Patched/). I'll
 simply add to his tutorial in areas that you will probably have trouble understanding.
 
-But be careful about the following:
+But be careful about the following three things:
 
 a) Change your prompt. This will make it easy to know if you are inside the shell executed by the program or not. In the terminal type
 #+BEGIN_SRC BASH
