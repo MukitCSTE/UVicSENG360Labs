@@ -129,6 +129,7 @@ a) Change your prompt. This will make it easy to know if you are inside the shel
 PS1='TEST> '
 #+END_SRC
 b) when you execute the binary of shell.c type exit to exit it.
+
 c) There is a typo in the command that generates the file =shellcode=.
 #+BEGIN_SRC bash
 xxd -s0x4bf -l32 -p a.out shellcode
