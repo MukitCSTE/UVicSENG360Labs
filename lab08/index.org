@@ -210,10 +210,10 @@ But we need to fix the tutorial so it works on our version of linux:
    code of =victim.c=. You need to change the size of the buffer from 64 to 128 bytes.
 2. The location of the library is =/lib64/libc.so.6=
 3. The addresses of =<system>= and =<exit>= that are extracted  using =nm= are absolute (it means we don't need to add the base)
-#+BEGIN_SRC bash
+  #+BEGIN_SRC bash
 nm -D /lib64/libc.so.6 | grep '\<exit\>'   | cut -f1 -d' '
 nm -D /lib64/libc.so.6 | grep '\<system\>' | cut -f1 -d' '
-#+END_SRC
+  #+END_SRC
 4. You need to change the payload string to the =%0130d= to =%0256d= to compensate for the bytes we have added.
 
 My values are:
