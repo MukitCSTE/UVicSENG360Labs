@@ -13,7 +13,7 @@ different than what it was originally intended to do.
 
 * Stack overflow
 
-As you probably well aware, C gives you total programming power. But with great power, comes great responsibility. One of the biggest problems with C is that
+As you are probably well aware, C gives you total programming power. But with great power, comes great responsibility. One of the biggest problems with C is that
 many programmers do not check that the data structures that they allocate in the stack are not overflown.
 
 Compile and test the following simple program. Call it =smashing.c=
@@ -57,7 +57,8 @@ Run it again.
 
 * Subjugating a program: returning where we want
 
-So far, this is obviously expected. But can we do anything interesting by overwriting the stack? Let us try. Call this program =subjugating.c=. Compile it and run it.
+You already knew that it is easy to clobber the stack (I am sure you have done it plenty of times).  Can we do anything interesting by overwriting the stack?
+Let us try. Call this program =subjugating.c=. Compile it and run it.
 
 #+BEGIN_SRC C
 #include <stdio.h>
