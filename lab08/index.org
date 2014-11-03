@@ -146,7 +146,7 @@ NULL.
 
 ** The assembly
 
-This is a very well crafted piece of code. The challenge of the attack is to get the address of the command "/bin/sh" in the =rdi= register. But we have no clue
+This is a very well crafted piece of code. The challenge of the attack is to get the address of the stting "/bin/sh" in the =rdi= register. But we have no clue
 where this code is going to end, so the easiest is to get the address of the string into the stack and then pop it into the register. How do we do it? if we
 call a function the stack automatically loads  the address immediately after the function. Let me do a play-by-play:
 
