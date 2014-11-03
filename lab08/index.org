@@ -209,7 +209,7 @@ The rest of the tutorial is fascinating, to say the least.
 But we need to fix the tutorial so it works on our version of linux:
 
 1. First, in order to get his attack to work in our lab computers you need to change the source
-   code of =victim.c=. You need to change the size of the buffer from 64 to 128 bytes.
+   code of =victim.c=. *You need to change the size of the buffer from 64 to 128 bytes.*
 2. The location of the library is =/lib64/libc.so.6=
 3. The addresses of =<system>= and =<exit>= that are extracted  using =nm= are absolute (it means we don't need to add the base)
   #+BEGIN_SRC bash
@@ -241,13 +241,13 @@ In a nutshell, this is the attack:
 
 The goal is to replace the stack with the following data:
 
-|----------------------------+-------------------------------------------------------------------------|
-| address of function system |                                                                         |
-| address of /bin/sh         |                                                                         |
-| address of gadget          | <- this was the return address of the original call                     |
-| 8 zeros                    | replaces the saved rbp (we never return to main, so it does not matter) |
-|                            | buffer variable                                                         |
-|----------------------------+-------------------------------------------------------------------------|
+|-------------------------------+-------------------------------------------------------------------------|
+| address of function system    |                                                                         |
+| address of /bin/sh            |                                                                         |
+| address of gadget             | <- this was the return address of the original call                     |
+| 8 zeros                       | replaces the saved rbp (we never return to main, so it does not matter) |
+| 121 zeros + /bin/sh (7 bytes) | buffer variable                                                         |
+|-------------------------------+-------------------------------------------------------------------------|
 
 Let me explain the /gadget/. This is the code that is needed to put the address of =/bin/sh= into =rdi= (execute =pop rdi= then =retq=). These two instructions
 are simply two bytes: 0x5f followed by 0xc3. Ben (the author of the page) shows us that all we need is to find those two bytes /somewhere/ (anywhere) in the
