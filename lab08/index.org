@@ -124,10 +124,12 @@ simply add to his tutorial in areas that you will probably have trouble understa
 
 But be careful about the following:
 
-1. Change your prompt. This will make it easy to know if you are inside the shell executed by the program or not. In the terminal type
-=PS1='TEST> '=
-2. when you execute the binary of shell.c type exit to exit it.
-3. There is a typo in the command that generates the file =shellcode=.
+a. Change your prompt. This will make it easy to know if you are inside the shell executed by the program or not. In the terminal type
+#+BEGIN_SRC BASH
+PS1='TEST> '
+#+END_SRC
+b. when you execute the binary of shell.c type exit to exit it.
+c. There is a typo in the command that generates the file =shellcode=.
 #+BEGIN_SRC bash
 xxd -s0x4bf -l32 -p a.out shellcode
 #+END_SRC
