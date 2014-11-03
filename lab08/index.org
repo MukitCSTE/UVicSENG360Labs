@@ -241,13 +241,14 @@ In a nutshell, this is the attack:
 
 The goal is to replace the stack with the following data:
 
-|-------------------------------+-------------------------------------------------------------------------|
-| address of function system    |                                                                         |
-| address of /bin/sh            |                                                                         |
-| address of gadget             | <- this was the return address of the original call                     |
-| 8 zeros                       | replaces the saved rbp (we never return to main, so it does not matter) |
-| 121 zeros + /bin/sh (7 bytes) | buffer variable                                                         |
-|-------------------------------+-------------------------------------------------------------------------|
+|----------------------------+-------------------------------------------------------------------------|
+| address of function system |                                                                         |
+| address of /bin/sh         |                                                                         |
+| address of gadget          | <- this was the return address of the original call                     |
+| 8 zeros                    | replaces the saved rbp (we never return to main, so it does not matter) |
+| 121 zeros                  | buffer variable (128 bytes)                                             |
+| /bin/sh (7 bytes)          |                                                                         |
+|----------------------------+-------------------------------------------------------------------------|
 
 Let me explain the /gadget/. This is the code that is needed to put the address of =/bin/sh= into =rdi= (execute =pop rdi= then =retq=). These two instructions
 are simply two bytes: 0x5f followed by 0xc3. Ben (the author of the page) shows us that all we need is to find those two bytes /somewhere/ (anywhere) in the
