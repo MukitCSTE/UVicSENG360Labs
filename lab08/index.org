@@ -107,7 +107,7 @@ Enable SSP for this program.
 ** Address Space Layout Randomization (ASLR)
 
 Run the program several times. As you can see, the addresses of the stack change every time. This is a security counter-measure. This way it is more difficult to know
-the addresses that we need to override (that is why I had to print the addresses of the stack to identify where to the return address was). Let us disable by running it as follows:
+the addresses that we need to override (when we try to attack a binary we can't compile). Let us disable it by running it as follows:
 
 #+BEGIN_SRC bash
 setarch `arch` -R ./subjugating
@@ -241,11 +241,13 @@ In a nutshell, this is the attack:
 
 The goal is to replace the stack with the following data:
 
-|----------------------------+--------------------------------------------------|
-| address of function system |                                                  |
-| address of /bin/sh         |                                                  |
-| address of gadget          | <- this was the return address of the original call |
-|----------------------------+--------------------------------------------------|
+|----------------------------+-------------------------------------------------------------------------|
+| address of function system |                                                                         |
+| address of /bin/sh         |                                                                         |
+| address of gadget          | <- this was the return address of the original call                     |
+| 8 zeros                    | replaces the saved rbp (we never return to main, so it does not matter) |
+|                            | buffer variable                                                         |
+|----------------------------+-------------------------------------------------------------------------|
 
 Let me explain the /gadget/. This is the code that is needed to put the address of =/bin/sh= into =rdi= (execute =pop rdi= then =retq=). These two instructions
 are simply two bytes: 0x5f followed by 0xc3. Ben (the author of the page) shows us that all we need is to find those two bytes /somewhere/ (anywhere) in the
@@ -269,3 +271,6 @@ If I were stuck on a desert island with only one compiler, I'd want a C compiler
 Me too. Happy Coding
 
 --dmg
+
+
+
