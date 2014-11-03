@@ -106,22 +106,21 @@ Enable SSP for this program.
 
 ** Address Space Layout Randomization (ASLR)
 
-Run the program several times. As you can see, the addresses of the stack change every time. This is a security measure. This way it is more difficult to know
-the addresses that we need to override (that is why I had to print the addresses of the stack to identify where to the return address was). Let us disable by running it:
+Run the program several times. As you can see, the addresses of the stack change every time. This is a security counter-measure. This way it is more difficult to know
+the addresses that we need to override (that is why I had to print the addresses of the stack to identify where to the return address was). Let us disable by running it as follows:
 
 #+BEGIN_SRC bash
 setarch `arch` -R ./subjugating
 #+END_SRC
 
-As you can see, now the stack is always exactly in the same place. This is a counter-measure to stack overflows.
+As you can see, now the stack is always exactly in the same place. This is our second counter-measure to stack overflows.
 
 * Smashing to Subjugate
 
-So we can make a program crash or execute code that is not intended to do what it should. But, can we mix both at the same time? Of course we can.
-But this time we need to be crafty. Let us do in increments. First, let us create the smallest C program that executes shell that we can.
-
-Now head to https://crypto.stanford.edu/~blynn/rop/ and do the first part of the exercise (all the way to /The Importance of Being Patched/). I'll simply
-add to his tutorial in areas that you will probably have trouble understanding.
+We have learned that we can make a program crash or execute code that is not intended to do. But, can we mix both at the same time? Of course we can.  But this
+time we need to be crafty. And fortuantely Ben Lynn (a PhD graduate from Standford whose area of research is crypto) has created a great tutorial that we can
+reuse.  Now head to https://crypto.stanford.edu/~blynn/rop/ and do the first part of the exercise (all the way to /The Importance of Being Patched/). I'll
+simply add to his tutorial in areas that you will probably have trouble understanding.
 
 But be careful about the following:
 
