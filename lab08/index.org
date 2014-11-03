@@ -150,10 +150,10 @@ This is a very well crafted piece of code. The challenge of the attack is to get
 where this code is going to end, so the easiest is to get the address of the string into the stack and then pop it into the register. How do we do it? if we
 call a function the stack automatically loads  the address immediately after the function. Let me do a play-by-play:
 
-1. We jump to "there"
-2. We call here (return to the top), this pushes the address of "/bin/sh" into the stack.
+1. We jump to =there=
+2. We call =here= (go back  to the top of the assembly); this pushes the address of =/bin/sh= into the stack.
 3. Now we pop the address of "/bin/sh" into =rdi=, clear =rax= and =rsi=, and do the syscall.
-4. We do the syscall, which executes the command "/bin/sh" (the shell)
+4. We do the syscall, which executes the command =/bin/sh= (the shell)
 
 #+BEGIN_SRC C
 int main() {
