@@ -264,3 +264,8 @@ So here is the play by play:
 Happy coding
 
 --dmg
+
+#+BEGIN_QUOTE
+If I were stuck on a desert island with only one compiler, I'd want a C compiler ---Brian Kernighan 
+#+END_QUOTE
+
