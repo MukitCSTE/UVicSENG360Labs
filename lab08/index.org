@@ -196,6 +196,8 @@ As you learned in the tutorial above, code in the stack cannot be executed. This
 
 *Q6. What is the behaviour of the program when you enable NX?*
 
+*Q7. List the 3 counter-measures against stack overflows that we learned in this lab*
+
 * If you have time...
 
 Do the section /The Importance of Being Patched/. It will show you that it is possible to know the address of the stack we need to attack by using =ps=
@@ -255,7 +257,7 @@ So here is the play by play:
 2. Execute the gadget. The gadget pops the top of the stack (containing the address of /bin/sh into the register =rdi=
 3. Executes the return =retq=. The return  address is the address of the =system= function. Control is transferred to it.
 4. =system= behaves as expected. Executes =/bin/sh= (the shell)
-5. At the end of =system= control is transferred to its return address (at the top of the stack,
+5. At the end of =system= control is transferred to its return address (at the top of the stack),
 6. The return value is invalid, so the program crashes with a segmentation fault. It is easy to fix it. Just add to the attack the address of =exit= and append
    that to the string that goes into the stack. I'll leave that as an exercise to the reader.
 
