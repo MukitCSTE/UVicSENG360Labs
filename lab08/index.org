@@ -251,7 +251,7 @@ executable section of the library of libc.  gcc will not complain if we jump to 
 
 So here is the play by play:
 
-1. Insert the payload into the stack, replace the return address of the function with the address of the gadget
+1. Insert the payload into the stack, replace the  stack as shown above.
 2. Execute the gadget. The gadget pops the top of the stack (containing the address of /bin/sh into the register =rdi=
 3. Executes the return =retq=. The return  address is the address of the =system= function. Control is transferred to it.
 4. =system= behaves as expected. Executes =/bin/sh= (the shell)
