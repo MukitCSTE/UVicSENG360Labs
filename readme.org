@@ -3,10 +3,8 @@
 #+TAGS:
 #+SEQ_TODO: TODO STARTED DONE DEFERRED CANCELLED | WAITING DELEGATED APPT
 #+DRAWERS: HIDDEN STATE
-#+TITLE: Labs for Seng360: Password
+#+TITLE: Labs for Seng360
 #+CATEGORY: todo
-
-* These are the labs for SEng 360
 
 - [[lab01/][Lab 01: The Greatest Puzzle in the History of The World]]
 - [[lab02/][Lab 02: Generating random numbers]]
