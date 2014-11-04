@@ -8,7 +8,12 @@
 
 * These are the labs for SEng 360
 
-- [[lab01/][Lab 01]]
-
-
+- [[lab01/][Lab 01: The Greatest Puzzle in the History of The World]]
+- [[lab02/][Lab 02: Generating random numbers]]
+- [[lab03/][Lab 03: Public Key Encryption]]
+- [[lab04/][Lab 04: AES and Encryption Modes ]]
+- [[lab05/][Lab 05: Certificates and Certificate Authorities]]
+- [[lab06/][Lab 06: Web server vulnerabilities]]
+- [[lab07/][Lab 07: Web vulnerabilties]]
+- [[lab08/][Lab 08: Stack overflow]]
 

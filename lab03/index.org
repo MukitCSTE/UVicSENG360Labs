@@ -1,5 +1,12 @@
+#+STARTUP: showall
+#+STARTUP: lognotestate
+#+TAGS:
+#+SEQ_TODO: TODO STARTED DONE DEFERRED CANCELLED | WAITING DELEGATED APPT
+#+DRAWERS: HIDDEN STATE
+#+TITLE: Public Key Encryption
+#+CATEGORY: todo
 
-* Encryption
+* Public Key Encryption
 
 In this lab you will learn how to use encryption software.
 

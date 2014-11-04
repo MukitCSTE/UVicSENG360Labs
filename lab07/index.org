@@ -1,4 +1,13 @@
-* Introduction
+#+STARTUP: showall
+#+STARTUP: lognotestate
+#+TAGS:
+#+SEQ_TODO: TODO STARTED DONE DEFERRED CANCELLED | WAITING DELEGATED APPT
+#+DRAWERS: HIDDEN STATE
+#+TITLE: Web vulnerabilities
+#+CATEGORY: todo
+
+
+* Web vulnerabilities
 
 This week we will continue on Web vulnerabilities. I know that many of you did not complete Lab06. So this lab will replace the last part of that lab.
 
