@@ -8,7 +8,7 @@
 
 * The Greatest Puzzle in the History of The World
 
-Our first lab will consist off solving a crossword puzzle by "cracking" some real passwords data. The idea of a puzzle was inspired by [[http://xkcd.com/1286/][xkcd]]:
+Our first lab will consist of solving a crossword puzzle by "cracking" some real passwords data. The idea of a puzzle was inspired by [[http://xkcd.com/1286/][xkcd]]:
 
 [[./encryptic.png]]
 
