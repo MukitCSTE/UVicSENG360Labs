@@ -40,7 +40,7 @@ Q2. Describe what is /HMTL 5 Canvas Image rendering fingerprinting/
 
 ** Other vulnerabilties
 
-Do some browsing. Go to shopping sites, news sites. Any of those sitest that are likely to want to know who you are. As you can see, Tor does not provide the best browsing experience. This is because it does not integrate any plugins (e.g. flash.)
+Do some browsing. Go to shopping sites, news sites. Any of those sites that are likely to want to know who you are. As you can see, Tor does not provide the best browsing experience. This is because it does not integrate any plugins (e.g. flash.)
 
 Check your IP address again.
 
@@ -102,7 +102,7 @@ export LD_LIBRARY_PATH=${HOME}/local/lib:
 #+END_SRC
 
 Add an account to it (it supports almost any protocol.) If you don't have one (or prefer not to use one that you already have), create one at jabber.az. You can
-use the "Add Account" window. Use the protocol MOP, domain =jabber.az=, and select the option "Create this account on the server" (it will be available after
+use the "Add Account" window. Use the protocol XMPP, domain =jabber.az=, and select the option "Create this account on the server" (it will be available after
 you select XMPP as the protocol.)
 
 At this point, you need to find somebody else in the lab who is using the same protocol as you (so you can both communicate), then follow this tutorial.
