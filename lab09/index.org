@@ -80,7 +80,7 @@ Q7. Why did truecrypt disappeared?
 * Off-The-Record communication
 
 Some chat services support "off-the-record" communication. However, how do we know that they actually work? For instance, when we indicated in google-chat that
-we want an off-the-record communication, are they really not login it?
+we want an off-the-record communication, are they really not logging it?
 
 Few years back, a group of security PhD students (one of them now a prof at Univ. of Waterloo) developed a protocol and library to create off-the-record
 communication on top of any chat service. The idea is that if you can transter text between clients, you can transfer encrypted information to support
