@@ -36,7 +36,7 @@ Q1. Where is your browser's IP "located"?
 
 Well, it wasn't that easy, wasn't it? WhatismyIp tried to fingerprint your browser and Tor stopped it (and asked you what to do.) Read the first page of this paper: http://www.w2spconf.com/2012/papers/w2sp12-final4.pdf
 
-Q2. Describe what is at /HMTL 5 Canvas Image rendering fingerprinting/
+Q2. Describe what is /HMTL 5 Canvas Image rendering fingerprinting/
 
 ** Other vulnerabilties
 
