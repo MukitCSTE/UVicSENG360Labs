@@ -17,8 +17,8 @@ communication (site.com in the main diagrams).
 
 * Wireshark
 
-Wireshark is a great tool. Go and read about it: http://en.wikipedia.org/wiki/Wireshark It gets a bad reputation because it can monitor traffic that goes
-through our connection. But for a sys-admin, it is a way to debug networks and communications on them. Wireshark can both record traffic and analyze it.
+Wireshark is a great tool. Go and read about it: http://en.wikipedia.org/wiki/Wireshark It gets a bad reputation because it can monitor traffic of others that
+goes through our connection. But for a sys-admin, it is a way to debug networks and communications on them. Wireshark can both record traffic and analyze it.
 
 This week we are not going to record traffic, but we will analyze it. I encourage you to use wireshark in your home to see what traffic your computer generates
 *Only do it you are the only one connected to your local network; do not monitor/record the traffic of others*
