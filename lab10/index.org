@@ -31,7 +31,7 @@ I used Wireshark to captured 15 minutes  of my Internet traffic. The file can be
 
 Head to http://www.howtogeek.com/104278/how-to-use-wireshark-to-capture-filter-and-inspect-packets/ and do the tutorial. But before you do, make sure you enable
 DNS resolution. That way you will see the domain names of the machines contacted (rather than the IP address). Follow the instructions here:
-http://www.howtogeek.com/106191/5-killer-tricks-to-get-the-most-out-of-wireshark/. Use the file I above to follow the tutorial.
+http://www.howtogeek.com/106191/5-killer-tricks-to-get-the-most-out-of-wireshark/. Use the file I provided to follow the tutorial.
 
 Some information that will be useful:
 
@@ -45,7 +45,9 @@ Answer the following questions:
 
 1. Can you determine at least two pages of the Wikipedia I browsed? Hint: select packages to the wikipedia, and inspect their contents.
 
-1. Was my communication with google non-encrypted at some point? Hint. Select packages from/to google and use "Protocol Hierarchy Statistics" to see a summary.
+1. Was my communication with google non-encrypted at some point? Hint. Select packages from/to google and use "Protocol Hierarchy Statistics" to see a
+   summary. Hint: use show address resolution. Cut and paste to a file so you can search and resolve IP addresses later. To inspect packets to an entire network
+   you can use the syntax: xx.yy.zz.0/n (this will match IP addressess that match the first n bits, typically n is 16 or 24).
 
 1. What protocols are used by Dropbox? Can you see the contents/name of the file I updated?
 
