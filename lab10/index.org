@@ -1,0 +1,60 @@
+#+STARTUP: showall
+#+STARTUP: lognotestate
+#+TAGS:
+#+SEQ_TODO: TODO STARTED DONE DEFERRED CANCELLED | WAITING DELEGATED APPT
+#+DRAWERS: HIDDEN STATE
+#+TITLE: Lab 10: man in the middle
+#+CATEGORY: todo
+
+
+* Introduction
+
+Last week we learned about privacy how to protect from men-in-the-middle. This week we are going to learn about what the man-in-the-middle can see.
+
+As you recall from last week, in https://www.eff.org/pages/tor-and-https we learned the different types of men-in-the-middle. This time we will see what type of
+information the ISP and a potential attacker can see in the network. We will not be concerned with the men-in-the-middle at the opposite site of our
+communication (site.com in the main diagrams).
+
+* Wireshark
+
+Wireshark is a great tool. Go and read about it: http://en.wikipedia.org/wiki/Wireshark It gets a bad reputation because it can monitor traffic that goes
+through our connection. But for a sys-admin, it is a way to debug networks and communications on them. Wireshark can both record traffict and analyze it.
+
+This week we are not going to record traffic, but we will analyze it. I encourage you to use wireshark in your home to see what traffic your computer generates
+*Only do it you are the only one connected to your local network; do not monitor/record the traffic of others*
+
+* The data 
+
+I used Wireshark to captured 15 minutes  of my Internet traffic. The file can be found in the =/project/seng360/dmg/wire/=. Copy it to your homedirectory.
+
+* Tutorial
+
+Head to http://www.howtogeek.com/104278/how-to-use-wireshark-to-capture-filter-and-inspect-packets/ and do the tutorial. But before you do, make sure you enable
+DNS resolution. That way you will see the domain names of the machines contacted (rather than the IP address). Follow the instructions here:
+
+Some information that will be useful:
+
+- How to filter packages: http://wiki.wireshark.org/DisplayFilters
+
+* Your job:
+
+Answer the following questions:
+
+1. By looking at the packets secuentially, can you get an idea of what I was doing?
+
+1. Can you determine at least two pages of the Wikipedia I browsed? Hint: select packages to the wikipedia, and inspect their contents.
+
+1. Was my communication with google non-encrypted at some point? Hint. Select packages from/to google and use "Protocol Hierarchy Statistics" to see a summary.
+
+1. What protocols are used by Dropbox? Can you see the contents/name of the file I updated?
+
+1. What are akamai and cloudfront.net. How many packets did they produce?
+
+1. I don't use facebook, but my computer contacted facebook at some point. Find the packets. What can you tell about them? 
+
+
+* What to submit
+
+Submit a text file that contains the answer to your questions.
+
+
