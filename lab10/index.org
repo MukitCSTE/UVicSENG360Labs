@@ -12,24 +12,25 @@
 Last week we learned about privacy how to protect from men-in-the-middle. This week we are going to learn about what the passive man-in-the-middle can see.
 
 As you recall from last week, in https://www.eff.org/pages/tor-and-https we learned the different types of men-in-the-middle. This time we will see what type of
-information the ISP and a potential attacker can see in the network. We will not be concerned with the men-in-the-middle at the opposite site of our
-communication (site.com in the main diagrams).
+information the ISP and a potential attacker can see in the network. We will not be concerned with the men-in-the-middle at the opposite side of our
+communication (/site.com/ in the main diagrams).
 
 * Wireshark
 
-Wireshark is a great tool. Go and read about it: http://en.wikipedia.org/wiki/Wireshark It gets a bad reputation because it can monitor traffic of others that
-goes through our connection. 
+Wireshark is a great tool for network administrators. Go and read about it: http://en.wikipedia.org/wiki/Wireshark It gets a bad reputation because it can monitor traffic of others that
+goes through a network link.
 
 This week we are going to record traffic and then analyze it. I encourage you to use wireshark in your home to see what traffic your computer generates
 *Only do it you are the only one connected to your local network; do not monitor/record the traffic of others*
 
 * The data 
 
-Use Wireshark to capture 15 minutes of your internet traffic. The lab instructor will show you how to run it. During this 15 minutes do the following:
+Use Wireshark to capture 15 minutes of your internet traffic. The lab instructor will show you how to run it. During these 15 minutes do the following:
 
-- Visit the wikipedia. Read about Wireshark.
+- Visit the wikipedia. Read about Wireshark (at least)
 - Visit some of your common websites you usually visit from the lab machines (email, uvic, facebook, etc).
 - Connect via ssh to another computer (i.e. linux.csc.uvic.ca).
+- Any other activity that you commonly do.
 
 When you are finished, save it to a file in your home directory.
 
@@ -59,6 +60,8 @@ Answer the following questions:
 4. What protocols are used by your email provider or social media site? Can you see the contents/name of the file I updated?
 
 5. What are akamai and cloudfront.net. What proportion of packets did they produce?
+
+6. Give examples of domains that you certainly did not explicitly connect to. Can you explain this traffic?
 
 
 * What to submit
