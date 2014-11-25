@@ -9,7 +9,7 @@
 
 * Introduction
 
-Last week we learned about privacy how to protect from men-in-the-middle. This week we are going to learn about what the man-in-the-middle can see.
+Last week we learned about privacy how to protect from men-in-the-middle. This week we are going to learn about what the passive man-in-the-middle can see.
 
 As you recall from last week, in https://www.eff.org/pages/tor-and-https we learned the different types of men-in-the-middle. This time we will see what type of
 information the ISP and a potential attacker can see in the network. We will not be concerned with the men-in-the-middle at the opposite site of our
