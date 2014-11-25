@@ -25,11 +25,11 @@ This week we are going to record traffic and then analyze it. I encourage you to
 
 * The data 
 
-Used Wireshark to captured 15 minutes of your internet traffic. The lab instructor will show you how to run it. During this 15 minutes do the following:
+Use Wireshark to capture 15 minutes of your internet traffic. The lab instructor will show you how to run it. During this 15 minutes do the following:
 
-- Visit the wikipedia. Read about Wireshark
+- Visit the wikipedia. Read about Wireshark.
 - Visit some of your common websites you usually visit from the lab machines (email, uvic, facebook, etc).
-- Connect via ssh to another computer (i.e. linux.csc.uvic.ca)
+- Connect via ssh to another computer (i.e. linux.csc.uvic.ca).
 
 When you are finished, save it to a file in your home directory.
 
