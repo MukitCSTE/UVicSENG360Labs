@@ -57,7 +57,7 @@ Answer the following questions:
    addresses later. To inspect packets to an entire network you can use the syntax: xx.yy.zz.0/n (this will match IP addressess that match the first n bits,
    typically n is 16 or 24).
 
-4. What protocols are used by your email provider or social media site? Can you see the contents/name of the file I updated?
+4. What protocols are used by your email provider or social media site? 
 
 5. What are akamai and cloudfront.net. What proportion of packets did they produce?
 
