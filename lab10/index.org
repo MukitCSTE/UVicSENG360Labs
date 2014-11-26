@@ -50,9 +50,9 @@ Answer the following questions:
 
 1. By looking at the packets sequentially, draw a timeline of your activity: for each minute, what sites did you visit, and what information can you infer from the name of each of those sites (even without looking at the actual content of the traffic--for example, if you visited facebook, you were doing social media, if you were at the wikipedia, you were doing research, etc).
 
-2. Can you determine at least two pages of the Wikipedia you browsed? Hint: select packages to the wikipedia, and inspect their contents.
+2. Can you determine at least two pages of the Wikipedia you browsed? Hint: select packets to the wikipedia, and inspect their contents.
 
-3. Was your communication with your email provider/or social media non-encrypted at some point? Hint. Select packages from/to its domain name (e.g. google.com)
+3. Was your communication with your email provider/or social media non-encrypted at some point? Hint. Select packets from/to its domain name (e.g. google.com)
    and use "Protocol Hierarchy Statistics" to see a summary. Hint: use show address resolution. Cut and paste to a file so you can search and resolve IP
    addresses later. To inspect packets to an entire network you can use the syntax: xx.yy.zz.0/n (this will match IP addressess that match the first n bits,
    typically n is 16 or 24).
