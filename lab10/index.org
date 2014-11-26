@@ -25,7 +25,7 @@ This week we are going to record traffic and then analyze it. I encourage you to
 
 * The data 
 
-Use Wireshark to capture 3 minute of your internet traffic (try 3 minutes first, if the generated file is small enough try running it for longer). The lab instructor will show you how to run it. During these 15 minutes do the following:
+Use Wireshark to capture 15(3) minute of your internet traffic (try 3 minutes first, if the generated file is small enough try running it for longer). The lab instructor will show you how to run it. During these 15(3) minutes do the following:
 
 - Visit the wikipedia. Read about Wireshark (at least)
 - Visit some of your common websites you usually visit from the lab machines (email, uvic, facebook, etc).
