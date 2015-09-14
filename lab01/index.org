@@ -3,7 +3,7 @@
 #+TAGS:
 #+SEQ_TODO: TODO STARTED DONE DEFERRED CANCELLED | WAITING DELEGATED APPT
 #+DRAWERS: HIDDEN STATE
-#+TITLE: Lab 01 for Seng360: Password
+#+TITLE: Lab 01: Passwords
 #+CATEGORY: todo
 
 * The Greatest Puzzle in the History of The World
@@ -12,18 +12,13 @@ Our first lab will consist of solving a crossword puzzle by "cracking" some real
 
 [[./encryptic.png]]
 
-For this lab you will need two files: the crossword puzzle (found here) and the datafile that you can download from connex (under resources).
+For this lab you will need two files: the crossword puzzle (Passwords_grid.pdf) and the datafile (passwords.subset.bz2). These files can be found on CourseSpaces.
 
-** The clues.
+** Clues
 
-Each clue is a hashed password. The key problem with these passwords is that they were not properly stored. In particular, if two people had the same exact
-password, then the hashed password would also be identical.
+Each clue is a hashed password. The key problem with these passwords is that they were not properly stored. In particular, if two people had the same exact password, then the hashed password would also be identical.
 
-The hash of each password does not tell us much (it is likely a [[http://en.wikipedia.org/wiki/Cryptographic_hash_function][one-way hash function]], anyways; correction, passwords have been encrypted, and by doing that,
-there is[[http://nakedsecurity.sophos.com/2013/11/04/anatomy-of-a-password-disaster-adobes-giant-sized-cryptographic-blunder/][ extra information leaked about them]]). But the leaked data also had the /hint/ that the user would use to remember the password. In general, one clue
-would not be of much use, but because we have lots of clues for every hashed password, they can be useful. For example, these are /clues/ for the hashed
-password ~EQ7fIpT7i/Q=~ which appeared a total of 1,911,867 times in the data. These are the top "clues" for this password, along with their frequency. Can you
-guess what the password is?
+The hash of each password does not tell us much (either it is a [[http://en.wikipedia.org/wiki/Cryptographic_hash_function][one-way hash function]] or passwords which have been encrypted. Since it's the latter, there is [[http://nakedsecurity.sophos.com/2013/11/04/anatomy-of-a-password-disaster-adobes-giant-sized-cryptographic-blunder/][extra information leaked about them]]). But the leaked data also had the /hint/ that the user would use to remember the password. In general, one clue would not be of much use, but because we have lots of clues for every hashed password, they can be useful. For example, these are /clues/ for the hashed password ~EQ7fIpT7i/Q=~ which appeared a total of 1,911,867 times in the data. These are the top "clues" for this password, along with their frequency. Can you guess what the password is?
 
 | Frequency | Hint       |
 |-----------+------------|
@@ -56,13 +51,9 @@ guess what the password is?
 |      1166 | 1 to 6     |
 |      1121 | one to six |
 
-
-** Your job
+** Task
    
-Solve as many clues in this crossword puzzle as you can. You will need the passwords file. That is in connex under resources/labs/lab01. This file format is
-very simple: each line is one record.  Each record is composed of two fields, separated by =|=. The first field is the hashed password, and the second the
-hint. I have only included the most common 5000 passwords. Each record can appear more than once (if two records are identical it means that two different
-people had the same password and the same hint.
+Solve as many clues in this crossword puzzle as you can. You will need the passwords file found on CourseSpaces. This file format is very simple: each line is one record.  Each record is composed of two fields, separated by a =|=. The first field is the hashed password, and the second the hint. I have only included the most common 5000 passwords. Each record can appear more than once (if two records are identical, it means that two different people had the same password and the same hint.
 
 #+BEGIN_EXAMPLE
 nPay03ioxG6CatHBw==|Lol, forgot again? Just remember. E-mail.
@@ -83,25 +74,10 @@ NagFBK05Y27ioxG6CatHBw==|duh-duh-duh duh
 
 You can either use command line tools (grep, cut, uniq, etc) or write one or more programs to solve the puzzle. Good luck!
 
-** What to submit
+** Submission
 
-Submit a paper copy of your puzzle solved at the end of the lab.  For each answer write down three hints found in the data. Solve as many as you can.
+Submit a paper copy of your puzzle solved at the end of the lab.  For each answer, write down three hints found in the data. Solve as many as you can.
 
 ** Warning
 
-I have checked every one of the answers. We don't really know what the actual answer is for every password. Hence, in the case that you find an error in the puzzle
-(you think another word is a better answer to the clues) then simply write it down in your submission.
-
-
-
-
-
-
-
-
-
-
- 
-
-
-
+I have checked every one of the answers. We don't really know what the actual answer is for every password. Hence, in the case that you find an error in the puzzle (you think another word is a better answer to the clues) then simply write it down in your submission.
