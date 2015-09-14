@@ -14,4 +14,5 @@
 - [[lab06/][Lab 06: Web server vulnerabilities]]
 - [[lab07/][Lab 07: Web vulnerabilties]]
 - [[lab08/][Lab 08: Stack overflow]]
-
+- [[lab09/][Lab 09: Privacy]]
+- [[lab10/][Lab 10: Man in the Middle]]
