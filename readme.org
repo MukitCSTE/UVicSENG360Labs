@@ -3,7 +3,7 @@
 #+TAGS:
 #+SEQ_TODO: TODO STARTED DONE DEFERRED CANCELLED | WAITING DELEGATED APPT
 #+DRAWERS: HIDDEN STATE
-#+TITLE: Labs for SENG360 - UVic Fall 2015
+#+TITLE: Labs for UVic SENG360 - Fall 2015
 #+CATEGORY: todo
 
 - [[lab01/index.org][Lab 01: The Greatest Puzzle in the History of The World]]
