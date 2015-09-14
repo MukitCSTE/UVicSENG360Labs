@@ -6,13 +6,13 @@
 #+TITLE: Labs for Seng360
 #+CATEGORY: todo
 
-- [[lab01/][Lab 01: The Greatest Puzzle in the History of The World]]
-- [[lab02/][Lab 02: Generating random numbers]]
-- [[lab03/][Lab 03: Public Key Encryption]]
-- [[lab04/][Lab 04: AES and Encryption Modes ]]
-- [[lab05/][Lab 05: Certificates and Certificate Authorities]]
-- [[lab06/][Lab 06: Web server vulnerabilities]]
-- [[lab07/][Lab 07: Web vulnerabilties]]
-- [[lab08/][Lab 08: Stack overflow]]
-- [[lab09/][Lab 09: Privacy]]
-- [[lab10/][Lab 10: Man in the Middle]]
+- [[lab01/index.org][Lab 01: The Greatest Puzzle in the History of The World]]
+- [[lab02/index.org][Lab 02: Generating random numbers]]
+- [[lab03/index.org][Lab 03: Public Key Encryption]]
+- [[lab04/index.org][Lab 04: AES and Encryption Modes ]]
+- [[lab05/index.org][Lab 05: Certificates and Certificate Authorities]]
+- [[lab06/index.org][Lab 06: Web server vulnerabilities]]
+- [[lab07/index.org][Lab 07: Web vulnerabilties]]
+- [[lab08/index.org][Lab 08: Stack overflow]]
+- [[lab09/index.org][Lab 09: Privacy]]
+- [[lab10/index.org][Lab 10: Man in the Middle]]
