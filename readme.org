@@ -6,8 +6,8 @@
 #+TITLE: Labs for UVic SENG360 - Fall 2015
 #+CATEGORY: todo
 
-- [[lab01/index.org][Lab 01: The Greatest Puzzle in the History of The World]]
-- [[lab02/index.org][Lab 02: Generating Random Numbers]]
+- [[lab01/index.org][Lab 01: Generating Random Numbers]]
+- Lab 02: TBD
 - [[lab03/index.org][Lab 03: Public Key Encryption]]
 - [[lab04/index.org][Lab 04: AES and Encryption Modes ]]
 - [[lab05/index.org][Lab 05: Certificates and Certificate Authorities]]
