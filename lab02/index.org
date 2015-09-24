@@ -6,43 +6,33 @@
 #+TITLE: Public Key Encryption
 #+CATEGORY: todo
 
-* Public Key Encryption
+In this lab you will learn how to use public key encryption software. You will be working in groups of size 3-4. We strongly recommend working on the lab machines instead of your own laptops this week.
 
-In this lab you will learn how to use encryption software.
+* GPG
 
-** Both working on the same computer
-
-In this lab you should each run the commands below. 
-
-* GPG 
-
-We will use gpg GNU Privacy Guard. https://www.gnupg.org/. Its documentation is at https://www.gnupg.org/documentation/index.html
+This lab will use gpg GNU Privacy Guard. https://www.gnupg.org/. Its documentation is at https://www.gnupg.org/documentation/index.html
 
 * Create a personal public/private key
 
-Before we can do anything, we must create a key. Each of you, in your corresponding accounts generate a key.
+Before we can do anything, we must create a key-pair. For each of you, in your corresponding accounts, generate a key.
 
 #+BEGIN_EXAMPLE
 gpg --gen-key
 #+END_EXAMPLE
 
+Choose options: RSA and RSA (default), and size 2048 bits.
 
-Choose options:  RSA and RSA (default), and size 2048 bits.
-
-Indicate that the key should expire in 90 days (at least) so I can use your key.  Use your netlink email as the email of your key. You will also be asked for a
-/pass-phrase/. This is a password that will protect your key from prying eyes. Make sure you can remember this pass-phrase or you will never be able to use the
-key. You will be asked to generate entropy also.
-
+Indicate that the key should expire in 90 days (at least) so that I can use your key.  Use your netlink email as the email of your key. You will also be asked for a /pass-phrase/. This is a password that will protect your key from prying eyes. Make sure you can remember this pass-phrase or you will never be able to use the key. You will be asked to generate entropy also (shake that mouse!).
 
 * Export your keys
 
-At this point you both have a pair of private/public keys. For somebody to contact you privately, they would need your public key. Let us export it. Type:
+At this point you both have created a pair of private/public keys. For somebody to contact you privately, they would need your public key. Let us export it. Type:
 
 #+BEGIN_EXAMPLE
-gpg --export -a 
+gpg --export -a
 #+END_EXAMPLE
 
-You will get an output like this. This in fact is my public key.
+You will get an output something like like this. This in fact is my public key.
 
 
 Save your public key (redirect the output of pgp to a file) and share the file with your lab partner and at least 4 other people in the lab. Use email, a USB
