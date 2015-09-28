@@ -4,7 +4,7 @@ In this lab you will learn how to use public key encryption software. You will b
 
 This lab will use gpg GNU Privacy Guard. [https://www.gnupg.org/](https://www.gnupg.org/). Its documentation is at [https://www.gnupg.org/documentation/index.html](https://www.gnupg.org/documentation/index.html) or using the command `man gpg`.
 
-You will need hojs-public.key.asc from CourseSpaces.
+You will need `hojs-public.key.asc` from CourseSpaces.
 
 ## Learning Objectives ##
 
@@ -283,8 +283,8 @@ You will be submitting five files in one zip file:
 
 - `lastname_firstname.key.asc` Your public key in ASCII format
 - `report.txt` Your answers in **plain-text**
-- `report.txt.sig` Detached signature of your report
+- `report.txt.sig` **Detached signature** of your report
 - `report.txt.asc` Encrypted file with the TA as the recipient
 - `log.txt` Log of commands you ran
 
-Make sure you digitally sign your answers file as a **detached signature**. Zip up your files and submit them on CourseSpaces.
+Make sure you digitally sign your answers file as a **detached signature**.
