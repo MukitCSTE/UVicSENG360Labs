@@ -2,7 +2,7 @@
 
 - [Lab 01: Generating Random Numbers](lab01/index.md)
 - [Lab 02: Public Key Encryption](lab02/index.md)
-- Lab 03: TBD
+- [Lab 03: Network Security & Protocols](lab03/index.md)
 - [Lab 04: AES and Encryption Modes](lab04/index.org)
 - [Lab 05: Certificates and Certificate Authorities](lab05/index.org)
 - [Lab 06: Web server vulnerabilities](lab06/index.org)
