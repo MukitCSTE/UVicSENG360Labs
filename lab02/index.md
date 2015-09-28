@@ -1,6 +1,6 @@
 # Public Key Encryption #
 
-In this lab you will learn how to use public key encryption software. You will be working in groups of 2. We *strongly* recommend working on the lab machines instead of your own laptops this week.
+In this lab you will learn how to use public key encryption software. You will be working in groups of 2-3. We *strongly* recommend working on the lab machines instead of your own laptops this week.
 
 This lab will use gpg GNU Privacy Guard. [https://www.gnupg.org/](https://www.gnupg.org/). Its documentation is at [https://www.gnupg.org/documentation/index.html](https://www.gnupg.org/documentation/index.html) or using the command `man gpg`.
 
@@ -17,7 +17,7 @@ You will need hojs-public.key.asc from CourseSpaces.
 
 Create a new file named `log.txt`. As you go through this lab, please copy the commands you executed in the terminal here.
 
-# Part 1: Create a personal public/private key #
+# Part 1: Public/Private Key Creation #
 
 Before we can do anything, we must create a key-pair. For each of you, in your corresponding accounts, generate a key-pair:
 
@@ -29,7 +29,7 @@ Choose options: (1) RSA and RSA (default), and a keysize of 2048 bits.
 
 Indicate that the key should expire in 90 days (at least) so that I can use your key.  Use your netlink email as the email of your key. You will also be asked for a *pass-phrase* for the key. This is a password that will protect your key from prying eyes. Make sure you can remember this pass-phrase or you will never be able to use the key. You will be asked to generate entropy also (shake that mouse!).
 
-# Part 2: Import/Export your keys #
+# Part 2: Key Import/Export #
 
 At this point you have created a pair of private/public keys, but it's no use if only you know it.
 
@@ -43,38 +43,13 @@ You will get an output something like like this:
 
 	-----BEGIN PGP PUBLIC KEY BLOCK-----
 	Version: GnuPG v2.0.22 (GNU/Linux)
-	
-	mQENBFYErFwBCACsGF8QDAwhQsiGSPkQ2p6CY9Q5TtBgBt0vl0n23NbDeZYoCSqu
-	MMM+n7NbqPNLGqiL8LRCShXuG5IwGIIPMc1RmZPfQVWNZD6gdkqJOGVCI8pSOrP/
-	YBiCr9eT70ZMYapSHVBhsNgIVe/NYr0qFwg776UIAd/pfy5d5n2ogHHzqC9+BvNj
-	3sGAiL50UXxwKk8Z5UCM1fOBc1W31ue26it9h2yhUos4Lxpdlu9tmw4oVxoz1xTv
-	vwZSswpRAEKOyMZAkPpDyZTuhiRSjbFVKPI6ca/qyGtSQf8qF2+zHYMT2g6mGH8t
-	TvPobJmVIy9a8AjyPSQdo7jWjxb1CO9jNo//ABEBAAG0JUplcmVteSBIbyAoU0VO
-	RzM2MEYxNSkgPGhvanNAdXZpYy5jYT6JAT8EEwECACkFAlYErFwCGwMFCQB2pwAH
-	CwkIBwMCAQYVCAIJCgsEFgIDAQIeAQIXgAAKCRAS3OjjZcm9g+DGB/0TaMvgLsMh
-	MWf6PUudTicZVWTfNgvNtIX+bT+4nBjcLgGtVbyCI0Woju/hzqAAtWIJo1E7MZYz
-	Q+azchEGF+0prHIjx0zZ3dCnTbMV6g1L8+rzjDb76XLmewXVgLgkR0xKDg1WyKlM
-	IS0/4ektfxAZ8s9zCkMznhToOlfH2akrdG0qE/avYAxo3kFyCVzG5z96OSAa9xbT
-	d5/cmgwQ97K6HKTas7vHV7gIhXSP/HoFRIRbgV4kYUM7V95Qlw/Ll1X0NYET6I4R
-	SoKu52J/45E5CQe0M1unV5O04JB5cIIzO3FQvjbjUiBE0GXAjGFYyO9TAUD/eafE
-	qXavGe/+cOshuQENBFYErFwBCADAykoEdkVquZr4zKRhLy9GZwCod2BkDfz9nPzA
-	RZzlg3mSmujguFBX7txoQMoMxQkQgtNHCfZ0JfTqD7NY6pASaCdJnzrOxgn59b4i
-	I9JI4ieS1gD2LKO5aq9xmMV+zOZXAWg1UI9odkVz8knXU/ouvXs81jSO1WXBgS59
-	1mo3iW8ahJcobNw8Tnwp4xE0o4gaUeR/j1ek3yurNRiQ5fvgn334uOU0PDwv3eYV
-	b0EqBEFkvONdI6n1EGgUVbd3YQTegZZsfCVfa9VtAgKiIjY4Pp3Y045k711AvNPM
-	ZGto5V4ipGx05FijJzEYwqCdA7BMd1QOsJ3r0ads6167E8cJABEBAAGJASUEGAEC
-	AA8FAlYErFwCGwwFCQB2pwAACgkQEtzo42XJvYMRGgf9HF2jrja7four+05ZxaNL
-	2Ecnolv5yF1hfgGOv9t9cl0YlMnyxkjAni4z+mMZjqybFp7MBU9GHeK3l64KoeOz
-	1q5JtYFBjHH6VpJnceDYHmpnB6Un9gQirnluQpeBS/6ahakblNHE5EhRdGblKzAE
-	TcDgfaaing6zkEc3uOHixgFzacWp0Ti1e2QN0er20bLYjot4vCeTIkgigOcrANGc
-	eHhMGRGpsf2tdQnKO55j4usb1FNjq61P5ON06FQ/rfwSp9tEmN87C55wKp/ZpZdt
-	C/0AffLQLL+kYrtuy4sV+3qVM0fd/kObDiPLumzskmvD3/CZ5cb1YA0NhaxnMsW/
-	/A==
-	=hfdN
+
+	...
+
 	-----END PGP PUBLIC KEY BLOCK-----
 
 
-This in fact is my public key. In general, gpg has two ways of exporting keys: binary and ASCII-armored. Since binary keys may be inconvenient to handle, we will stick with the ASCII-armored version. The `-a` flag tells gpg to use ASCII-armoring.
+In general, gpg has two ways of exporting keys: binary and ASCII-armored. Since binary keys may be inconvenient to handle, we will stick with the ASCII-armored version. The `-a` flag tells gpg to use ASCII-armoring.
 
 Normally, `.sig` is used for detached signatures using the binary OpenPGP format, and `.asc` for when the contents are ASCII-armored. For everything else, `.gpg` is common for the binary format, and `.asc` when armored.
 
@@ -82,6 +57,7 @@ Save your public key (redirect the output of pgp to a file) in the format `lastn
 
 You may use email or the shared file system in the lab. Please *do not* use USB flash drives on these lab machines. The shared file system in the lab is mounted at `/seng/seng360`.
 
+- Please use the `lab02` folder in the mount for sharing your files.
 - Please remember that since this is a shared folder, anyone else can access the files stored here.
 - If you do choose to use the shared folder, make sure to clean-up after yourself and delete the files you added before you leave the lab.
 
@@ -172,23 +148,143 @@ In this case only the signature will be included in the file `<filename>.sig`. Y
 
 	gpg --verify <signature> <filename>
 
+# Part 5: Using a Public Key Server #
+
+Besides sending your public key to others, you can also use a public key server to openly publish your public key to anyone. The key server acts as the "white pages" for public keys. To publish your keys, you will use the `gpg --keyserver` command.
+
+Many keyservers exist; in this lab you will be using [pgp.mit.edu](http://pgp.mit.edu/). Publish your own key with the following command:
+
+	gpg --keyserver pgp.mit.edu --send-key <keyid>
+
+Your keyid is the hexadecimal number in the "pub" column when you list the keys. For example, `94CF0AE4` is the public keyid for Jon Smith.
+
+	$ gpg --list-keys
+	------------------------------
+	pub 4096R/94CF0AE4 2010-08-17
+	uid 			   Jon Smith <jsmith@somedomain.com>
+	sub 4096R/CCB47665 2010-08-17
+
+Once you've published your own key, search for your partner's public key on [http://pgp.mit.edu/](http://pgp.mit.edu/) via their email or name. Note their keyid and then import it:
+
+	gpg --keyserver pgp.mit.edu --recv-key <keyid>
+
+- If this is the same key you imported from earlier, you will see an "unchanged" message.
+
+# Part 6: Key Validation #
+
+How can you know that the key somebody sends you (or that you have downloaded from a key server) is authentic? An adversary may try to trick you into thinking that the key was authentic, when it may not be.
+
+Of course, you could validate the key “out of band” with the original owner for example by talking to them on the phone or by exchanging a piece of paper. However, the key may be quite long - and this may be a laborious task.
+
+Alternatively, you can create a short hash of the key (called the fingerprint) and compare that instead. Then you can sign the key with your key if you trust it.
+
+Open your partner's key to inspect:
+
+	gpg --edit-key <email>
+
+Then get the key's fingerprint:
+
+	Command> fpr
+
+With this fingerprint, talk to your partner to make sure this is the right key. Once verified, go ahead and sign the key:
+
+	Command> sign
+
+Congratulations, you have now validated your partner's key.
+
+# Part 7: Web of Trust #
+
+*This section may be difficult. If you are not able to do it successfully, at least make sure you understand what it does and why it is used.*
+
+In the previous section, a procedure was given to validate your correspondents' public keys: a correspondent's key is validated by personally checking his/her key's "fingerprint" and then signing his/her public key with your private key. By personally checking the "fingerprint" you can be sure that the key really does belong to him/her, and since you have signed the key, you can be sure to detect any tampering with it in the future. Unfortunately, this procedure is awkward when either you must validate a large number of keys or communicate with people whom you do not know personally.
+
+GnuPG addresses this problem with a mechanism popularly known as the web of trust. In the web of trust model, responsibility for validating public keys is delegated to people you trust. For example, suppose
+
+- Alice has signed Blake's key, and
+- Blake has signed Chloe's key and Dharma's key.
+
+If Alice trusts Blake to properly validate keys that he signs, then Alice can infer that Chloe's and Dharma's keys are valid without having to personally check them. She simply uses her validated copy of Blake's public key to check that Blake's signatures on Chloe's and Dharma's are good. In general, assuming that Alice fully trusts everybody to properly validate keys they sign, then any key signed by a valid key is also considered valid.!e root is Alice's key, which is axiomatically assumed to be valid.
+
+In practice trust is subjective. For example, Blake's key is valid to Alice since she signed it, but she may not trust Blake to properly validate keys that he signs. In that case, she would not take Chloe's and Dharma's key as valid based on Blake's signatures alone. The web of trust model accounts for this by associating with each public key on your keyring an indication of how much you trust the key's owner. There are four trust levels.
+
+1. **unknown**: Nothing is known about the owner's judgment in key signing. Keys on your public keyring that you do not own initially have this trust level.
+2. **none**: The owner is known to improperly sign other keys.
+3. **marginal**: The owner understands the implications of key signing and properly validates keys before signing them.
+4. **full**: The owner has an excellent understanding of key signing, and his signature on a key would be as good as your own.
+
+A key's trust level is something that you alone assign to the key, and it is considered private information. It is not packaged with the key when it is exported; it is even stored separately from your keyrings in a separate database.
+
+The GnuPG key editor may be used to adjust your trust in a key's owner. The command is `trust`. In this example, Alice edits her trust in Blake and then updates the trust database to recompute
+which keys are valid based on her new trust in Blake.
+
+	alice% gpg --edit-key blake
+	Command> trust
+	Please decide how far you trust this user to correctly verify other users'
+	keys
+	(by looking at passports, checking fingerprints from different sources, etc.)
+	1 = I don't know or won't say
+	2 = I do NOT trust
+	3 = I trust marginally
+	4 = I trust fully
+	5 = I trust ultimately
+	m = back to the main menu
+	Your decision? 3
+	pub 1024D/8B927C8A created: 1999-07-02 expires: never trust: m/f
+	sub 1024g/C19EA233 created: 1999-07-02 expires: never
+	(1) Blake (Executioner) <blake@cyb.org>
+	Command> quit
+	[...]
+
+The web of trust allows an algorithm to be used to validate a key. Formerly, a key was considered valid only if you signed it personally. A more flexible algorithm can now be used: a key K is considered valid if:
+
+- It is signed by enough valid keys:
+	- You have signed it personally, or
+	- It has been signed by one fully trusted key, or
+	- It has been signed by three marginally trusted keys; and the path of signed keys leading from K back to your own key is no larger than five steps.
+
+## Task ##
+
+Try out indirect key validation. Reform into groups of three and build a chain of trust with three links:
+
+- Student B knows Student A and signs Student A's key
+- Student C fully trusts Student B
+
+Have student C import the public key of Student A and B.
+
+Check that Student A's public key is considered valid in the keyring of Student C. You can do that by `gpg --edit-key`. (Look into the `trust` and `validity` commands.
+
+# Part 8: Certificate Revocation #
+
+If you forget your passphrase or your private key is compromised/lost, you can issue a revocation certificate to let others know not to use that public key any longer. A revoked public key can still be used to verify signatures made by you in the past, but you cannot use it to encrypt future messages to you. It also does not affect your ability to decrypt messages sent to you in the past if you still have access to that key.
+
+Create a revocation of your key:
+
+	gpg --output revoke.asc --gen-revoke <keyid>
+
+Send `revoke.asc` to your partner and have them import it. Can you still send your partner an encrypted document? Can you still decrypt or validate the signature of documents from your partner from the previous sections?
+
 # Questions #
 
 Answer the following questions and submit them in `report.txt`.
 
-- 1) Modify the original signed file and then verify the validity of the signature. What happens?
-- 2) We covered 3 main security properties. For each of them:
+1. Modify your original signed file from Part 4 and then verify the validity of the signature. What happens?
+2. Explain the Web of Trust in your own words. What does it accomplish? Why is this used?
+3. Send `revoke.asc` to your partner and have them import it.
+	- Can you still send your partner an encrypted document?
+	- Can you still decrypt or validate the signature of your partner's documents from the earlier sections?
+4. We covered 3 main security properties. (Hint: CIA) For each of them:
 	- Does cryptography address it?
 	- If so, how?
 	- Can cryptography address non-repudiation? How?
 
 # Submission #
 
-You will be submitting four files in one zip file:
+You will be submitting five files in one zip file:
 
-- `lastname_firstname.key.asc` Your public key
-- `report.txt` Your answers
+- `lastname_firstname.key.asc` Your public key in ASCII format
+- `report.txt` Your answers in **plain-text**
 - `report.txt.sig` Detached signature of your report
+- `report.txt.asc` Encrypted file with the TA as the recipient
 - `log.txt` Log of commands you ran
 
-Make sure you digitally sign your answers file as a **detached signature**. Zip up your 4 files and submit them to CourseSpaces.
+Make sure you digitally sign your answers file as a **detached signature**. Zip up your files and submit them on CourseSpaces.
