@@ -203,7 +203,7 @@ GnuPG addresses this problem with a mechanism popularly known as the web of trus
 - Alice has signed Blake's key, and
 - Blake has signed Chloe's key and Dharma's key.
 
-If Alice trusts Blake to properly validate keys that he signs, then Alice can infer that Chloe's and Dharma's keys are valid without having to personally check them. She simply uses her validated copy of Blake's public key to check that Blake's signatures on Chloe's and Dharma's are good. In general, assuming that Alice fully trusts everybody to properly validate keys they sign, then any key signed by a valid key is also considered valid.!e root is Alice's key, which is axiomatically assumed to be valid.
+If Alice trusts Blake to properly validate keys that he signs, then Alice can infer that Chloe's and Dharma's keys are valid without having to personally check them. She simply uses her validated copy of Blake's public key to check that Blake's signatures on Chloe's and Dharma's are good. In general, assuming that Alice fully trusts everybody to properly validate keys they sign, then any key signed by a valid key is also considered valid. The root is Alice's key, which is axiomatically assumed to be valid.
 
 In practice trust is subjective. For example, Blake's key is valid to Alice since she signed it, but she may not trust Blake to properly validate keys that he signs. In that case, she would not take Chloe's and Dharma's key as valid based on Blake's signatures alone. The web of trust model accounts for this by associating with each public key on your keyring an indication of how much you trust the key's owner. There are four trust levels.
 
@@ -249,13 +249,17 @@ Try out indirect key validation. Reform into groups of three and build a chain o
 - Student B knows Student A and signs Student A's key
 - Student C fully trusts Student B
 
-Have student C import the public key of Student A and B.
+Have Student C re-import the public keys of Student A and B after their keys have been trusted/signed.
 
-Check that Student A's public key is considered valid in the keyring of Student C. You can do that by `gpg --edit-key`. (Look into the `trust` and `validity` commands.
+- Remember that trusting/signing a key is local. After trusting/signing, make sure to re-export the key to your team-mates and/or upload it back up to the keyserver for your team-mates to re-import.
+
+Check that Student A's public key is considered valid and trusted in the keyring of Student C. You can do that by `gpg --edit-key`. Look into the `trust` and `check` commands.
 
 # Part 8: Certificate Revocation #
 
 If you forget your passphrase or your private key is compromised/lost, you can issue a revocation certificate to let others know not to use that public key any longer. A revoked public key can still be used to verify signatures made by you in the past, but you cannot use it to encrypt future messages to you. It also does not affect your ability to decrypt messages sent to you in the past if you still have access to that key.
+
+**Once you revoke your key, you will not be able to sign anything new afterwards. Be sure you want to revoke it before doing so!**
 
 Create a revocation of your key:
 
@@ -279,12 +283,10 @@ Answer the following questions and submit them in `report.txt`.
 
 # Submission #
 
-You will be submitting five files in one zip file:
+You will be submitting four files in one zip file:
 
 - `lastname_firstname.key.asc` Your public key in ASCII format
 - `report.txt` Your answers in **plain-text**
-- `report.txt.sig` **Detached signature** of your report
 - `report.txt.asc` Encrypted file with the TA as the recipient
 - `log.txt` Log of commands you ran
 
-Make sure you digitally sign your answers file as a **detached signature**.
