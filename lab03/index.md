@@ -15,8 +15,8 @@ The basic tool for observing the messages exchanged between executing protocol e
 
 - The lab machines this week are on a virtual LAN and they **will not** have external web access.
 	- Make sure to bring a USB stick and a laptop in order to access CourseSpaces and to transfer your work to/from your workstation.
-	- You will not be able to login to the workstations with your normal UVic credentials. Instead, you will login with the following:
-	- `TBD`
+	- You will not be able to login to the workstations with your normal UVic credentials.
+	- Check your computer's number. For example, if its **b1xx.seng**, your login and pw this week is **b1xx**.
 - You will need the file `mitm-proxy-1.0.tar.gz`. You can download it from CourseSpaces or from [https://crypto.stanford.edu/ssl-mitm/](https://crypto.stanford.edu/ssl-mitm/)
 - We will be using a tool called Wireshark in order to perform our packet sniffing.
 	- **You are not allowed to use the packet sniffer outside the context of this lab exercise.**
@@ -48,16 +48,15 @@ The Wireshark interface has five major components:
 
 The file transfer protocol (FTP) is used to exchange files over the internet. An FTP server was set up here:
 
-`TBD`
+`seng360ftp`
 
 Start Wireshark on one computer and the FTP client on the other computer.
 
-Begin capturing network traﬃc with Wireshark while your partner is connecting to the FTP server using the following credentials:
+Begin capturing network traffic with Wireshark while your partner is connecting to the FTP server.
 
-- username: `TBD`
-- password: `TBD`
+- The username and password is the same as your machine's login (if you used b1xx to login, it's b1xx for the ftp server as well)
 
-Use command line to login - something like this: `ftp username@TBD`. Stop capturing the network traffic after you login.
+Use command line to login - something like this: `ftp username@seng360ftp`. Stop capturing the network traffic after you login.
 
 Investigate the traﬃc you have captured. Remember that you can filter the traffc in the filter window (for example by IP address `ip.addr == XXXX` or by the protocol type). Can you find the password in the traffic?
 
@@ -67,16 +66,15 @@ Copy the specific packet frame containing the intercepted password in ASCII form
 
 SFTP is a secure protocol using SSH for encrypting the FTP traffic. An SFTP server has been set up here:
 
-`TBD`
+`seng360sftp`
 
 Again, have Wireshark on one computer and the (S)FTP client on the other computer.
 
-Start capturing network traffic with Wireshark while your partner is connecting to the SFTP server using the credentials:
+Start capturing network traffic with Wireshark while your partner is connecting to the SFTP server.
 
-- username: `TBD`
-- password: `TBD`
+- The username and password is the same as your machine's login (if you used b1xx to login, it's b1xx for the ftp server as well)
 
-Use command line to login - something like this: `sftp username@TBD`. Stop capturing the network traffic after you login.
+Use command line to login - something like this: `sftp username@seng360sftp`. Stop capturing the network traffic after you login.
 
 Investigate the traffic you have captured. Can you find the password in the traffic? What happened? How was the secure channel established?
 
