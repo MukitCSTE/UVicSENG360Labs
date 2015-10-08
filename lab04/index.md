@@ -17,10 +17,12 @@ You will need `pic_original.bmp` from CourseSpaces.
 
 In this task, we will experiment with various encryption algorithms and modes. You will be using the `openssl` tool for this purpose. Use the `openssl enc` command to encrypt/decrypt a file. To see the manuals, you can type `man openssl` and `man enc`. Below is an example command:
 
-	openssl enc <ciphertype> -e -in plain.txt -out cipher.bin -K 00112233445566778899aabbccddeeff -iv 0102030405060708
+> openssl enc *ciphertype* -e -in plain.txt -out cipher.bin -K 00112233445566778899aabbccddeeff -iv 0102030405060708
 
-Please replace the *ciphertype* with a specific AES cipher type, such as `-aes-128-cbc`, `-aes-128-cfb`, and `-aes-128-ofb`. In this task, you should try at least 3 different ciphers and three different modes. you can find the meaning of the command-line options and all the supported cipher types by typing `man enc`. Below are some common options for the openssl enc command:
+Please replace the **ciphertype** with a specific AES cipher type, such as `-aes-128-cbc`, `-aes-128-cfb`, and `-aes-128-ofb`. In this task, you should try at least 3 different ciphers and three different modes. you can find the meaning of the command-line options and all the supported cipher types by typing `man enc`. Below are some common options for the openssl enc command:
 
+| Option | Description |
+| --- | --- |
 | -in <file> | input file |
 | -out <file> | output file |
 | -e | encrypt |
@@ -30,6 +32,12 @@ Please replace the *ciphertype* with a specific AES cipher type, such as `-aes-1
 
 # Part 2: Encryption Mode - ECB vs. CBC #
 
+The file `pic_original.bmp` contains a simple picture. We would like to encrypt this picture so that people without the encryption keys cannot know what is in the picture. Please encrypt the file using the ECB (Electronic Code Book) and CBC (Cipher Block Chaining) modes.
+
+Let us treat the encrypted picture as a picture, and use a picture viewing software such as `eog` to display it. However, for the .bmp file format, the first 54 bytes contain the header information about the picture. We have to set the header correctly so that the encrypted file can still be treated as a legitimate .bmp file. We will replace the header of the encrypted picture with that of the original picture. You can use the `ghex` tool to directly modify binary files.
+
+**Question 1:** Display the encrypted pictures using any picture viewing software. Can you derive any useful information about the original picture from the encrypted picture? Please explain your observations.
+
 # Part 3: Encryption Mode - Corrupted Cipher Text #
 
 # Part 4: Padding #
@@ -38,7 +46,7 @@ Please replace the *ciphertype* with a specific AES cipher type, such as `-aes-1
 
 Answer the following questions and submit them in `report.txt`.
 
-1. TBD
+1. (From Part 1): Can you derive any useful information about the original picture from the encrypted picture? Please explain your observations.
 
 # Submission #
 
