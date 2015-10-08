@@ -1,8 +1,8 @@
 # Network Security & Protocols #
 
-In this lab you will use a packet sniffing tool to monitor network traffic and intercept unencrypted secrets in insecure protocols. You will be working in groups of two.
+In this lab you will use a packet sniffing tool to monitor network traffic and intercept unencrypted secrets in insecure protocols. You will be working in groups of two (if the lab network is set up correctly).
 
-The basic tool for observing the messages exchanged between executing protocol entities is called a packet sniffer. As the name suggests, a packet sniffer captures (“sniffs”) messages being exchanged on the network connected to your computer. It will also typically store and/or display the contents of the various protocol fields in these captured messages. A packet sniffer itself is passive. It observes messages being sent and received by applications and protocols, but never sends packets it- self. Similarly, received packets are never explicitly addressed to the packet sniffer.
+The basic tool for observing the messages exchanged between executing protocol entities is called a packet sniffer. As the name suggests, a packet sniffer captures (“sniffs”) messages being exchanged on the network connected to your computer. It will also typically store and/or display the contents of the various protocol fields in these captured messages. A packet sniffer itself is passive. It observes messages being sent and received by applications and protocols, but never sends packets itself. Similarly, received packets are never explicitly addressed to the packet sniffer.
 
 ## Learning Objectives ##
 
@@ -17,14 +17,14 @@ The basic tool for observing the messages exchanged between executing protocol e
 	- Make sure to bring a USB stick and a laptop in order to access CourseSpaces and to transfer your work to/from your workstation.
 	- You will not be able to login to the workstations with your normal UVic credentials.
 	- Check your computer's number. For example, if its **b1xx.seng**, your login and pw this week is **b1xx**.
-- You will need the file `mitm-proxy-1.0.tar.gz`. You can download it from CourseSpaces or from [https://crypto.stanford.edu/ssl-mitm/](https://crypto.stanford.edu/ssl-mitm/)
+- You will need the file `mitm-proxy-1.0.tar.gz`. You can  get it in our shared folder at `/seng/seng360`, download it from CourseSpaces or from [https://crypto.stanford.edu/ssl-mitm/](https://crypto.stanford.edu/ssl-mitm/)
 - We will be using a tool called Wireshark in order to perform our packet sniffing.
 	- **You are not allowed to use the packet sniffer outside the context of this lab exercise.**
-- You should take note of the IP addresses of the workstations. You can do that by using the command `ifconfig`. Look for the one under eth0.
+- You should take note of the IP addresses of the workstations. You can do that by using the command `ifconfig`. Look for the one under "p4p1" which will be the interface you will sniff.
 
 # Part 1: Detecting Clear Text Passwords #
 
-**Start up Wireshark**. You can find it under the Applications menu in the top left. The startup screen should look something like this:
+**Start up Wireshark**. Wireshark requires root privileges in order to properly sniff. You can start it up by running `sudo wireshark`. The startup screen should look something like this:
 
 ![WireShark Splash](/lab03/splash.png)
 
@@ -56,11 +56,11 @@ Begin capturing network traffic with Wireshark while your partner is connecting 
 
 - The username and password is the same as your machine's login (if you used b1xx to login, it's b1xx for the ftp server as well)
 
-Use command line to login - something like this: `ftp username@seng360ftp`. Stop capturing the network traffic after you login.
+Use command line to login - something like this: `ftp seng360ftp`. Stop capturing the network traffic after you login. Exit the ftp client by typing in "bye".
 
 Investigate the traﬃc you have captured. Remember that you can filter the traffc in the filter window (for example by IP address `ip.addr == XXXX` or by the protocol type). Can you find the password in the traffic?
 
-Copy the specific packet frame containing the intercepted password in ASCII format into your report.
+Copy the specific packet frame containing the intercepted password in ASCII format into your report. To do this, select the packet with the password, right click, and select print. In the window, make it output to a file. Make sure the resulting output contains the packet header information as well as the password field.
 
 # Part 2: Analyzing a Secure Protocol #
 
@@ -68,13 +68,15 @@ SFTP is a secure protocol using SSH for encrypting the FTP traffic. An SFTP serv
 
 `seng360sftp`
 
+- If that doesn't work, you may sftp to the same server in Part 1.
+
 Again, have Wireshark on one computer and the (S)FTP client on the other computer.
 
 Start capturing network traffic with Wireshark while your partner is connecting to the SFTP server.
 
 - The username and password is the same as your machine's login (if you used b1xx to login, it's b1xx for the ftp server as well)
 
-Use command line to login - something like this: `sftp username@seng360sftp`. Stop capturing the network traffic after you login.
+Use command line to login - something like this: `sftp seng360sftp`. Stop capturing the network traffic after you login.
 
 Investigate the traffic you have captured. Can you find the password in the traffic? What happened? How was the secure channel established?
 
@@ -82,11 +84,11 @@ Investigate the traffic you have captured. Can you find the password in the traf
 
 Now on both machines, start capturing network traffic. Open up Firefox on the non-Wireshark machine and visit [https://www.wikipedia.org/](https://www.wikipedia.org/). Once the page has loaded, stop capturing network traffic.
 
-Since you are using a secure connection, take a look at how it is secured. Inspect the certificate. Who is verifying Wikipedia? 
+Since you are using a secure connection, take a look at how it is secured. In Firefox, inspect the certificate. Who is verifying Wikipedia? 
 
 ---
 
-For the next step, you will need the file `mitm-proxy-1.0.tar.gz`. You can download it from CourseSpaces or from [https://crypto.stanford.edu/ssl-mitm/](https://crypto.stanford.edu/ssl-mitm/).
+For the next step, you will need the file `mitm-proxy-1.0.tar.gz`. You can download it from our shared folder, CourseSpaces, or from [https://crypto.stanford.edu/ssl-mitm/](https://crypto.stanford.edu/ssl-mitm/).
 
 Download and extract the file:
 
@@ -96,15 +98,17 @@ Run the proxy with the supplied script:
 
 `cd mitm-proxy-1.0`
 
-`./run.sh`
+`sudo ./run.sh`
 
 Open up Firefox and set the browser to use the proxy.
 
 - Open Options > Advanced > Network and then click the Settings button under the Connection section.
 - Select "Manual proxy configuration"
 - In the "SSL Proxy:" field, enter `localhost` and "Port:" `8888`
+- There may be a field towards the bottom with "localhost, 127.0.0.1". Blank that field out.
 - Click OK to apply.
 - **NOTE: Remember to undo this proxy setting when you are done with the lab!**
+- You may need to restart the proxy server multiple times since it is prone to crashing and displaying java stack traces.
 
 Start capturing network traffic. Open up Firefox on the non-Wireshark machine and re-visit [https://www.wikipedia.org/](https://www.wikipedia.org/) again. Once the page has loaded, stop capturing network traffic.
 
@@ -120,7 +124,7 @@ Answer the following questions and submit them in `report.txt`.
 2. Were you able to intercept the password? What happened in the SFTP traffic? How was the secured communications established?
 3. Who usually verifies Wikipedia for their secure connections?
 4. Suppose you ignored the untrusted certificate warning in Part 3 and logged in to the site. What are the potential consequences of this?
-5. Characterize the MITM attack in Part 3. How can MITM attacks be mitigated?
+5. Characterize/explain the MITM attack in Part 3. How can MITM attacks be mitigated?
 6. How do modern browsers "know" to trust a certificate from the server?
 	- Hint: Lookup [Certificate Authorities](https://en.wikipedia.org/wiki/Certificate_authority) on Wikipedia and give a brief explanation. Does this remind you of a  certain concept from Lab 02?
 
