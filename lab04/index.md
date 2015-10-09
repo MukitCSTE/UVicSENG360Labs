@@ -34,19 +34,51 @@ Please replace the **ciphertype** with a specific AES cipher type, such as `-aes
 
 The file `pic_original.bmp` contains a simple picture. We would like to encrypt this picture so that people without the encryption keys cannot know what is in the picture. Please encrypt the file using the ECB (Electronic Code Book) and CBC (Cipher Block Chaining) modes.
 
-Let us treat the encrypted picture as a picture, and use a picture viewing software such as `eog` to display it. However, for the .bmp file format, the first 54 bytes contain the header information about the picture. We have to set the header correctly so that the encrypted file can still be treated as a legitimate .bmp file. We will replace the header of the encrypted picture with that of the original picture. You can use the `ghex` tool to directly modify binary files.
+Let us treat the encrypted pictures as a picture, and use a picture viewing software such as `eog` to display it. However, for the .bmp file format, the first 54 bytes contain the header information about the picture. We have to set the header correctly so that the encrypted file can still be treated as a legitimate .bmp file.
+
+We will replace the header of the encrypted picture with that of the original picture. You can use the `ghex` tool to directly modify binary files. The original picture's 54 byte picture header should look something like this:
+
+	42 4D E4 54 02 00 00 00 00 00 3E 00 00 00 28 00
+	00 00 44 04 00 00 43 04 00 00 01 00 01 00 00 00
+	00 00 00 00 00 00 80 3D 00 00 80 3D 00 00 00 00
+	00 00 00 00 00 00
 
 **Question 1:** Display the encrypted pictures using any picture viewing software. Can you derive any useful information about the original picture from the encrypted picture? Please explain your observations.
 
 # Part 3: Encryption Mode - Corrupted Cipher Text #
 
+To understand the properties of various encryption modes, do the following:
+
+1. Create a text file that is at least 64 bytes long.
+2. Encrypt the file using the AES-128 cipher.
+3. Unfortunately, a single bit of the 30th byte in the encrypted file got corrupted. You can achieve this corruption with `ghex`.
+4. Decrypt the corrupted file (encrypted) using the correct key and IV.
+
+**Question 2:** *Before doing Part 3*, how much information do you expect to recover by decrypting the corrupted file, if the encryption mode is ECB, CBC, CFB, or OFB, respectively? Please explain why.
+
+**Question 3:** *After doing Part 3*, did your expectations from question 2 align with the results? What are the implications of these encryption mode differences?
+
 # Part 4: Padding #
+
+For block ciphers, when the size of the plaintext is not the multiple of the block size, padding may be required. In this task, we will study padding schemes.
+
+*Task 1:* The openssl manual says that it uses the PKCS5 standard for its padding. Please design an experiment to verify this. In particular, use your experiment to figure out the paddings in the AES encryption when the length of the plaintext is 20 octets and 32 octets.
+
+**Question 4:** Please report the findings of your experiment.
+
+*Task 2:* Please use ECB, CBC, CFB, and OFB modes to encrypt a file (you can pick any cipher).
+
+**Question 5:** Which operating modes require padding? Why do the others not require padding?
 
 # Questions #
 
 Answer the following questions and submit them in `report.txt`.
 
-1. (From Part 1): Can you derive any useful information about the original picture from the encrypted picture? Please explain your observations.
+1. Can you derive any useful information about the original picture from the encrypted picture? Please explain your observations.
+2. *Before doing Part 3*, how much information do you expect to recover by decrypting the corrupted file, if the encryption mode is ECB, CBC, CFB, or OFB, respectively? Please explain why.
+3. *After doing Part 3*, did your expectations from question 2 align with the results? What are the implications of these encryption mode differences?
+4. Please report the findings of your experiment in Part 4.
+5. Which operating modes require padding? Why do the others not require padding?
 
 # Submission #
 
