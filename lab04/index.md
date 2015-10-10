@@ -36,12 +36,12 @@ The file `pic_original.bmp` contains a simple picture. We would like to encrypt 
 
 Let us treat the encrypted pictures as a picture, and use a picture viewing software such as `eog` to display it. However, for the .bmp file format, the first 54 bytes contain the header information about the picture. We have to set the header correctly so that the encrypted file can still be treated as a legitimate .bmp file.
 
-We will replace the header of the encrypted picture with that of the original picture. You can use the `ghex` tool to directly modify binary files. The original picture's 54 byte picture header should look something like this:
+We will replace the header of the encrypted picture with that of the original picture. You can use the `hexedit` tool to directly modify binary files. The original picture's 54 byte picture header should look something like this:
 
-	42 4D E4 54 02 00 00 00 00 00 3E 00 00 00 28 00
-	00 00 44 04 00 00 43 04 00 00 01 00 01 00 00 00
-	00 00 00 00 00 00 80 3D 00 00 80 3D 00 00 00 00
-	00 00 00 00 00 00
+	42 4D E4 54  02 00 00 00  00 00 3E 00  00 00 28 00
+	00 00 44 04  00 00 43 04  00 00 01 00  01 00 00 00
+	00 00 00 00  00 00 80 3D  00 00 80 3D  00 00 00 00
+	00 00 00 00  00 00
 
 **Question 1:** Display the encrypted pictures using any picture viewing software. Can you derive any useful information about the original picture from the encrypted picture? Please explain your observations.
 
@@ -51,7 +51,7 @@ To understand the properties of various encryption modes, do the following:
 
 1. Create a text file that is at least 64 bytes long.
 2. Encrypt the file using the AES-128 cipher.
-3. Unfortunately, a single bit of the 30th byte in the encrypted file got corrupted. You can achieve this corruption with `ghex`.
+3. Unfortunately, a single **bit** of the 30th byte in the encrypted file got corrupted. You can achieve this corruption with `hexedit`.
 4. Decrypt the corrupted file (encrypted) using the correct key and IV.
 
 **Question 2:** *Before doing Part 3*, how much information do you expect to recover by decrypting the corrupted file, if the encryption mode is ECB, CBC, CFB, or OFB, respectively? Please explain why.
