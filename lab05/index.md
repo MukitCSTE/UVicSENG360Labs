@@ -64,8 +64,7 @@ The cipher is "encoded". See [https://www.openssl.org/docs/apps/ciphers.html](ht
 
 # Part 4: Self-signing your own certificates #
 
-There are many reasons why we might want to sign our own certificates (saving money is one of them). For example, I run my own VPN client, and it uses TLS to
-authenticate the client and the server. To learn to do this follow the tutorial here: [http://pki-tutorial.readthedocs.org/en/latest/simple](http://pki-tutorial.readthedocs.org/en/latest/simple)
+There are many reasons why we might want to sign our own certificates (saving money is one of them). Running your own VPN client and have it uses TLS to authenticate the client and the server is an example use-case. To learn to do this, take a look at the tutorial here: [http://pki-tutorial.readthedocs.org/en/latest/simple](http://pki-tutorial.readthedocs.org/en/latest/simple)
 
 # Submission #
 

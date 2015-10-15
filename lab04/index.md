@@ -62,11 +62,11 @@ To understand the properties of various encryption modes, do the following:
 
 For block ciphers, when the size of the plaintext is not the multiple of the block size, padding may be required. In this task, we will study padding schemes.
 
-*Task 1:* The openssl manual says that it uses the PKCS5 standard for its padding. Please design an experiment to verify this. In particular, use your experiment to figure out the paddings in the AES encryption when the length of the plaintext is 20 octets and 32 octets.
-
-**Question 4:** Please report the findings of your experiment.
+*Task 1:* The openssl manual says that it uses the PKCS5 standard for its padding. Please design an experiment to verify the existence of padding. In particular, use your experiment to figure out the paddings in the AES encryption when the length of the plaintext is 20 bytes and 32 bytes.
 
 *Task 2:* Please use ECB, CBC, CFB, and OFB modes to encrypt a file (you can pick any cipher).
+
+**Question 4:** Please report the findings of your experiment.
 
 **Question 5:** Which operating modes require padding? Why do the others not require padding?
 
