@@ -64,10 +64,18 @@ The cipher is "encoded". See [https://www.openssl.org/docs/apps/ciphers.html](ht
 
 # Part 4: Self-signing your own certificates #
 
-There are many reasons why we might want to sign our own certificates (saving money is one of them). Running your own VPN client and have it uses TLS to authenticate the client and the server is an example use-case. To learn to do this, take a look at the tutorial here: [http://pki-tutorial.readthedocs.org/en/latest/simple](http://pki-tutorial.readthedocs.org/en/latest/simple)
+There are many reasons why we might want to sign our own certificates (saving money is one of them). An example use-case is running your own VPN client and having it use TLS to authenticate the client and the server. To learn to do this, take a look at the tutorial here: [http://pki-tutorial.readthedocs.org/en/latest/simple](http://pki-tutorial.readthedocs.org/en/latest/simple)
+
+- Pay close attention to the DN components. If the domain doesn't match simple.org as the tutorial specifies, you may be unable to sign.
+- If you think you messed up, do the following to reset: `git clean -f -d`
+
+Once you are done with Part 4, do a `history` and copy your Part 4 commands into `log.txt`.
+
+- For example, you could do `history 200 > log.txt` to get the last 200 commands you did and have it redirect to your log.
 
 # Submission #
 
-You will be submitting one file:
+You will be submitting two files **separately** (do not zip them):
 
 - `report.txt` Your answers to the six questions
+- `log.txt` History of Part 4
