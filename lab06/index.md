@@ -187,27 +187,23 @@ lab5=# select * from test ;
 (10 rows)
 ```
 
-Create a user called =web= with password =webserver=. See http://www.postgresql.org/docs/9.1/static/app-createuser.html
+Create a user called `web` with password `webserver`. See [http://www.postgresql.org/docs/9.1/static/app-createuser.html](http://www.postgresql.org/docs/9.1/static/app-createuser.html).
 
 You will need to do it as user postgres. Do the following (as root):
 
-#+begin_example
-su postgres
-cd
-createuser -P web
-#+end_example
+	su postgres
+	cd
+	createuser -P web
 
-Test that the user =web= can connect to the database and see the table
+Test that the user `web` can connect to the database and see the table
 
-#+begin_example
-psql -h localhost -U web lab6
-#+end_example
+	psql -h localhost -U web lab6
 
-* Python and sql
+## Python and sql ##
 
 Use the following python script. It should be able to display the tuple with id value equal 5 (make sure there is one in your table).
 
-#+begin_src python
+```python
 #!/usr/bin/python
 
 import psycopg2
@@ -238,37 +234,33 @@ for row in rows:
     print "<tr><td>", row[0], '</td><td>', row[1], '</td></tr>'
 
 print "</table>"
+```
 
-#+end_src
+## Create a cgi-script ##
 
-** Create a cgi-script
+Convert this program into a cgi-script that uses POST method to set the value of `id`. It responds to this request:
 
-Convert this program into a cgi-script that uses POST method to set the value of =id=. It respond to this request:
+[http://localhost/cgi-bin/sql.py?id=5](http://localhost/cgi-bin/sql.py?id=5)
 
-See http://www.tutorialspoint.com/python/python_cgi_programming.htm for information on how to do this.
+See [http://www.tutorialspoint.com/python/python_cgi_programming.htm](http://www.tutorialspoint.com/python/python_cgi_programming.htm) for information on how to do this.
 
-#+begin_example
-http://localhost/cgi-bin/sql.py?id=5
-#+end_example
-
-** An injection attack
+## An injection attack ##
 
 Try now the following URL:
 
-#+begin_example
-http://localhost/cgi-bin/sql.py?id=5%20or%20TRUE
-#+end_example
+[http://localhost/cgi-bin/sql.py?id=5%20or%20TRUE](http://localhost/cgi-bin/sql.py?id=5%20or%20TRUE)
 
-*Question 12* What is the result of this query?
-*Question 13* Why? (hint, decode the =%20= (it is a character in hexadecimal) then follow the value of id.
+**Question 11** What is the result of this query? Why? (hint, decode the `%20` (it is a character in hexadecimal) then follow the value of id.
 
-** Fix your script
+## Fix your script ##
 
-Learn how to protect your script. Hint: lookup /prepared statements/ in Psycogp2
+Learn how to protect your script. Hint: lookup *prepared statements* in Psycogp2
 
-*Question 14* How is the sql injection vulnerability removed?
+**Question 12** How is the sql injection vulnerability removed?
 
-* What to submit
+# Submission #
 
-- Submit your answers to the questions above in a simple text file.
-- Submit your python program where you fix the SQL vulnerability
+You will be submitting two files **separately** (do not zip them):
+
+- `report.txt` Your answers to the 12 questions
+- `script.py` Python program with fixed SQL vulnerability
