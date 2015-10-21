@@ -2,6 +2,10 @@
 
 This time we are going to look at some of vulnerabilities of Web servers. In both cases, they are software errors. But each of them are very different.
 
+We will be covering two vulnerabilities: ShellShock (Parts 1-4) and SQL Injection (Parts 5-6).
+
+- This will be a very long lab! I suggest working together with your fellow lab-mates in order to expedite the process.
+
 # Part 1: VirtualBox Setup
 
 For this lab you will run a VirtualBox virtual machine that you can fully configure as a superuser. I have prepared one for you.
@@ -126,7 +130,7 @@ Read the man page of shadow (`man shadow`). Inspect the files `/etc/passwd` and 
 
 **Question 7** What is the difference between `/etc/passwd` and `/etc/shadow`?
 
-# Part 4: ShellShocking Attack #
+# Part 4: ShellShock Attack #
 
 Now we can try the attack.
 
@@ -152,56 +156,81 @@ wget -O /tmp/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo;
 
 **Question 10** What is the vulnerability in the /etc/passwd attack?
 
+- Try modifying your wget script attack to try other commands. Try to execute, for example `ls -lR /etc` or `ls -lR /home/`.
+
+## How the attack is passed to bash ##
+
+From wikipedia:
+
+> When a web server uses the Common Gateway Interface (CGI) to handle a document request, it passes various details of the request to a handler program in the environment variable list. For example, the variable HTTP_USER_AGENT has a value that, in normal usage, identifies the program sending the request. If the request handler is a Bash script, or if it executes one for example using the system(3) call, Bash will receive the environment variables passed by the server and will process them as described above. This provides a means for an attacker to trigger the Shellshock vulnerability with a specially crafted server request.
+> 
+> Security documentation for the widely used Apache web server states: "CGI scripts can ... be extremely dangerous if they are not carefully checked."
+
 # Part 5: Database Setup #
 
-Your user `user360` has a postgres database called `lab5`. Use `psql` to connect to it. Create a table called `test` with the following schema.  
+As the user `user360`, we need to create a database called `lab6`. To do that, we will use `psql` to connect and configure.
+
+	psql -d postgres
+
+ - PostgreSQL Cheat Sheet: [http://www.petefreitag.com/cheatsheets/postgresql/](http://www.petefreitag.com/cheatsheets/postgresql/)
+ - To exit psql console, use `\q`
+
+Once logged in, create the `lab6` database.
+
+	CREATE DATABASE lab6;
+
+Change over to that database.
+
+	\c lab6
+
+Then create a table called `test` with the following schema.
 
 ```sql
-create table test(
-   id integer primary key,
+CREATE TABLE test(
+   id integer PRIMARY KEY,
    value integer);
 ```
 
 Allow anybody `select` to the table `test`:
 
-```sql
-grant select on test to public;
-```
+	GRANT SELECT ON test TO public;
 
 Insert 10 tuples into the table `test`. The table should looks something like this. Make sure you include a tuple with `id=5`
 
+```sql
+INSERT INTO test VALUES (1,10),(2,20),(3,30),(4,40),(5,30),(6,40),(7,30),(8,40),(9,1030),(10,1040);
 ```
-lab5=# select * from test ;
- id | value
-----+-------
-  1 |    10
-  2 |    20
-  3 |    30
-  4 |    40
-  5 |    30
-  6 |    40
-  7 |    30
-  8 |    40
-  9 |  1030
- 10 |  1040
-(10 rows)
-```
+
+	lab6=> select * from test ;
+	 id | value
+	----+-------
+	  1 |    10
+	  2 |    20
+	  3 |    30
+	  4 |    40
+	  5 |    30
+	  6 |    40
+	  7 |    30
+	  8 |    40
+	  9 |  1030
+	 10 |  1040
+	(10 rows)
 
 Create a user called `web` with password `webserver`. See [http://www.postgresql.org/docs/9.1/static/app-createuser.html](http://www.postgresql.org/docs/9.1/static/app-createuser.html).
 
 You will need to do it as user postgres. Do the following (as root):
 
 	su postgres
-	cd
+	cd ~
 	createuser -P web
 
 Test that the user `web` can connect to the database and see the table
 
 	psql -h localhost -U web lab6
 
-## Python and sql ##
+# Part 6: Python and SQL Injection #
 
-Use the following python script. It should be able to display the tuple with id value equal 5 (make sure there is one in your table).
+Use the following python script and save it as `sql.py`. It should be able to display the tuple with id value equal 5 (make sure there is one in your table).
 
 ```python
 #!/usr/bin/python
@@ -209,8 +238,7 @@ Use the following python script. It should be able to display the tuple with id 
 import psycopg2
 
 try:
-    conn = psycopg2.connect("dbname='lab5' user='web' host='localhost' password=
-'webserver'")
+    conn = psycopg2.connect("dbname='lab6' user='web' host='localhost' password='webserver'")
 except:
     print "I am unable to connect to the database"
 
@@ -238,23 +266,25 @@ print "</table>"
 
 ## Create a cgi-script ##
 
-Convert this program into a cgi-script that uses POST method to set the value of `id`. It responds to this request:
+Convert this program into a cgi-script that uses the POST method to set the value of `id`. It responds to this request:
 
-[http://localhost/cgi-bin/sql.py?id=5](http://localhost/cgi-bin/sql.py?id=5)
+[http://localhost:3080/cgi-bin/sql.py?id=5](http://localhost:3080/cgi-bin/sql.py?id=5)
 
-See [http://www.tutorialspoint.com/python/python_cgi_programming.htm](http://www.tutorialspoint.com/python/python_cgi_programming.htm) for information on how to do this.
+See [http://www.tutorialspoint.com/python/python_cgi_programming.htm](http://www.tutorialspoint.com/python/python_cgi_programming.htm) for information on how to do this. Hint: look at the *Passing Information Using POST Method* section example.
 
 ## An injection attack ##
 
 Try now the following URL:
 
-[http://localhost/cgi-bin/sql.py?id=5%20or%20TRUE](http://localhost/cgi-bin/sql.py?id=5%20or%20TRUE)
+[http://localhost:3080/cgi-bin/sql.py?id=5%20or%20TRUE](http://localhost:3080/cgi-bin/sql.py?id=5%20or%20TRUE)
 
 **Question 11** What is the result of this query? Why? (hint, decode the `%20` (it is a character in hexadecimal) then follow the value of id.
 
 ## Fix your script ##
 
-Learn how to protect your script. Hint: lookup *prepared statements* in Psycogp2
+Learn how to protect your script with prepared statements.
+
+- Hint: [Prepared Statements in Psycogp2](http://initd.org/psycopg/articles/2012/10/01/prepared-statements-psycopg/)
 
 **Question 12** How is the sql injection vulnerability removed?
 
@@ -263,4 +293,4 @@ Learn how to protect your script. Hint: lookup *prepared statements* in Psycogp2
 You will be submitting two files **separately** (do not zip them):
 
 - `report.txt` Your answers to the 12 questions
-- `script.py` Python program with fixed SQL vulnerability
+- `sql.py` Python program with fixed SQL vulnerability
