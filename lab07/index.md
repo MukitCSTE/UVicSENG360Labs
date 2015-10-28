@@ -163,10 +163,17 @@ Cross-scripting attacks are another common way to get into Web applications.
 
 ## Create another form ##
 
-Create a Web page called `formXSS.html` with the following contents:
+Create a Web page called `formXSS.py` with the following contents:
 
-```html
-<h1>Cross-site scripting attack</h1>
+```python
+#!/usr/bin/python
+
+print("Content-Type: text/html\n\n")
+print("""
+<html>
+  <Title>Hello in HTML</Title>
+<body>
+<h1>Cross scripting attack</h1>
 
 This form will help us test cross-scripting attacks.
 
@@ -175,11 +182,14 @@ User: <input type="text" name="user"><br>
 <input type="hidden" name="notshown" value="abc"><br>
 <input type="submit" value="Submit">
 </form>
+</body>
+</html>
+""")
 ```
 
 Test it. Don't forget to update the file permissions with `chmod 755 <file>`.
 
-** Create the script that will respond to this form
+## Create the script that will respond to this form ##
 
 Create a script `xssSimple.py` that will respond to the form. Its contents should be:
 
@@ -206,35 +216,29 @@ print "Hello [" + user + "]"
 
 Don't forget to update the file permissions with `chmod 755 <file>`.
 
-** Test the script
+## Test the script ##
 
-Test the script by submitting a value in the field =user= and submitting the form.
+Test the script by submitting a value in the field `user` and submitting the form.
 
-** A simple attack
+## A simple attack ##
 
-In the form, submit the following (in the field =user=)
+In the form, submit the following (in the field `user`)
 
-#+begin_src
-<font color=red><b>dmg</b></font>
-#+end_src
+	<font color=red><b>attack</b></font>
 
 then try this:
 
-#+begin_src
-<h1>dmg</h1>
-#+end_src
+	<h1>attack</h1>
 
-*Q5: Explain the impact of the attack and how it works*
+**Question 5:** Explain the impact of the attack and how it works.
 
-** A more active attack
+## A more active attack ##
 
-Are you using *Firefox*? If not, then use it. This next attack requires Firefox.
+Are you using **Firefox**? If not, then use it. This next attack requires Firefox.
 
-Input the following value in the /user/ field and hit submit again:
+Input the following value in the *user* field and hit submit again:
 
-#+begin_src
-<script>alert('attacked');</script>
-#+end_src
+	<script>alert('attacked');</script>
 
 ** Stealing cookies
 

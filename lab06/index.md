@@ -156,15 +156,14 @@ wget -O /tmp/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo;
 
 ## How the attack is passed to bash ##
 
-From wikipedia:
+From Wikipedia:
 
 > When a web server uses the Common Gateway Interface (CGI) to handle a document request, it passes various details of the request to a handler program in the environment variable list. For example, the variable HTTP_USER_AGENT has a value that, in normal usage, identifies the program sending the request. If the request handler is a Bash script, or if it executes one for example using the system(3) call, Bash will receive the environment variables passed by the server and will process them as described above. This provides a means for an attacker to trigger the Shellshock vulnerability with a specially crafted server request.
-> 
+
 > Security documentation for the widely used Apache web server states: "CGI scripts can ... be extremely dangerous if they are not carefully checked."
 
 # Submission #
 
-You will be submitting two files **separately** (do not zip them):
+You will be submitting one file:
 
-- `report.txt` Your answers to the 12 questions
-- `sql.py` Python program with fixed SQL vulnerability
+- `report.txt` Your answers to the 10 questions
