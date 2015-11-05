@@ -16,6 +16,8 @@ Cross-site scripting (XSS)
 
 * Note: We will continue to use the virtual machine you set up in last week's lab. If you need to set it up again, refer to Part 1 from last week.
 
+## Quick Virtual Machine Setup ##
+
 Once you have your virtual machine running, ssh into it with:
 
 	ssh -p 3030 -l user360 localhost
@@ -27,20 +29,27 @@ To become root in the virtual machine you will need to use the command `su` (use
 | user | user360 | user360    |
 | root | root    | root360lab |
 
-As the user `user360`, we need to create a database called `lab6`. To do that, we will use `psql` to connect and configure.
+If you're rebuilding your VM, you'll also need to re-enable CGI on Apache with the following instructions as root (you did this last week as well):
+
+	a2enmod cgi
+	service apache2 restart
+
+## Postgres DB Setup ##
+
+As the user `user360`, we need to create a database called `lab7`. To do that, we will use `psql` to connect and configure.
 
 	psql -d postgres
 
  - PostgreSQL Cheat Sheet: [http://www.petefreitag.com/cheatsheets/postgresql/](http://www.petefreitag.com/cheatsheets/postgresql/)
  - To exit psql console, use `\q`
 
-Once logged in, create the `lab6` database.
+Once logged in, create the `lab7` database.
 
-	CREATE DATABASE lab6;
+	CREATE DATABASE lab7;
 
 Change over to that database.
 
-	\c lab6
+	\c lab7
 
 Then create a table called `test` with the following schema.
 
@@ -62,7 +71,7 @@ INSERT INTO test VALUES (1,10),(2,20),(3,30),(4,40),(5,30),(6,40),(7,30),(8,40),
 
 The table should looks something like this.
 
-	lab6=> select * from test ;
+	lab7=> select * from test ;
 	 id | value
 	----+-------
 	  1 |    10
@@ -79,17 +88,18 @@ The table should looks something like this.
 
 Create a user called `web` with password `webserver`. See [http://www.postgresql.org/docs/9.1/static/app-createuser.html](http://www.postgresql.org/docs/9.1/static/app-createuser.html).
 
-You will need to do it as user postgres. Do the following (as root):
+You will need to do it as user **postgres**. To become the postgres user, first make yourself root with `su`. Then do `su postgres` to switch over to the postgres user. Then do the following:
 
-	su postgres
 	cd ~
 	createuser -P web
 
 Test that the user `web` can connect to the database and see the table
 
-	psql -h localhost -U web lab6
+	psql -h localhost -U web lab7
 
 # Part 2: Python and SQL Injection #
+
+- Note: At this point, I recommend making yourself the `root` user in the VM. If you are still the postgres user, you may use the `exit` command to stop being postgres and roll back to being root.
 
 Use the following python script and save it as `sql.py`. Place your python script in the `/usr/lib/cgi-bin` folder. It should be able to display the tuple with id value equal 5 (make sure there is one in your table).
 
@@ -99,7 +109,7 @@ Use the following python script and save it as `sql.py`. Place your python scrip
 import psycopg2
 
 try:
-    conn = psycopg2.connect("dbname='lab6' user='web' host='localhost' password='webserver'")
+    conn = psycopg2.connect("dbname='lab7' user='web' host='localhost' password='webserver'")
 except:
     print "I am unable to connect to the database"
 
@@ -108,7 +118,7 @@ cur = conn.cursor()
 id = "5"
 
 try:
-    cur.execute("""SELECT * from test where id = """ + id)
+    cur.execute("SELECT * from test where id = " + id)
 
 except:
     print "I can't SELECT from test"
@@ -127,11 +137,13 @@ print "</table>"
 
 ## Create a cgi-script ##
 
-Convert this program into a cgi-script that uses the POST method to set the value of `id`. It responds to this request:
+Convert this program into a cgi-script that uses the GET method to set the value of `id`. It responds to this request:
 
 [http://localhost:3080/cgi-bin/sql.py?id=5](http://localhost:3080/cgi-bin/sql.py?id=5)
 
-See [http://www.tutorialspoint.com/python/python_cgi_programming.htm](http://www.tutorialspoint.com/python/python_cgi_programming.htm) for information on how to do this. Hint: look at the *Passing Information Using POST Method* section example.
+See [http://www.tutorialspoint.com/python/python_cgi_programming.htm](http://www.tutorialspoint.com/python/python_cgi_programming.htm) for information on how to do this. Hint: look at the *Passing Information Using GET Method* section example.
+
+- If you're getting server errors, try looking at the apache log file found here: `/var/log/apache2/error.log`
 
 Take a look at [http://www.w3schools.com/tags/ref_httpmethods.asp](http://www.w3schools.com/tags/ref_httpmethods.asp)
 
@@ -187,7 +199,7 @@ User: <input type="text" name="user"><br>
 """)
 ```
 
-Test it. Don't forget to update the file permissions with `chmod 755 <file>`.
+Test it at [http://localhost:3080/cgi-bin/xssForm.cgi](http://localhost:3080/cgi-bin/xssForm.cgi). Don't forget to update the file permissions with `chmod 755 <file>`.
 
 ## Create the script that will respond to this form ##
 
@@ -218,7 +230,7 @@ Don't forget to update the file permissions with `chmod 755 <file>`.
 
 ## Test the script ##
 
-Test the script by submitting a value in the field `user` and submitting the form.
+Test the script by going to [http://localhost:3080/cgi-bin/xssForm.cgi](http://localhost:3080/cgi-bin/xssForm.cgi) and submitting a value in the `user` field on the form.
 
 ## A simple attack ##
 
@@ -255,7 +267,7 @@ import time, Cookie
 cookie = Cookie.SimpleCookie()
 
 # The SimpleCookie instance is a mapping
-cookie['seng360'] = 'secret-'str(time.time())
+cookie['seng360'] = 'secret-'+str(time.time())
 
 # Output the HTTP message containing the cookie
 print cookie
@@ -275,7 +287,9 @@ print 'Server time is', time.asctime(time.localtime())
 print '</body></html>'
 ```
 
-Load the script. Now inspect the cookies in your browser to make sure the cookie was set. (In Firefox you can find the cookies in Options > Privacy > Show Cookies.) Make sure the cookie is set.
+Load the script. Now inspect the cookies in your browser to make sure the cookie was set. (In Firefox you can find the cookies in Preferences > Privacy > Show Cookies.) Make sure the cookie is set.
+
+- You may need to change the Remember History option on the Privacy tab to Use custom settings for history.
 
 Let us create another web page to test it. This time we will call it `xssForm2.cgi`
 
@@ -301,7 +315,7 @@ User: <input type="text" name="user"><br>
 """)
 ```
 
-Test it. It should behave as expected.
+Test it at [http://localhost:3080/cgi-bin/xssForm2.cgi](http://localhost:3080/cgi-bin/xssForm2.cgi). It should behave as expected. Remember your file permissions.
 
 Lastly, we need to create the redirection target for our xss attack. This page will intercept and display the cookie.
 
