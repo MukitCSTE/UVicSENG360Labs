@@ -7,6 +7,6 @@
 - [Lab 05: Certificates and Certificate Authorities](lab05/index.md)
 - [Lab 06: Web Server Vulnerabilities](lab06/index.md)
 - [Lab 07: SQL Injection and XSS Vulnerabilities](lab07/index.md)
-- [Lab 08: Stack overflow](lab08/index.org)
+- [Lab 08: Stack Overflow](lab08/index.md)
 - [Lab 09: Privacy](lab09/index.org)
 - [Lab 10: Man in the Middle](lab10/index.org)
