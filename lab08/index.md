@@ -78,7 +78,7 @@ void main() {
 }
 ```
 
-Don't you love that C allows you to define arrays of size zero?
+Don't you love that C allows you to define arrays of size zero? (Hint: Fix the code so that it the array isn't size zero)
 
 **Question 4:** Why does it execute the function `do_not_execute`?
 
@@ -105,7 +105,7 @@ reuse. Now head to [https://crypto.stanford.edu/~blynn/rop/](https://crypto.stan
 
 But be careful about the following three things:
 
-a) Change your prompt. This will make it easy to know if you are inside the shell executed by the program or not. In the terminal type
+a) Change your prompt. This will make it easy to know if you are inside the shell executed by the program or not. In the terminal type the following after you start up your shell program:
 
 	PS1='TEST> '
 
