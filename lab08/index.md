@@ -239,7 +239,7 @@ So here is the play by play:
 5. At the end of `system` control is transferred to its return address (at the top of the stack),
 6. The return value is invalid, so the program crashes with a segmentation fault. It is easy to fix it. Just add to the attack the address of `exit` and append that to the string that goes into the stack. I'll leave that as an exercise to the reader.
 
-	If I were stuck on a desert island with only one compiler, I'd want a C compiler ---Brian Kernighan
+> If I were stuck on a desert island with only one compiler, I'd want a C compiler ---Brian Kernighan
 
 Me too! Happy Coding.
 
