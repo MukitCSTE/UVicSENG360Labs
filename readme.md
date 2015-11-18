@@ -8,5 +8,5 @@
 - [Lab 06: Web Server Vulnerabilities](lab06/index.md)
 - [Lab 07: SQL Injection and XSS Vulnerabilities](lab07/index.md)
 - [Lab 08: Stack Overflow](lab08/index.md)
-- [Lab 09: Privacy](lab09/index.org)
-- [Lab 10: Man in the Middle](lab10/index.org)
+- [Lab 09: TOCTTOU Attacks and Race Conditions](lab09/index.md)
+- [Lab 10: Privacy](lab10/index.org)

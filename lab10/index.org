@@ -3,65 +3,126 @@
 #+TAGS:
 #+SEQ_TODO: TODO STARTED DONE DEFERRED CANCELLED | WAITING DELEGATED APPT
 #+DRAWERS: HIDDEN STATE
-#+TITLE: Lab 10: man in the middle
+#+TITLE: Lab 9: Privacy
 #+CATEGORY: todo
 
 
 * Introduction
 
-Last week we learned about privacy how to protect from men-in-the-middle. This week we are going to learn about what the passive man-in-the-middle can see.
+How can we protect ourselves from others? Whether they are government agencies, thiefs, friends or coworkers, we need to prepare ourselves. This week lab will
+consist of a survey of applications that we can use to protect our online assets.
 
-As you recall from last week, in https://www.eff.org/pages/tor-and-https we learned the different types of men-in-the-middle. This time we will see what type of
-information the ISP and a potential attacker can see in the network. We will not be concerned with the men-in-the-middle at the opposite side of our
-communication (/site.com/ in the main diagrams).
+* Preliminaries
 
-* Wireshark
+Before we start, answer the following questions. You can find the necessary information by searching the Internet:
 
-Wireshark is a great tool for network administrators. Go and read about it: http://en.wikipedia.org/wiki/Wireshark It gets a bad reputation because it can monitor traffic of others that
-goes through a network link.
+1. What is forward privacy? 
+2. What is repudiation? 
+3. What is non-repudiation?
 
-This week we are going to record traffic and then analyze it. I encourage you to use wireshark in your home to see what traffic your computer generates
-*Only do it you are the only one connected to your local network; do not monitor/record the traffic of others*
+* Tor
 
-* The data 
+Tor is a Web browser that anonymises where you are located. 
 
-Use Wireshark to capture 15(3) minute of your internet traffic (try 3 minutes first, if the generated file is small enough try running it for longer). The lab instructor will show you how to run it. During these 15(3) minutes do the following:
+1. Download it into your home directory: https://www.torproject.org/download/download-easy.html.en Use
+the 64-bit version. It is statically compiled, so you can simply download it, uncompress it (it uses xz compression) 
+2. Run it. As you can see, it is relatively spartan compared to chromium
+3. Check your IP address both in Tor and in Chromium or Firefox. There are various web site where you can do this. For example http://www.whatismyip.com/
 
-- Visit the wikipedia. Read about Wireshark (at least)
-- Visit some of your common websites you usually visit from the lab machines (email, uvic, facebook, etc).
-- Connect via ssh to another computer (i.e. linux.csc.uvic.ca).
-- Any other activity that you commonly do.
+Q1. Where is your browser's IP "located"?
 
-When you are finished, save it to a file in your home directory.
 
-* Tutorial
+** Fingerprinting
 
-Head to http://www.howtogeek.com/104278/how-to-use-wireshark-to-capture-filter-and-inspect-packets/ and do the tutorial. But before you do, make sure you enable
-DNS resolution. That way you will see the domain names of the machines contacted (rather than the IP address). Follow the instructions here:
-http://www.howtogeek.com/106191/5-killer-tricks-to-get-the-most-out-of-wireshark/. Use the file I provided to follow the tutorial.
+Well, it wasn't that easy, wasn't it? WhatismyIp tried to fingerprint your browser and Tor stopped it (and asked you what to do.) Read the first page of this paper: http://www.w2spconf.com/2012/papers/w2sp12-final4.pdf
 
-Some information that will be useful:
+Q2. Describe what is /HMTL 5 Canvas Image rendering fingerprinting/
 
-- How to filter packages: http://wiki.wireshark.org/DisplayFilters
+** Other vulnerabilties
 
-* Your job:
+Do some browsing. Go to shopping sites, news sites. Any of those sites that are likely to want to know who you are. As you can see, Tor does not provide the best browsing experience. This is because it does not integrate any plugins (e.g. flash.)
 
-Answer the following questions:
+Check your IP address again.
 
-1. By looking at the packets sequentially, draw a timeline of your activity: for each minute, what sites did you visit, and what information can you infer from the name of each of those sites (even without looking at the actual content of the traffic--for example, if you visited facebook, you were doing social media, if you were at the wikipedia, you were doing research, etc).
+** Why HTTPs and Tor help protect privacy
 
-2. Can you determine at least two pages of the Wikipedia you browsed? Hint: select packets to the wikipedia, and inspect their contents.
+Read https://www.eff.org/pages/tor-and-https
 
-3. Was your communication with your email provider/or social media non-encrypted at some point? Hint. Select packets from/to its domain name (e.g. google.com)
-   and use "Protocol Hierarchy Statistics" to see a summary. Hint: use show address resolution. Cut and paste to a file so you can search and resolve IP
-   addresses later. To inspect packets to an entire network you can use the syntax: xx.yy.zz.0/n (this will match IP addressess that match the first n bits,
-   typically n is 16 or 24).
+In this diagram, we see a user /USER/ with password /PW/ connecting to a server /SITE.COM/ from location /LOCATION/ exchanging /DATA/. We have hacker, police,
+NSA, sysadmins and lawyers both of the ISP and the site we want to access. All of them want to be passive men-in-the-middle.
 
-4. What protocols are used by your email provider or social media site? 
+Q3. Without Tor and without HTTPs, what can every different attacker see?
 
-5. What are akamai and cloudfront.net. What proportion of packets did they produce?
+Q4. When HTTPs is always used, what information can be seen by each attacker?
 
-6. Give examples of domains that you certainly did not explicitly connect to. Can you explain this traffic?
+Q5. When both Tor and HTTPs are in use, what information can be seen by each attacker?
+
+** The Internet is full of threats to our anonymity
+
+Read the section "Want Tor to really work?" https://www.torproject.org/download/download-easy.html.en#warning
+
+Q6. Why are downloaded documents (specially PDFs and Word) potential threats to your anonymity? What information do they disclose?
+
+* Truecrypt
+
+Unfortunately we won't be able to use TrueCrypt because we require administrative privileges to use it. Instead, we will read a little bit about it.  Truecrypt
+is used to encrypt partitions and to create mountable partitions that are encrypted. Is it safe? Read this section (Legal Cases) of its Wikipedia Entry:
+http://en.wikipedia.org/wiki/TrueCrypt#Legal_cases
+
+Q7. How do these legal cases provide evidence that TrueCrypt actually works?
+
+
+But suddenly it disappeared. Fortunately there were archives of the software and people are still using it (last usable version is 7.1.) The Electronic
+Frontier Foundation recommends https://ssd.eff.org/en/module/how-encrypt-your-windows-device It is not as good, and it is meant for Windows. 
+
+Q8. Why did TrueCrypt disappear?
+
+* Off-The-Record communication
+
+Some chat services support "off-the-record" communication. However, how do we know that they actually work? For instance, when we indicate in google-chat that
+we want an off-the-record communication, are they really not logging it?
+
+A few years back, a group of security PhD students (one of them now a prof at Univ. of Waterloo) developed a protocol and library to create off-the-record
+communication on top of any chat service. The idea is that if you can transter text between clients, you can transfer encrypted information to support
+off-the-record communication. Go to https://otr.cypherpunks.ca/
+
+Q9. What are the four main features supported by OTR? (Off-the-record communication)
+
+Q10. What is the relationship between deniability and repudiation?
+
+There are many clients that support OTR (none official, unfortunately.) If you have your laptop with you, the easiest would be for you to download one of them. See https://otr.cypherpunks.ca/software.php (I use Adium in OS X.)
+
+I have compiled a version of pidgin with the OTR pluggin. Copy the file =/project/seng360/dmg/pidgin/local.tar.gz= and uncompress it at the top level of your home directory. It will create a directory called =local= with many files inside it.
+
+To run it execute:
+
+#+BEGIN_SRC bash
+export LD_LIBRARY_PATH=${HOME}/local/lib:
+~/local/bin/pidgin
+#+END_SRC
+
+Add an account to it (it supports almost any protocol.) If you don't have one (or prefer not to use one that you already have), create one at jabber.az. You can
+use the "Add Account" window. Use the protocol XMPP, domain =jabber.az=, and select the option "Create this account on the server" (it will be available after
+you select XMPP as the protocol.)
+
+At this point, you need to find somebody else in the lab who is using the same protocol as you (so you can both communicate), then follow this tutorial.
+
+https://securityinabox.org/pidgin_securechat
+
+Q11. Without certificates, how does OTR authenticate the person in the other end?
+
+
+* Password Safe
+
+I am a strong believer that the best way to have secure passwords is to write them down. The challenge is to write them down in a secure location in such a
+way that they are easy to retrieve and use. PasswordSafe is probably the best tool for the job (available for Windows, Mac and
+Linux.) http://passwordsafe.sourceforge.net/. Watch the second video in this page: http://passwordsafe.sourceforge.net/quickstart.shtml
+
+Q12. Can PasswordSafe be a counter-measure against physical keyloggers (e.g. a keyboard)? Explain.
+
+Q13. What do you consider the main disadvantages of PasswordSafe? (Aside from having your master password stolen and all your usernames/passwords lost at once.)
+
+
 
 
 * What to submit

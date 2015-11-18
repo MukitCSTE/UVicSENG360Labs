@@ -1,0 +1,71 @@
+#+STARTUP: showall
+#+STARTUP: lognotestate
+#+TAGS:
+#+SEQ_TODO: TODO STARTED DONE DEFERRED CANCELLED | WAITING DELEGATED APPT
+#+DRAWERS: HIDDEN STATE
+#+TITLE: Lab 10: man in the middle
+#+CATEGORY: todo
+
+
+* Introduction
+
+Last week we learned about privacy how to protect from men-in-the-middle. This week we are going to learn about what the passive man-in-the-middle can see.
+
+As you recall from last week, in https://www.eff.org/pages/tor-and-https we learned the different types of men-in-the-middle. This time we will see what type of
+information the ISP and a potential attacker can see in the network. We will not be concerned with the men-in-the-middle at the opposite side of our
+communication (/site.com/ in the main diagrams).
+
+* Wireshark
+
+Wireshark is a great tool for network administrators. Go and read about it: http://en.wikipedia.org/wiki/Wireshark It gets a bad reputation because it can monitor traffic of others that
+goes through a network link.
+
+This week we are going to record traffic and then analyze it. I encourage you to use wireshark in your home to see what traffic your computer generates
+*Only do it you are the only one connected to your local network; do not monitor/record the traffic of others*
+
+* The data 
+
+Use Wireshark to capture 15(3) minute of your internet traffic (try 3 minutes first, if the generated file is small enough try running it for longer). The lab instructor will show you how to run it. During these 15(3) minutes do the following:
+
+- Visit the wikipedia. Read about Wireshark (at least)
+- Visit some of your common websites you usually visit from the lab machines (email, uvic, facebook, etc).
+- Connect via ssh to another computer (i.e. linux.csc.uvic.ca).
+- Any other activity that you commonly do.
+
+When you are finished, save it to a file in your home directory.
+
+* Tutorial
+
+Head to http://www.howtogeek.com/104278/how-to-use-wireshark-to-capture-filter-and-inspect-packets/ and do the tutorial. But before you do, make sure you enable
+DNS resolution. That way you will see the domain names of the machines contacted (rather than the IP address). Follow the instructions here:
+http://www.howtogeek.com/106191/5-killer-tricks-to-get-the-most-out-of-wireshark/. Use the file I provided to follow the tutorial.
+
+Some information that will be useful:
+
+- How to filter packages: http://wiki.wireshark.org/DisplayFilters
+
+* Your job:
+
+Answer the following questions:
+
+1. By looking at the packets sequentially, draw a timeline of your activity: for each minute, what sites did you visit, and what information can you infer from the name of each of those sites (even without looking at the actual content of the traffic--for example, if you visited facebook, you were doing social media, if you were at the wikipedia, you were doing research, etc).
+
+2. Can you determine at least two pages of the Wikipedia you browsed? Hint: select packets to the wikipedia, and inspect their contents.
+
+3. Was your communication with your email provider/or social media non-encrypted at some point? Hint. Select packets from/to its domain name (e.g. google.com)
+   and use "Protocol Hierarchy Statistics" to see a summary. Hint: use show address resolution. Cut and paste to a file so you can search and resolve IP
+   addresses later. To inspect packets to an entire network you can use the syntax: xx.yy.zz.0/n (this will match IP addressess that match the first n bits,
+   typically n is 16 or 24).
+
+4. What protocols are used by your email provider or social media site? 
+
+5. What are akamai and cloudfront.net. What proportion of packets did they produce?
+
+6. Give examples of domains that you certainly did not explicitly connect to. Can you explain this traffic?
+
+
+* What to submit
+
+Submit a text file that contains the answer to your questions.
+
+
