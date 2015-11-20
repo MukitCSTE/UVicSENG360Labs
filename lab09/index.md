@@ -62,7 +62,22 @@ int main() {
 
 Create this file, name it `vulp.c` and save it in user360's home directory **as user360, not root**.
 
+This is part of a Set-UID program (owned by root). It appends a string of user input to the end of a temporary file /tmp/XYZ. Since the code runs with root privilege, it carefully checks whether the real user actually has access permission to the file /temp/XYZ via the access() call. Once verified, the program opens the file and writes the user input into the file.
 
+The race condition vulnerability is due to the simulated time delay window between the check (access) and use (fopen). There is a possibility that the file used by access is different from the file used by fopen, even though they have the same filename /tmp/XYZ.
+
+If a malicious attacker can somehow make /tmp/XYZ a symbolic link pointing to /etc/shadow within that time delay, the attacker can redirect the user input to be appended to the /etc/shadow file instead of /tmp/XYZ.
+
+## Task 1: Exploit the Race Condition ##
+
+You are to exploit this race condition vulnerability in the above Set-UID program. Specifically:
+
+- Overwrite any file that belongs to root
+- Gain root privileges; namely you should be able to do anything that root can do
+
+# Part 3: Protection Mechanism A - Repeating #
+
+# Part 4: Protection Mechanism B - Principle of Least Privilege #
 
 # Submission #
 

@@ -44,7 +44,7 @@ Run it again.
 
 # Part 2: Stack Subjugation #
 
-You already knew that it is easy to clobber the stack (I am sure you have done it plenty of times). Can we do anything interesting by overwriting the stack? Let us try. Call this program `subjugating.c`. Compile it and run it.
+You already knew that it is easy to clobber the stack (I am sure you have done it plenty of times). Can we do anything interesting by overwriting the stack? Let us try. Call this program `subjugating.c`. Compile it and run it normally (w/o the stack protector).
 
 ``` c
 #include <stdio.h>
@@ -90,7 +90,7 @@ Don't you love that C allows you to define arrays of size zero? (Hint: Fix the c
 
 Enable SSP for this program. (`-fstack-protector` option)
 
-**Question 5** Why doesn't SSP work in this program?
+**Question 5** Why doesn't SSP work in this program? (Hint: Consider what you did here as compared to Part 1)
 
 ## Address Space Layout Randomization (ASLR) ##
 
