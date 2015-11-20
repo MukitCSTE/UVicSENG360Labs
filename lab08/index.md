@@ -103,7 +103,7 @@ As you can see, now the stack is always exactly in the same place. This is our s
 # Part 3: Smashing to Subjugate #
 
 We have learned that we can make a program crash or execute code that is not intended to do. But, can we mix both at the same time? Of course we can. But this time we need to be crafty. And fortuantely Ben Lynn (a PhD graduate from Standford whose area of research is crypto) has created a great tutorial that we can
-reuse. Now head to [http://crypto.stanford.edu/~blynn/rop/](http://crypto.stanford.edu/~blynn/rop/) and do the first part of the exercise (all the way to *The Importance of Being Patched*). I'll simply add to his tutorial in areas that you will probably have trouble understanding.
+reuse. Now head to [http://crypto.stanford.edu/~blynn/rop/](http://crypto.stanford.edu/~blynn/rop/) and do the first part of the exercise (up to and including *The Importance of Being Patched*). I'll simply add to his tutorial in areas that you will probably have trouble understanding.
 
 But be careful about the following three things:
 

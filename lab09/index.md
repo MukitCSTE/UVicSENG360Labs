@@ -27,6 +27,10 @@ To become root in the virtual machine you will need to use the command `su` (use
 | user | user360 | user360    |
 | root | root    | root360lab |
 
+Also, since the base VM does not have gcc installed, you'll need to do it yourself:
+
+	sudo apt-get update && sudo apt-get install build-essential -y
+
 # Part 2: Exploiting Race Condition Vulnerabilities #
 
 The following is a seemingly harmless C program. However, it has a nasty race-condition vulnerability.
@@ -35,6 +39,7 @@ The following is a seemingly harmless C program. However, it has a nasty race-co
 /* vulp.c */
 #include <stdio.h>
 #include <unistd.h>
+#include <string.h>
 #define DELAY 10000
 
 int main() {
@@ -43,12 +48,12 @@ int main() {
   FILE *fp;
   long int i;
 
-  /* get user input */
-  scanf("%50s", buffer );
+  // get user input
+  scanf("%50s", buffer);
 
-  if(!access(fn, W_OK)){
-    /* simulating delay */
-    for (i=0; i < DELAY; i++) { int a = iˆ2; }
+  if(!access(fn, W_OK)) {
+    // simulating delay
+	for (i=0; i < DELAY; i++) { int a = i^2; }
 
     fp = fopen(fn, "a+");
     fwrite("\n", sizeof(char), 1, fp);
