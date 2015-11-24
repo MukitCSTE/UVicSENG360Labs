@@ -12,24 +12,21 @@ You will be given a program with a known race-condition vulnerability. Your task
 
 # Part 1: Lab Setup #
 
-Since you will need root access for the lab, we will be using a virtual machine again. As before, you can grab a fresh copy of the virtual machine from `/seng/seng360/vm` if you lost your virtual machine from the previous labs.
+Since you will need root access for the lab, we will be using a virtual machine again. You can grab a fresh copy of the virtual machine from `/seng/seng360/race`.
 
 - Just like before, copy that vm to your local machine's `/tmp` directory and assign it under your own username. Then point VirtualBox to that VM and start it up. You may need to remove your old VM entry if it's inaccessible or behaving strangely.
+
+- Note: This is **not** the same virtual machine from previous weeks. This is running Ubuntu 8.04.4 LTS; the other machine ran a newer version of Ubuntu.
 
 Once you have your virtual machine running, ssh into it with:
 
 	ssh -p 3030 -l user360 localhost
 
-To become root in the virtual machine you will need to use the command `su` (use the root password provided).
+To become root in the virtual machine you will need to use the command `sudo -s` (use the root password provided). Direct root access via `su` is not enabled on this VM.
 
-| what | user    | password   |
-|------|---------|------------|
-| user | user360 | user360    |
-| root | root    | root360lab |
-
-Also, since the base VM does not have gcc installed, you'll need to do it yourself:
-
-	sudo apt-get update && sudo apt-get install build-essential -y
+| what | user    | password |
+|------|---------|----------|
+| user | user360 | user360  |
 
 # Part 2: Exploiting Race Condition Vulnerabilities #
 
@@ -40,7 +37,7 @@ The following is a seemingly harmless C program. However, it has a nasty race-co
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
-#define DELAY 10000
+#define DELAY 5
 
 int main() {
   char *fn = "/tmp/XYZ";
@@ -51,16 +48,16 @@ int main() {
   // get user input
   scanf("%50s", buffer);
 
-  if(!access(fn, W_OK)) {
+  if(access(fn, W_OK) != 0) {
+    printf("No permission\n");
+  } else {
     // simulating delay
-	for (i=0; i < DELAY; i++) { int a = i^2; }
+    sleep(DELAY);
 
     fp = fopen(fn, "a+");
     fwrite("\n", sizeof(char), 1, fp);
     fwrite(buffer, sizeof(char), strlen(buffer), fp);
     fclose(fp);
-  } else {
-    printf("No permission \n");
   }
 }
 ```
@@ -68,6 +65,17 @@ int main() {
 Create this file, name it `vulp.c` and save it in user360's home directory **as user360, not root**. Compile this program as user360:
 
 	gcc -o vulp vulp.c
+
+Then you need to make the program be flagged as a setuid type program owned by root. To do this, do the following as user360:
+
+	sudo chown root vulp
+	sudo chmod 4755 vulp
+
+When done correctly, if you do an `ls -l` you'll see something like the following:
+
+	-rwsr-xr-x 1 root    user360 10096 2015-11-23 18:26 vulp
+
+Note that instead of a standard rwx for the owner, you have rw**s**. What this means is that anyone who can run this program will run with the privileges of the owner (in this case, root). You can run this program as user360 without having to elevate your own privileges.
 
 - Note: When you run vulp, make sure /tmp/XYZ already exists first, otherwise you'll get no permission as a result. You can create the file by doing `touch /tmp/XYZ`.
 
@@ -98,16 +106,16 @@ If you take a look at /etc/passwd and /etc/shadow, you'll see new entries for th
 	-----------
 	smith:$6$blahblahsomejibberishhere/:16759:0:99999:7:::
 
-The third column of the smith entry has a UID of 1001 which is nothing special. If we change that entry to 0, smith can become root.
+The third column of the smith entry has a UID of 1001 which is nothing special. If we could change or insert an entry with a UID of 0, smith can become root.
 
 ## Exploit the Race Condition ##
 
 You are to exploit this race condition vulnerability in the above Set-UID program. Specifically:
 
-- Overwrite any file that belongs to root (/etc/shadow)
+- Overwrite any file that belongs to root (/etc/shadow) as user360
 - Gain root privileges; namely you should be able to do anything that root can do
 
-Your goal is to create a C program that can create symbolic links from /tmp/XYZ to the /etc/passwd and /etc/shadow files. You can create a symbolic link on command line via the `ln -s` command. In C, you may call the `symlink` function to create a symlink. Since Linux doesn't allow you to create a link if it already exists, you'll need to delete old symlinks first. You can do that via the `unlink` function. Below is a code snippet showing how to remove a symlink and then make /tmp/XYZ point to /etc/passwd:
+Your goal is to create a C program called `attack.c` that can create symbolic links from /tmp/XYZ to the /etc/passwd and /etc/shadow files. You can create a symbolic link on command line via the `ln -s` command. In C, you may call the `symlink` function to create a symlink. Since Linux doesn't allow you to create a link if it already exists, you'll need to delete old symlinks first. You can do that via the `unlink` function. Below is a code snippet showing how to remove a symlink and then make /tmp/XYZ point to /etc/passwd:
 
 ``` c
 unlink("/tmp/XYZ");
@@ -118,24 +126,29 @@ Since user360 doesn't have read permission for /etc/shadow, the only way we know
 
 ``` bash
 #!/bin/sh
-old='ls -l /etc/shadow'
-new='ls -l /etc/shadow'
+old=`ls -l /etc/shadow`
+new=`ls -l /etc/shadow`
+echo $old
 while [ "$old" = "$new" ]
 do
-	new='ls -l /etc/shadow'
+	new=`ls -l /etc/shadow`
+	sleep 1
 done
+echo $new
 echo "STOP! The shadow file has been changed"
 ```
 
 Create this script, name it `check.sh` and save it in user360's home directory **as user360, not root**. Make sure the script has execution permission by doing `chmod +x check.sh`. You should have this script run in a separate terminal session (so create another terminal and ssh into the VM again)
 
+- Note: You should have *three* separate terminals at this point: one for vulp, one for check.sh, and one for your attack program.
+
 ### Improving Success Rate ###
 
 As with any race-condition attack, the critical step (pointing the link to our target file) of the attack must occur within the window between check and use - namely between access and fopen. Since we can't modify the vulnerable program, the only thing we can do is to run our attacking program in parallel with the target program and hope that the link creation occurs in that window.
 
-We cannot achieve perfect timing with this - thus the success of this attack is probabilistic. The smaller the window of opportunity, the less likely you will get a successful attack. You will need to consider ways to increase the probability of succeeding in an attack. (Hint: you an run the vulnerable program many times, you only need to be successful in one of the attempts to get through).
+We cannot achieve perfect timing with this - thus the success of this attack is probabilistic. The smaller the window of opportunity, the less likely you will get a successful attack. You will need to consider ways to increase the probability of succeeding in an attack. (Hint: you must run the vulnerable program many times; however you only need to be successful in one of the attempts to get through).
 
-Since you need to run the attack and vulnerable program many times, consider writing a script to automate the process. You can leverage file redirection or piping to achieve this. For example:
+Since you need to run through the attack and vulnerable program many times, consider writing a script to automate the process. You can leverage file redirection or piping to achieve this. For example:
 
 	echo 'yourinputhere' | ./vulp
 
@@ -143,9 +156,9 @@ or
 
 	./vulp < FILE
 
-Where file consists of just your input. The time command `time <program>` could be useful in your script because it times how long program takes to execute.
+Where file consists of just your input.
 
-**Question 1:** Describe how you achieved your solution to Part 2.
+**Question 1:** Describe how you achieved your solution to Part 2. Include your `attack.c` inline with this question. 
 
 The vulp program deliberately has a DELAY parameter in order to make your attack easier. Once you have succeeded in your attacks, gradually reduce the value of DELAY.
 
@@ -153,7 +166,7 @@ The vulp program deliberately has a DELAY parameter in order to make your attack
 
 # Part 3: Protection Mechanism A - Repeating #
 
-Addressing race condition bugs is not an easy task because the *check-and-us*e pattern is often necessary in programs. Instead, we can introduce more race conditions, such that in order to compromise the security of the program, attackers need to win all these additional race conditions. Designed properly, we can exponentially reduce the winning probability for attackers.
+Addressing race condition bugs is not an easy task because the *check-and-use* pattern is often necessary in programs. Instead, we can introduce more race conditions, such that in order to compromise the security of the program, attackers need to win all these additional race conditions. Designed properly, we can exponentially reduce the winning probability for attackers.
 
 The basic idea is to repeat access() and open() several time. At each time, we open the file, and at the end, we check if the same file opened is the same file by checking their i-nodes. They should be the same - otherwise notify the user of file tampering.
 
@@ -165,17 +178,17 @@ Use this strategy to modify vuln.c and evaluate the race condition. In order to 
 
 The fundamental problem of the vulnerable program in this lab is the violation of the *Principle of Least Privilege*. The programmer understands that the user who runs the program may be too powerful, so they introduced access() as a limiting factor. However, this isn't the proper approach. A better way is to make it so that if users do not need certain privileges, those privileges are disabled.
 
-Apply the Principle of Least Privilege to the original vulnerable program vulp.c. You should consider using the `seteuid` system call in order to temporarily disable root privilege, and flip it back on only when necessary. Then reevaluate the race condition.
+Apply the Principle of Least Privilege to the *original* vulnerable program vulp.c. You should consider using the `seteuid` system call in order to temporarily disable root privilege, and flip it back on only when necessary. Then reevaluate the race condition.
 
 **Question 4:** With your principle of least privilege modifications in place, how difficult is it to succeed, if at all? Please include your modified vulp.c source code for this step inline with this question.
 
 # Troubleshooting #
 
 - While testing the program, sometimes /tmp/XYZ may get into an unusable state because of untimely killing of the attack program. When this happens, the OS automatically creates a normal file with root as owner. If this happens, delete this file before restarting the attack.
-- If you accidentally modify and recompile vulp as root, you'll need to run `chmod 4755 vulp` in order to make it accessible to user360 again.
+- If you accidentally modify and recompile vulp as root, you'll need to run `chmod 4755 vulp` in order to make it accessible to user360 again. Vulp must be flagged as a setuid program (rws) for the attack to work correctly.
 
 # Submission #
 
 You will be submitting one file:
 
-- `report.txt` Your answers to the 4 questions with the requested source code copy-pasted in as part of your answer
+- `report.txt` Your answers to the 4 questions with the requested source codes copy-pasted in as part of your answer
