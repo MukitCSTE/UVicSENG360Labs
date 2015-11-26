@@ -61,50 +61,43 @@ But suddenly it disappeared. Fortunately there were archives of the software and
 
 **Question 8:** Why did TrueCrypt disappear?
 
-* Off-The-Record communication
+# Part 3: Off-The-Record Communication #
 
-Some chat services support "off-the-record" communication. However, how do we know that they actually work? For instance, when we indicate in google-chat that
-we want an off-the-record communication, are they really not logging it?
+Some chat services support "off-the-record" communication. However, how do we know that they actually work? For instance, when we indicate in google-chat that we want an off-the-record communication, are they really not logging it?
 
-A few years back, a group of security PhD students (one of them now a prof at Univ. of Waterloo) developed a protocol and library to create off-the-record
-communication on top of any chat service. The idea is that if you can transter text between clients, you can transfer encrypted information to support
-off-the-record communication. Go to https://otr.cypherpunks.ca/
+A few years back, a group of security PhD students (one of them now a prof at Univ. of Waterloo) developed a protocol and library to create off-the-record communication on top of any chat service. The idea is that if you can transfer text between clients, you can transfer encrypted information to support off-the-record communication. Go to [https://otr.cypherpunks.ca/](https://otr.cypherpunks.ca/)
 
-Q9. What are the four main features supported by OTR? (Off-the-record communication)
+**Question 9:** What are the four main features supported by OTR? (Off-the-record communication)
 
-Q10. What is the relationship between deniability and repudiation?
+**Question 10:** What is the relationship between deniability and repudiation?
 
-There are many clients that support OTR (none official, unfortunately.) If you have your laptop with you, the easiest would be for you to download one of them. See https://otr.cypherpunks.ca/software.php (I use Adium in OS X.)
+There are many clients that support OTR (none officially unfortunately...) If you have your laptop with you, the easiest would be for you to download one of them. See [https://otr.cypherpunks.ca/software.php](https://otr.cypherpunks.ca/software.php) (Try Adium on OS X)
 
-I have compiled a version of pidgin with the OTR pluggin. Copy the file =/project/seng360/dmg/pidgin/local.tar.gz= and uncompress it at the top level of your home directory. It will create a directory called =local= with many files inside it.
+I have compiled a version of pidgin with the OTR pluggin. Copy the file `/seng/seng360/pidgin/local.tar.gz` and uncompress it at the top level of your home directory. It will create a directory called `local` with many files inside it.
 
 To run it execute:
 
-#+BEGIN_SRC bash
+``` bash
 export LD_LIBRARY_PATH=${HOME}/local/lib:
 ~/local/bin/pidgin
-#+END_SRC
+```
 
-Add an account to it (it supports almost any protocol.) If you don't have one (or prefer not to use one that you already have), create one at jabber.az. You can
-use the "Add Account" window. Use the protocol XMPP, domain =jabber.az=, and select the option "Create this account on the server" (it will be available after
-you select XMPP as the protocol.)
+Add an account to it (it supports almost any protocol) If you don't have one (or prefer not to use one that you already have), create one with `dukgo.com`. You can use the "Add Account" window. Use the protocol XMPP, domain `dukgo.com`, and select the option "Create this account on the server" (it will be available after you select XMPP as the protocol). For more of a detailed walkthrough, check here: [https://duck.co/blog/post/2/using-pidgin-with-xmpp-jabber](https://duck.co/blog/post/2/using-pidgin-with-xmpp-jabber)
 
 At this point, you need to find somebody else in the lab who is using the same protocol as you (so you can both communicate), then follow this tutorial.
 
-https://securityinabox.org/pidgin_securechat
+[https://securityinabox.org/pidgin_securechat](https://securityinabox.org/pidgin_securechat)
 
-Q11. Without certificates, how does OTR authenticate the person in the other end?
+**Question 11:** Without certificates, how does OTR authenticate the person in the other end?
 
+# Part 4: Password Safe #
 
-* Password Safe
+I am a strong believer that the best way to have secure passwords is to write them down. The challenge is to write them down in a secure location in such a way that they are easy to retrieve and use. PasswordSafe is a good tool for the job (available for Windows, Mac and
+Linux.) [http://passwordsafe.sourceforge.net/](http://passwordsafe.sourceforge.net/). Watch the second video in this page: [http://passwordsafe.sourceforge.net/quickstart.shtml](http://passwordsafe.sourceforge.net/quickstart.shtml)
 
-I am a strong believer that the best way to have secure passwords is to write them down. The challenge is to write them down in a secure location in such a
-way that they are easy to retrieve and use. PasswordSafe is probably the best tool for the job (available for Windows, Mac and
-Linux.) http://passwordsafe.sourceforge.net/. Watch the second video in this page: http://passwordsafe.sourceforge.net/quickstart.shtml
+**Question 12:** Can PasswordSafe be a counter-measure against physical keyloggers (e.g. a keyboard)? Explain.
 
-Q12. Can PasswordSafe be a counter-measure against physical keyloggers (e.g. a keyboard)? Explain.
-
-Q13. What do you consider the main disadvantages of PasswordSafe? (Aside from having your master password stolen and all your usernames/passwords lost at once.)
+**Question 13:** What do you consider the main disadvantages of PasswordSafe? (Aside from having your master password stolen and all your usernames/passwords lost at once)
 
 # Submission #
 
