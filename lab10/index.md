@@ -73,7 +73,7 @@ A few years back, a group of security PhD students (one of them now a prof at Un
 
 There are many clients that support OTR (none officially unfortunately...) If you have your laptop with you, the easiest would be for you to download one of them. See [https://otr.cypherpunks.ca/software.php](https://otr.cypherpunks.ca/software.php) (Try Adium on OS X)
 
-I have compiled a version of pidgin with the OTR pluggin. Copy the file `/seng/seng360/pidgin/local.tar.gz` and uncompress it at the top level of your home directory. It will create a directory called `local` with many files inside it.
+I have compiled a version of pidgin with the OTR plugin. Copy the file `/seng/seng360/pidgin/local.tar.gz` and uncompress it at the top level of your home directory. It will create a directory called `local` with many files inside it.
 
 To run it execute:
 
