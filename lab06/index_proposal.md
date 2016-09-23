@@ -2,7 +2,7 @@
 
 This time we are going to look at some of vulnerabilities of Web servers. We will be covering two vulnerabilities: the ShellShock vulnerability from 2014 and a  OpenSSHD vulnerability from 2016.
 
-# Part 1: OpenSSHD Weponization #
+# Part 1: OpenSSHD Weaponization #
 
 In 2016, OpenSSHD had a vulnerability that could allow a remote user to enumerate users on a SSHD running system. We will take a proof of concept of the vulnerability and weaponize it.
 

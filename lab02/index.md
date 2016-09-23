@@ -15,7 +15,7 @@ You will need `hojs-public.key.asc` from CourseSpaces.
 
 # Part 0: Command Logging #
 
-Create a new file named `log.txt`. As you go through this lab, please copy the commands you executed in the terminal here.
+Create a new file named `log.txt`. As you go through this lab, please copy the commands you executed in the terminal here. You may also use the `history` command for this log at the end of the lab.
 
 # Part 1: Public/Private Key Creation #
 
@@ -26,8 +26,8 @@ Before we can do anything, we must create a key-pair. For each of you, in your c
 You will see four kinds of options. Options 1 and 2 create two key pairs; one for signing and the other for encrypting. Options 3 and 4 only create keys for signing.
 
 Choose options: (1) RSA and RSA (default), and a keysize of 2048 bits.
-
-Indicate that the key should expire in 90 days (at least) so that I can use your key.  Use your netlink email as the email of your key. You will also be asked for a *pass-phrase* for the key. This is a password that will protect your key from prying eyes. Make sure you can remember this pass-phrase or you will never be able to use the key. You will be asked to generate entropy also (shake that mouse!).
+gp
+Indicate that the key should expire in 90 days (at least) so that I can use your key. Use your netlink email as the email of your key. You will also be asked for a *pass-phrase* for the key. This is a password that will protect your key from prying eyes. Make sure you can remember this pass-phrase or you will never be able to use the key. You will be asked to generate entropy also (shake that mouse!).
 
 # Part 2: Key Import/Export #
 
@@ -148,6 +148,8 @@ In this case only the signature will be included in the file `<filename>.sig`. Y
 
 	gpg --verify <signature> <filename>
 
+**Question 1:** Modify your original signed file and then verify the validity of the signature. What happens?
+
 # Part 5: Using a Public Key Server #
 
 Besides sending your public key to others, you can also use a public key server to openly publish your public key to anyone. The key server acts as the "white pages" for public keys. To publish your keys, you will use the `gpg --keyserver` command.
@@ -255,6 +257,8 @@ Have Student C re-import the public keys of Student A and B after their keys hav
 
 Check that Student A's public key is considered valid and trusted in the keyring of Student C. You can do that by `gpg --edit-key`. Look into the `trust` and `check` commands.
 
+**Question 2:** Explain the Web of Trust in your own words. What does it accomplish? Why is this used?
+
 # Part 8: Certificate Revocation #
 
 If you forget your passphrase or your private key is compromised/lost, you can issue a revocation certificate to let others know not to use that public key any longer. A revoked public key can still be used to verify signatures made by you in the past, but you cannot use it to encrypt future messages to you. It also does not affect your ability to decrypt messages sent to you in the past if you still have access to that key.
@@ -265,28 +269,21 @@ Create a revocation of your key:
 
 	gpg --output revoke.asc --gen-revoke <keyid>
 
-Send `revoke.asc` to your partner and have them import it. Can you still send your partner an encrypted document? Can you still decrypt or validate the signature of documents from your partner from the previous sections?
+**Question 3:** Send `revoke.asc` to your partner and have them import it.  
+- Can you still send your partner an encrypted document?  
+- Can you still decrypt or validate the signature of your partner's documents from the earlier sections?
 
-# Questions #
+**Question 4:** We covered 3 main security properties. (Hint: CIA) For each of them:  
+	- Does cryptography address it?  
+	- If so, how?  
 
-Answer the following questions and submit them in `report.txt`.
-
-1. Modify your original signed file from Part 4 and then verify the validity of the signature. What happens?
-2. Explain the Web of Trust in your own words. What does it accomplish? Why is this used?
-3. Send `revoke.asc` to your partner and have them import it.
-	- Can you still send your partner an encrypted document?
-	- Can you still decrypt or validate the signature of your partner's documents from the earlier sections?
-4. We covered 3 main security properties. (Hint: CIA) For each of them:
-	- Does cryptography address it?
-	- If so, how?
-	- Can cryptography address non-repudiation? How?
+**Question 5:** Can cryptography address non-repudiation? How?
 
 # Submission #
 
-You will be submitting four files in one zip file:
+You will be submitting four files:
 
 - `lastname_firstname.key.asc` Your public key in ASCII format
-- `report.txt` Your answers in **plain-text**
+- `report.txt` Your answers to the 5 questions
 - `report.txt.asc` Encrypted file with the TA as the recipient
-- `log.txt` Log of commands you ran
-
+- `log.txt` Log of commands you ran in the lab

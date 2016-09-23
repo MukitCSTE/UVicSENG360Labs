@@ -9,7 +9,7 @@ Generating random numbers in a computer is hard. The theory was laid down long a
 
 It is often the case that security is broken not because the algorithms are weak, but because the random number generation is not properly implemented. For example, one of the first successful attacks of a web browser (Netscape) exploited poorly written random number generators used to generate cryptographic keys that were to be used during a SSL session.
 
-Visit [http://www.cs.berkeley.edu/~daw/papers/ddj-netscape.html](http://www.cs.berkeley.edu/~daw/papers/ddj-netscape.html) to answer the following questions:
+Visit [https://people.eecs.berkeley.edu/~daw/papers/ddj-netscape.html](https://people.eecs.berkeley.edu/~daw/papers/ddj-netscape.html) to answer the following questions:
 
 **Question 1:** What 3 quantities does an attacker need to know to determine Netscape's generated seed?  
 **Question 2:** How does a predictable PRNG seed reduce its level of security?
@@ -49,7 +49,7 @@ Once Ctrl-C (`SIGING`) or a kill signal (`SIGKILL`) is sent to the program, your
 	Received SIGINT
 	Generated 53563 values.
 
-Use `skeleton.c` and the `Makefile` provided as the basis for your programs.
+Use `skeleton.c` and the `Makefile` provided as the basis for your programs. I recommend using the `fopen`, `fread`, and `fclose` C functions.
 
 # Part 2. Benchmarking #
 
