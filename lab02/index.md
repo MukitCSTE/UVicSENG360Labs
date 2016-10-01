@@ -194,6 +194,10 @@ With this fingerprint, talk to your partner to make sure this is the right key. 
 
 Congratulations, you have now validated your partner's key.
 
+To save your changes, press CTRL+D and then answer yes to persist your changes into the keyring.
+
+In order to let the world know you validated your partner's key, push up your partner's key to the key server. If you search your partner's key on [pgp.mit.edu](http://pgp.mit.edu/), you should see that their key is signed by themselves and you.
+
 # Part 7: Web of Trust #
 
 *This section may be difficult. If you are not able to do it successfully, at least make sure you understand what it does and why it is used.*
