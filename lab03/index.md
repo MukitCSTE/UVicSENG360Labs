@@ -23,7 +23,7 @@ The basic tool for observing the messages exchanged between executing protocol e
 
 # Part 1: Detecting Clear Text Passwords #
 
-**Start up Wireshark**. Wireshark requires root privileges in order to properly sniff. You can start it up by running `sudo wireshark`. The startup screen should look something like this:
+**Start up Wireshark**. Wireshark requires root privileges in order to properly sniff. You can start it up by running `wireshark` from command line, or graphically from Applications > Internet > Wireshark. The startup screen should look something like this:
 
 ![WireShark Splash](/lab03/splash.png)
 
