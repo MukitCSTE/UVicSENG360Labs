@@ -103,7 +103,7 @@ Then enter the provided credentials. Make sure to replace username with the corr
 
 We are now going to create a Man In The Middle attack.
 
-Start up Wireshark again if it is not already running. Then open up Firefox and visit [https://mitmproxy.org/](https://mitmproxy.org/) and then [https://www.wikipedia.org/](https://www.wikipedia.org/) in separate tabs. Once both pages have loaded, stop capturing network traffic.
+Start up Wireshark again if it is not already running. Make sure to sniff both the p4p1 and Loopback l0 adapters. Then open up Firefox and visit [https://mitmproxy.org/](https://mitmproxy.org/) and then [https://www.wikipedia.org/](https://www.wikipedia.org/) in separate tabs. Once both pages have loaded, stop capturing network traffic.
 
 You may inspect Wireshark to get an idea of how a normal HTTPS connection behaves.
 

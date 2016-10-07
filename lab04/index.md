@@ -47,14 +47,14 @@ We will replace the header of the encrypted picture with that of the original pi
 
 # Part 3: Encryption Mode - Corrupted Cipher Text #
 
+**Question 2:** *Before doing Part 3*, how much information do you expect to recover by decrypting the corrupted file, if the encryption mode is ECB, CBC, CFB, or OFB, respectively? Please explain why.
+
 To understand the properties of various encryption modes, do the following:
 
 1. Create a text file that is at least 64 bytes long.
 2. Encrypt the file using the AES-128 cipher.
 3. Unfortunately, a single **bit** of the 30th byte in the encrypted file got corrupted. You can achieve this corruption with `hexedit`.
 4. Decrypt the corrupted file (encrypted) using the correct key and IV.
-
-**Question 2:** *Before doing Part 3*, how much information do you expect to recover by decrypting the corrupted file, if the encryption mode is ECB, CBC, CFB, or OFB, respectively? Please explain why.
 
 **Question 3:** *After doing Part 3*, did your expectations from question 2 align with the results? What are the implications of these encryption mode differences?
 
@@ -70,18 +70,8 @@ For block ciphers, when the size of the plaintext is not the multiple of the blo
 
 **Question 5:** Which operating modes require padding? Why do the others not require padding?
 
-# Questions #
-
-Answer the following questions and submit them in `report.txt`.
-
-1. Can you derive any useful information about the original picture from the encrypted picture? Please explain your observations.
-2. *Before doing Part 3*, how much information do you expect to recover by decrypting the corrupted file, if the encryption mode is ECB, CBC, CFB, or OFB, respectively? Please explain why.
-3. *After doing Part 3*, did your expectations from question 2 align with the results? What are the implications of these encryption mode differences?
-4. Please report the findings of your experiment in Part 4.
-5. Which operating modes require padding? Why do the others not require padding?
-
 # Submission #
 
 You will be submitting one file:
 
-- `report.txt` Your answers
+- `report.txt` Your answers to the 5 questions
