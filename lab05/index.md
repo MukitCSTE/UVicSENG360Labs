@@ -14,7 +14,7 @@ SSL (and its successor TLS) is the protocol behind the secure Web can use certif
 
 Is the certificate in question signed by a valid CA?  If not, was it signed by a CA that was signed by a known CA? We do this recursively until the certificate is signed by a CA, or we cannot further verify the signature. Anybody with a signed certificate can sign other certificates.
 
-However, having a certificate signed by a Root CA costs money (see [http://www.thawte.com/ssl/index.html](http://www.thawte.com/ssl/index.html)). What is even worse is that these certificates are only valid for one year. Talk about printing money!
+However, having a certificate signed by a Root CA costs money (see [https://www.thawte.com/ssl/](https://www.thawte.com/ssl/)). What is even worse is that these certificates are only valid for one year. Talk about printing money!
 
 # Part 1: Web and CAs #
 
@@ -26,15 +26,15 @@ Now head to [https://www.uvic.ca](https://www.uvic.ca). Click again on the icon 
 
 **Question 1** Who is its Signing CA?
 
-Now visit [https://www.akadia.com/](https://www.akadia.com/). You should encounter a connection not secure error.
+Now visit [https://gerrit.seng.uvic.ca:8088/](https://gerrit.seng.uvic.ca:8088/). (Please note that you can only access this page on a UVic network). You should encounter a connection not secure error.
 
 **Question 2** What is the problem with this site?
 
 # Part 2: Using OpenSSL to verify certificates #
 
-OpenSSL is a library but it is also a collection of tools. Download the certificates of the two https sites from Part 1 using openssl. Port 443 is https.
+OpenSSL is a library but it is also a collection of tools. Download the certificates of the two https sites from Part 1 using openssl. Port 443 is default for https.
 
-	echo -n | openssl s_client -connect <hostname>:443
+	echo -n | openssl s_client -connect <hostname>:<port>
 
 **Question 3** Who is the issuer of each certificate?
 
@@ -44,38 +44,45 @@ Save the certificate of *www.uvic.ca* into a file `uvic.cert`. It starts with `-
 
 ## Verifying a Certificate ##
 
-Run openssl with these options on the two sites (uvic and akadia).
+Run openssl with these options on the two sites (uvic.ca on port 443 and gerrit.seng.uvic.ca on port 8088).
 
-	echo -n | openssl s_client -verify_return_error -connect <hostname>:443
+	echo -n | openssl s_client -verify_return_error -connect <hostname>:<port>
 
-The Certificate chain is the way in which the certification is verified.
+Look for the Certificate chain section. The Certificate chain is the way in which the certification is verified.
 
 # Part 3: Encryption used by a server and a client #
 
 At the end of the output of openssl you see the description of the encryption achieved. SSL negotiates and uses the best encryption that both sides (client and server) are able to support. This is stated in the `Cipher` field of the SSL-session data.
 
-**Question 4:** What is the cipher achieved between the Lab machine you are using and the following servers: [www.uvic.ca](https://www.uvic.ca), [www.gmail.com](http://www.gmail.com), and [facebook.com](http://facebook.com). 
+**Question 4:** What is the cipher achieved between the Lab machine you are using and the following servers: [www.uvic.ca](https://www.uvic.ca), [www.gmail.com](https://www.gmail.com), and [facebook.com](https://facebook.com). 
 
-The cipher is "encoded". See [https://www.openssl.org/docs/apps/ciphers.html](https://www.openssl.org/docs/apps/ciphers.html) for details. The cipher reported is an abbreviation (see bottom of page for the full name). Each section of the cipher documents one part of it. At the very least it has two parts. From the right: first is the MAC, then the block cipher or stream cipher used and its blocking mode (if applicable). Then it comes the authentication method, and finally, the key exchange algorithm.
+The cipher is "encoded". See [https://www.openssl.org/docs/manmaster/apps/ciphers.html](https://www.openssl.org/docs/manmaster/apps/ciphers.html) for details. The cipher reported is an abbreviation (see bottom of page for the full name). Each section of the cipher documents one part of it. At the very least it has two parts. From the right: first is the MAC, then the block cipher or stream cipher used and its blocking mode (if applicable). Then it comes the authentication method, and finally, the key exchange algorithm.
 
-**Question 5:** For each of the three servers, decode the cipher method into each of its sections.
+**Question 5:** For each of the three servers from Question 4, decode the cipher method into each of its sections.
 
-**Question 6:** Read this: [https://blogs.technet.com/b/srd/archive/2013/11/12/security-advisory-2868725-recommendation-to-disable-rc4.aspx](https://blogs.technet.com/b/srd/archive/2013/11/12/security-advisory-2868725-recommendation-to-disable-rc4.aspx) What conclusion do you reach about servers which use the old RC4 cipher?
+Read the following websites:  
+[https://blogs.technet.com/b/srd/archive/2013/11/12/security-advisory-2868725-recommendation-to-disable-rc4.aspx](https://blogs.technet.com/b/srd/archive/2013/11/12/security-advisory-2868725-recommendation-to-disable-rc4.aspx)  
+[https://www.rc4nomore.com/](https://www.rc4nomore.com/)
+
+**Question 6:** What conclusion do you reach about servers which use the old (and deprecated) RC4 cipher?
 
 # Part 4: Self-signing your own certificates #
 
-There are many reasons why we might want to sign our own certificates (saving money is one of them). An example use-case is running your own VPN client and having it use TLS to authenticate the client and the server. To learn to do this, take a look at the tutorial here: [http://pki-tutorial.readthedocs.org/en/latest/simple](http://pki-tutorial.readthedocs.org/en/latest/simple)
+There are many reasons why we might want to sign our own certificates (saving money is one of them). An example use-case is running your own VPN client and having it use TLS to authenticate the client and the server. To learn to do this, take a look at the tutorial here: [https://pki-tutorial.readthedocs.io/en/latest/simple/](https://pki-tutorial.readthedocs.io/en/latest/simple/)
 
 - Pay close attention to the DN components. If the domain doesn't match simple.org as the tutorial specifies, you may be unable to sign.
 - If you think you messed up, do the following to reset: `git clean -f -d`
 
-Once you are done with Part 4, do a `history` and copy your Part 4 commands into `log.txt`.
+**Question 7:** Once you are done with Part 4, do a `history` and copy your Part 4 commands as your answer to this question.
 
-- For example, you could do `history 200 > log.txt` to get the last 200 commands you did and have it redirect to your log.
+# Appendix #
+
+As you can probably tell, using https is not only recommended, but also must be done properly. There are some resources out there that can help you acquire your own trusted SSL certificate: [https://letsencrypt.org/](https://letsencrypt.org/)
+
+Ensuring most websites you visit default to https: [https://www.eff.org/https-everywhere](https://www.eff.org/https-everywhere)
 
 # Submission #
 
-You will be submitting two files:
+You will be submitting one file:
 
-- `report.txt` Your answers to the 6 questions
-- `log.txt` History of Part 4
+- `report.txt` Your answers to the 7 questions

