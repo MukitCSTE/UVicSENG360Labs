@@ -17,39 +17,47 @@ Now, this OpenSSHD vulnerability has a CVE of CVE-2016-6210. You can find more d
 
 **Question 3** Based on the link, how is OpenSSHD vulnerable?
 
-This website provides a short snippet of Python code demonstrating how this vulnerability could be exploited. Your goal is to weaponize this vulnerability by integrating the sample code into the provided `template.py` wrapper.
+This website provides a short snippet of Python code demonstrating how this vulnerability could be exploited. Your goal is to weaponize this vulnerability by integrating the sample code into the provided `template.py` wrapper from CourseSpaces.
 
-We have set up a vulnerable server for you to test with. The server you will attempt to log into is found at `TBD`. Once you have integrated the sample into the template, you can run it with the following:
+- Note: The sample code uses the `time.clock()` function to get microsecond results. This function only does that on Windows. If you use this function on unix (our machines), you will not get enough precision. You must replace this function with `time.time()` which will yield the precision needed for the attack.
 
-> python opensshd.py [-h] [-u --userlist USERLIST_FILE] target_ip
+We have set up a vulnerable server for you to test with. The server you will attempt to log into is found at `Redacted`. Once you have integrated the sample into the template, you can run it with the following:
 
-Create a user list text file and fill it with potential usernames. Your goal is to try and find out whether some users exist on this server. Feel free to run the script a couple of times to get a better sense of the results. Try populating your user list with the following users (one per line):
+> python opensshd.py [-u --userlist USERLIST_FILE] target_ip
+
+Create a simple user list text file and fill it with potential usernames. This file should have one user per line. Your goal is to try and find out whether some of these users exist on this server. As this attack is time dependent, feel free to run the script a couple of times to get a better sense of the results. Try populating your user list with the following users (one per line):
 
 | user    |
 |---------|
-| user1   |
-| user2   |
-| user3   |
-| user4   |
+| test    |
+| foo     |
+| bar     |
+| baz     |
+| seng360 |
+| lab06   |
+| herp    |
+| derp    |
+| root    |
 
-**Question 4** Copy your script's results into your report. Based on the results, which users do you think exist on this server?
+**Question 4** Based on the results, which users do you think exist on this server? Copy your script's results into your report.
 
-**Question 5** How does knowing potential user accounts on the server compromise its security?
+**Question 5** How does knowing potential user accounts on a server compromise its security?
 
 # Part 2: VirtualBox Setup
 
 For the remainder of this lab, you will run a VirtualBox virtual machine that you can fully configure as a superuser. I have prepared one for you.
 
-Each of the lab machines has access to a shared directory at `/seng/seng360/`. Look for the `vm` folder. In it, you should see three files named `seng360bare.*` and a `Logs` folder. This is the base VM image you will be **copying** from.
+Each of the lab machines has access to a shared directory at `/seng/seng360/`. The VM you will be using is zipped and can be found at `/seng/seng360/lab06/seng360bare.zip`. In the zip, there should be two files named `seng360bare.vbox` and `seng360bare.vdi`. This is the base VM image you will be starting with.
 
-You will want to copy that entire VM folder to your local machine's temp directory under your own username. So for example, you would be copying it to `/tmp/user/vm` where **user** is your unix username. You can achieve this with the following:
+We need to expand this VM image. However, it is relatively large so we do not want to expand it in your own home directory. Instead, we will be using the local machine's `/tmp` folder.
 
-	mkdir -p /tmp/user/vm
-	cp -r /seng/seng360/vm /tmp/user
+You will want to expand the VM to the tmp folder under your own username. So for example, your VM folder would be somewhere like `/tmp/user/seng360bare` where **user** would be your unix username. You can achieve this by running the  following:
 
-Move to your new VM directory, and then start up `virtualbox` in command line:
+	echo "mkdir /tmp/$USER;unzip /seng/seng360/lab06/seng360bare.zip -d /tmp/$USER" | bash
 
-	cd /tmp/user/vm
+Move to your new VM directory (replace **user** with your username), and then start up `virtualbox` in command line:
+
+	cd /tmp/user/seng360bare
 	virtualbox
 
 At this point, no virtual box is setup up. Go to *File > Preferences* and in the *General* section change the *Default Machine Folder* to point to the directory you created above (i.e. `/tmp/user`). Leave everything else the same.
@@ -75,13 +83,13 @@ Make sure that the following ports are been forwarded in the your virtual machin
 
 Once you run the virtual machine, you should be able to SSH to the virtual machine using port 3080 in the local machine, and the webserver will be running in port 3080. You can test port 3080 by going to [http://localhost:3080](http://localhost:3080)
 
-- See: [http://stackoverflow.com/questions/5906441/how-to-ssh-to-a-virtualbox-guest-externally-through-a-host](http://stackoverflow.com/questions/5906441/how-to-ssh-to-a-virtualbox-guest-externally-through-a-host)
+- See: [https://stackoverflow.com/questions/5906441/how-to-ssh-to-a-virtualbox-guest-externally-through-a-host](https://stackoverflow.com/questions/5906441/how-to-ssh-to-a-virtualbox-guest-externally-through-a-host)
 
 To test if SSH is working do:
 
 	ssh -p 3030 -l user360 localhost
 
-To become root in the virtual machine you will need to use the command `su` (use the root password provided).
+To become root in the virtual machine you will need to use the command `su` (use the provided root password).
 
 | what | user    | password   |
 |------|---------|------------|
@@ -94,9 +102,9 @@ You may have heard of the ShellShock bug from 2014. You can read up on it [here]
 
 **Question 6** What are the CVEs that relate to the ShellShock bug?
 
-Find and read Vulnerability Note [VU#252743](http://www.kb.cert.org/vuls/id/252743). This note will point you to a RedHat blog where the bug is described.
+Find and read Vulnerability Note [VU#252743](https://www.kb.cert.org/vuls/id/252743). This note will point you to a [RedHat blog](https://access.redhat.com/articles/1200223) where the bug is described.
 
-**Question 7** What are the tests for the vulnerabilities in each of the main two CVEs?
+**Question 7** What are the tests for the vulnerabilities in each of the main two CVEs? (Hint: check the RedHat blog)
 
 Given your answer to **Question 7**, try the two tests to check if `bash` is vulnerable (it is).
 
@@ -104,15 +112,20 @@ Given your answer to **Question 7**, try the two tests to check if `bash` is vul
 
 Your virtual machine is already running Apache on port 80 (port 3080 for this host machine). Apache configuration files are located in the VM at `/etc/apache2`
 
-## Enable cgi ##
+From this point onwards, you will want to act as the root user. You can do this with
+
+	su
+
+And enter in the root password provided.
 
 Make sure you are in superuser mode with `su`. Enable the cgi module using:
 
 	a2enmod cgi
-
-Restart the apache server.
-
 	service apache2 restart
+
+Then change to the following directory:
+
+	cd /usr/lib/cgi-bin
 
 ## Create a script to test cgi ##
 

@@ -14,7 +14,7 @@ Cross-site scripting (XSS)
 
 # Part 1: Database Setup #
 
-* Note: We will continue to use the virtual machine you set up in last week's lab. If you need to set it up again, refer to Part 1 from last week.
+* Note: We will continue to use the virtual machine you set up in last week's lab. If you need to set it up again, refer to Part 2 from last week.
 
 ## Quick Virtual Machine Setup ##
 
@@ -29,7 +29,7 @@ To become root in the virtual machine you will need to use the command `su` (use
 | user | user360 | user360    |
 | root | root    | root360lab |
 
-If you're rebuilding your VM, you'll also need to re-enable CGI on Apache with the following instructions as root (you did this last week as well):
+If you're rebuilding your VM, you may need to re-enable CGI on Apache with the following instructions as root (you did this last week as well):
 
 	a2enmod cgi
 	service apache2 restart

@@ -20,7 +20,7 @@ However, having a certificate signed by a Root CA costs money (see [https://www.
 
 If you are going to do e-commerce you must buy a valid CA from one of the Web CAs. There is no way around it, unfortunately. This will allow any browser to authenticate your server (to this day the practice is that we don't authenticate users, only servers, one day this might change).
 
-Start Firefox and go to [http://www.wolframalpha.com/](http://www.wolframalpha.com/). Click on the icon just before the URL (looks like a globe or world). Click on "More Information". Under "Technical Details" it will tell you that the connection is not encrypted. This is expected.
+Start Firefox and go to [http://www.wolframalpha.com/](http://www.wolframalpha.com/). This website does have an https equivalent, but we will not be using that. Click on the icon just before the URL (looks like a globe or world). Click on "More Information". Under "Technical Details" it will tell you that the connection is not encrypted. This is expected.
 
 Now head to [https://www.uvic.ca](https://www.uvic.ca). Click again on the icon (this time a small green lock).
 
@@ -35,6 +35,8 @@ Now visit [https://gerrit.seng.uvic.ca:8088/](https://gerrit.seng.uvic.ca:8088/)
 OpenSSL is a library but it is also a collection of tools. Download the certificates of the two https sites from Part 1 using openssl. Port 443 is default for https.
 
 	echo -n | openssl s_client -connect <hostname>:<port>
+
+- Note: hostname should not contain "https://".
 
 **Question 3** Who is the issuer of each certificate?
 
@@ -56,7 +58,7 @@ At the end of the output of openssl you see the description of the encryption ac
 
 **Question 4:** What is the cipher achieved between the Lab machine you are using and the following servers: [www.uvic.ca](https://www.uvic.ca), [www.gmail.com](https://www.gmail.com), and [facebook.com](https://facebook.com). 
 
-The cipher is "encoded". See [https://www.openssl.org/docs/manmaster/apps/ciphers.html](https://www.openssl.org/docs/manmaster/apps/ciphers.html) for details. The cipher reported is an abbreviation (see bottom of page for the full name). Each section of the cipher documents one part of it. At the very least it has two parts. From the right: first is the MAC, then the block cipher or stream cipher used and its blocking mode (if applicable). Then it comes the authentication method, and finally, the key exchange algorithm.
+The cipher is "encoded". See [https://www.openssl.org/docs/manmaster/apps/ciphers.html](https://www.openssl.org/docs/manmaster/apps/ciphers.html) for details. The cipher reported is an abbreviation (see bottom of page for the full name). Each section of the cipher documents one part of it. At the very least it has two parts. **From the right:** first is the [Message Authentication Code (MAC)](https://en.wikipedia.org/wiki/Message_authentication_code), then the block cipher or stream cipher used and its blocking mode (if applicable). Then it comes the authentication method, and finally, the key exchange algorithm.
 
 **Question 5:** For each of the three servers from Question 4, decode the cipher method into each of its sections.
 
@@ -77,7 +79,7 @@ There are many reasons why we might want to sign our own certificates (saving mo
 
 # Appendix #
 
-As you can probably tell, using https is not only recommended, but also must be done properly. There are some resources out there that can help you acquire your own trusted SSL certificate: [https://letsencrypt.org/](https://letsencrypt.org/)
+As you can probably tell, using https is not only recommended, but also must be done properly. There are some resources out there that can help you acquire your own trusted SSL certificate: [https://letsencrypt.org](https://letsencrypt.org)
 
 Ensuring most websites you visit default to https: [https://www.eff.org/https-everywhere](https://www.eff.org/https-everywhere)
 
