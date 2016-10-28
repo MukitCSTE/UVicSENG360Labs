@@ -17,13 +17,14 @@ Now, this OpenSSHD vulnerability has a CVE of CVE-2016-6210. You can find more d
 
 **Question 3** Based on the link, how is OpenSSHD vulnerable?
 
-This website provides a short snippet of Python code demonstrating how this vulnerability could be exploited. Your goal is to weaponize this vulnerability by integrating the sample code into the provided `template.py` wrapper from CourseSpaces.
+This website provides a short snippet of Python code demonstrating how this vulnerability could be exploited. Your goal is to weaponize this vulnerability by integrating the sample code into the provided `opensshd.py` wrapper from CourseSpaces.
 
 - Note: The sample code uses the `time.clock()` function to get microsecond results. This function only does that on Windows. If you use this function on unix (our machines), you will not get enough precision. You must replace this function with `time.time()` which will yield the precision needed for the attack.
+- Note 2: You will need to massage the sample code and the provided template code together. This is not just a copy-paste operation. Ensure the arguments you pass in are wired to the right places.
 
 We have set up a vulnerable server for you to test with. The server you will attempt to log into is found at `Redacted`. Once you have integrated the sample into the template, you can run it with the following:
 
-> python opensshd.py [-u --userlist USERLIST_FILE] target_ip
+> python opensshd.py -u USERLIST_FILE target_ip
 
 Create a simple user list text file and fill it with potential usernames. This file should have one user per line. Your goal is to try and find out whether some of these users exist on this server. As this attack is time dependent, feel free to run the script a couple of times to get a better sense of the results. Try populating your user list with the following users (one per line):
 
@@ -53,16 +54,18 @@ We need to expand this VM image. However, it is relatively large so we do not wa
 
 You will want to expand the VM to the tmp folder under your own username. So for example, your VM folder would be somewhere like `/tmp/user/seng360bare` where **user** would be your unix username. You can achieve this by running the  following:
 
-	echo "mkdir /tmp/$USER;unzip /seng/seng360/lab06/seng360bare.zip -d /tmp/$USER" | bash
+	echo "unzip /seng/seng360/lab06/seng360bare.zip -d /tmp/$USER" | bash
 
 Move to your new VM directory (replace **user** with your username), and then start up `virtualbox` in command line:
 
 	cd /tmp/user/seng360bare
-	virtualbox
+	virtualbox &
 
-At this point, no virtual box is setup up. Go to *File > Preferences* and in the *General* section change the *Default Machine Folder* to point to the directory you created above (i.e. `/tmp/user`). Leave everything else the same.
+- Note: The & after virtualbox causes the program to run in the background so that you can continue using that terminal.
 
-Now add the virtual machine: Using the menu option *Machine > Add*, select the virtual machine inside your `/tmp/user/vm` directory.
+- Note 2: To start your VM directly, you could also open a visual folder to your new VM directory and then double click on the seng360bare.vbox file.
+
+If the main VirtualBox window does not have the seng360bare VM listed, add the virtual machine: Using the menu option *Machine > Add*, select the virtual machine inside your `/tmp/user/vm` director y(replace **user** with your username).
 
 At this point you main screen should be something like this:
 
@@ -123,6 +126,8 @@ Make sure you are in superuser mode with `su`. Enable the cgi module using:
 	a2enmod cgi
 	service apache2 restart
 
+- Note: you may get a warning saying something is already installed. As long as there is nothing about a failure you should be fine.
+
 Then change to the following directory:
 
 	cd /usr/lib/cgi-bin
@@ -155,7 +160,7 @@ whoami
 echo "End of the world"
 ```
 
-Test it at [http://localhost:3080/cgi-bin/test.bash](http://localhost:3080/cgi-bin/test.bash).
+Change its permissions and test it at [http://localhost:3080/cgi-bin/test.bash](http://localhost:3080/cgi-bin/test.bash).
 
 **Question 8** What user is the one executing the scripts? (see the output of whoami above). Why does apache use that user?
 

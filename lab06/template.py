@@ -34,8 +34,8 @@ class Engine(object):
             self.attack(user)
 
     def attack(self, user):
-        # TODO Add CVE-2016-6210 code here
-		# Unix quirk: Replace time.clock() with time.time()
+        # TODO Add the CVE-2016-6210 code here
+        # Unix quirk: Replace time.clock() with time.time()
         ssh = paramiko.SSHClient()
         total = 0
         time.sleep(self.req_time)
