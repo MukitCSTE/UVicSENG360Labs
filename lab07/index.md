@@ -1,6 +1,6 @@
 # SQL Injection and XSS Vulnerabilities #
 
-This week, we will investigate SQL Injection and Cross Site Scripting vulnerabilities. Parts 1 and 2 will cover SQL Injection while Parts 3 to 6 will cover Cross-site Scripting.
+This week, we will investigate SQL Injection and Cross Site Scripting vulnerabilities. Parts 1 and 2 will cover SQL Injection while Parts 3 onwards will cover Cross-site Scripting.
 
 From Wikipedia, we have the following definitions:
 
@@ -86,9 +86,11 @@ The table should looks something like this.
 	 10 |  1040
 	(10 rows)
 
-Create a user called `web` with password `webserver`. See [https://www.postgresql.org/docs/9.1/static/app-createuser.html](https://www.postgresql.org/docs/9.1/static/app-createuser.html).
+Once your table is verified, exit out of Postgres.
 
-You will need to do it as user **postgres**. To become the postgres user, first make yourself root with `su`. Then do `su postgres` to switch over to the postgres user. Then do the following:
+In the next step, you will be creating a Postgres user called `web` with password `webserver`. See [https://www.postgresql.org/docs/9.1/static/app-createuser.html](https://www.postgresql.org/docs/9.1/static/app-createuser.html).
+
+You will need to do this as user **postgres**. To become the postgres user, first make yourself root with `su`. Then do `su postgres` to switch over to the postgres user. Then do the following:
 
 	cd ~
 	createuser -P web
@@ -144,9 +146,9 @@ print "</table>"
 
 Convert this program into a cgi-script that uses the GET method to set the value of `id`. It responds to this request:
 
-[http://localhost:3080/cgi-bin/sql.py?id=5](http://localhost:3080/cgi-bin/sql.py?id=5)
+[http://localhost:3080/cgi-bin/sql.py?id=6](http://localhost:3080/cgi-bin/sql.py?id=6)
 
-See [https://www.tutorialspoint.com/python/python_cgi_programming.htm](https://www.tutorialspoint.com/python/python_cgi_programming.htm) for information on how to do this. Hint: look at the *Passing Information Using GET Method* section example.
+Notice how you're getting the result for 5 instead of 6 (the script I provided hardcodes 5 as the id). You need to change the script so that handles GET requests. See [https://www.tutorialspoint.com/python/python_cgi_programming.htm](https://www.tutorialspoint.com/python/python_cgi_programming.htm) for information on how to do this. Hint: look at the *Passing Information Using GET Method* section example.
 
 - If you're getting server errors, try looking at the apache log file found here: `/var/log/apache2/error.log`
 

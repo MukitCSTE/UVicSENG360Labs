@@ -80,7 +80,7 @@ void main() {
 }
 ```
 
-Don't you love that C allows you to define arrays of size zero? (Hint: Fix the code so that it the array isn't size zero)
+Don't you love that C allows you to define arrays of size zero? Fix the code so that it the stackTop array isn't size zero. Compile it and run it normally (w/o the stack protector).
 
 **Question 4:** Why does it execute the function `do_not_execute`?
 
@@ -196,13 +196,13 @@ nm -D /lib64/libc.so.6 | grep '\<system\>' | cut -f1 -d' '
 
 | Values           | Bytes              |
 |------------------|--------------------|
-| base             | 0x000000392ba00000 |
-| gadget           |            0x20338 |
-| system           | 0x000000392ba3e900 |
-| exit             | 0x000000392ba35a50 |
-| address of array |     0x7fffffffddd0 |
+| base             | 0x00007ffff7a19000 |
+| gadget           |            0x22638 |
+| system           | 0x00000000000423f0 |
+| exit             | 0x0000000000038ea0 |
+| address of array |     0x7fffffffe220 |
 
-5. There is an error in his execution of the attack. He does not include any input to the shell command. Try the command below instead (remember to calculate your own values for base, gadget, system, and address of array).
+5. There is an error in his execution of the attack. He does not include any input to the shell command. Try the command below instead (remember to calculate your own values for base, gadget, system, exit and address of array).
 
 ``` bash
 ( (
