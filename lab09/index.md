@@ -12,9 +12,11 @@ You will be given a program with a known race-condition vulnerability. Your task
 
 # Part 1: Lab Setup #
 
-Since you will need root access for the lab, we will be using a virtual machine again. You can grab a fresh copy of the virtual machine from `/seng/seng360/race`.
+Since you will need root access for the lab, we will be using a virtual machine again. You can grab a fresh copy of the virtual machine from `/seng/seng360/lab09`.
 
-- Just like before, copy that vm to your local machine's `/tmp` directory and assign it under your own username. Then point VirtualBox to that VM and start it up. You may need to remove your old VM entry if it's inaccessible or behaving strangely.
+	echo "unzip /seng/seng360/lab09/seng360race.zip -d /tmp/$USER" | bash
+
+- Just like before, the above will copy that vm to your local machine's `/tmp` directory and assign it under your own username. Then point VirtualBox to that VM and start it up. You may need to remove your old VM entry if it's inaccessible or behaving strangely.
 
 - Note: This is **not** the same virtual machine from previous weeks. This is running Ubuntu 8.04.4 LTS; the other machine ran a newer version of Ubuntu.
 
@@ -68,7 +70,7 @@ Create this file, name it `vulp.c` and save it in user360's home directory **as 
 
 Then you need to make the program be flagged as a setuid type program owned by root. To do this, do the following as user360:
 
-	sudo chown root vulp
+	sudo chown root:root vulp
 	sudo chmod 4755 vulp
 
 When done correctly, if you do an `ls -l` you'll see something like the following:
@@ -91,7 +93,7 @@ As we learned in previous labs, /etc/passwd is the file authentication database 
 
 We can target these two files in our attacks in order to gain root access. If an attacker can insert information into these two files, they essentially have the power to create new users with root access (by letting uid be 0).
 
-The normal way of making a user is with the `useradd` command. As user user360, go ahead and create a new user called `smith` with a password `smith`. (If you want more information on general unix user administration, see here: [http://www.tutorialspoint.com/unix/unix-user-administration.htm](http://www.tutorialspoint.com/unix/unix-user-administration.htm))
+The normal way of making a user is with the `useradd` command. As user user360, go ahead and create a new user called `smith` with a password `smith`. (If you want more information on general unix user administration, see here: [https://www.tutorialspoint.com/unix/unix-user-administration.htm](https://www.tutorialspoint.com/unix/unix-user-administration.htm))
 
 	sudo useradd -m smith
 	sudo passwd smith
@@ -160,7 +162,7 @@ Where file consists of just your input.
 
 **Question 1:** Describe how you achieved your solution to Part 2. Include your `attack.c` inline with this question. 
 
-The vulp program deliberately has a DELAY parameter in order to make your attack easier. Once you have succeeded in your attacks, gradually reduce the value of DELAY.
+The vulp program deliberately has a DELAY constant parameter in order to make your attack easier. Once you have succeeded in your attacks, gradually reduce the value of DELAY.
 
 **Question 2:** As the DELAY approaches zero, how much longer does it take for you to succeed?
 

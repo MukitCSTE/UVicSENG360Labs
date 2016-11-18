@@ -168,7 +168,7 @@ Try now the following URL:
 
 ## Fix your script ##
 
-Learn how to protect your script with prepared statements.
+Learn how to protect your script with prepared statements. Then fix your sql.py script.
 
 - Hint: [Prepared Statements in Psycogp2](http://initd.org/psycopg/articles/2012/10/01/prepared-statements-psycopg/)
 

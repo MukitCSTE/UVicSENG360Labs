@@ -27,7 +27,7 @@ void main()
 
 Compile it (`gcc -o smashing smashing.c`)
 
-**Question 1:** What is the warning you receive when you compile it? Based on the behavior of this program, explain why it is warning.
+**Question 1:** What is the warning you receive when you compile it? Based on the behavior of this program, explain why it is warning you.
 
 **Question 2:** What happens when you give it a long input?
 
@@ -80,7 +80,7 @@ void main() {
 }
 ```
 
-Don't you love that C allows you to define arrays of size zero? Fix the code so that it the stackTop array isn't size zero. Compile it and run it normally (w/o the stack protector).
+Don't you love that C allows you to define arrays of size zero? Fix the code so that it the stackTop array isn't size zero (try one). Compile it and run it normally (w/o the stack protector).
 
 **Question 4:** Why does it execute the function `do_not_execute`?
 
@@ -175,9 +175,9 @@ As you learned in the tutorial above, code in the stack cannot be executed. This
 
 ----------
 
-# Part 4: Running without ASLR (Optional) #
+# Part 4: Running without ASLR #
 
-*If you have extra time or want to continue playing around, go ahead and do the following section.*
+*This section is optional. However, please read this section and try to at least understand what this attack is attempting to do.*
 
 Do the section *The Importance of Being Patched*. It will show you that it is possible to know the address of the stack we need to attack by using `ps`
 
