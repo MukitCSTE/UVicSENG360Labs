@@ -1,6 +1,8 @@
 # Privacy #
 
-How can we protect ourselves from others? Whether they are government agencies, thieves, friends or coworkers, we need to prepare ourselves. This week lab will consist of a survey of applications that we can use to protect our online assets.
+Especially with countries like the U.K. passing very agressive surveilance laws, privacy tools become more important than ever. Take a look at this: [http://www.theverge.com/2016/11/23/13718768/uk-surveillance-laws-explained-investigatory-powers-bill](http://www.theverge.com/2016/11/23/13718768/uk-surveillance-laws-explained-investigatory-powers-bill)
+
+How can we protect ourselves from others? Whether they are government agencies, thieves, friends or coworkers, we need to prepare ourselves. This week lab will consist of a survey of applications that we can use to protect our online assets. I recommend working in groups of two as some parts of this lab will require a buddy to work with.
 
 ## Preliminaries ##
 
@@ -12,9 +14,9 @@ Before we start, make sure you understand the following three concepts. You can 
 
 # Part 1: Tor #
 
-Tor is a Web browser that anonymises where you are located. 
+Tor is a Web browser that anonymizes where you are located. 
 
-1. Download it into your home directory: [https://www.torproject.org/download/download-easy.html.en](https://www.torproject.org/download/download-easy.html.en) Use the 64-bit version. It is statically compiled, so you can simply download and uncompress it with the tar command (it uses xz compression)
+1. Download it into your home directory: [https://www.torproject.org/download/download-easy.html.en](https://www.torproject.org/download/download-easy.html.en) Use the 64-bit version. It is statically compiled, so you can simply download and uncompress it with the tar command (it uses xz compression). Alternatively, you can grab a copy of it on our shared folder in `/seng/seng360/lab10/tor-browser-linux64-6.0.6_en-US.tar.xz`
 2. Run it. As you can see, it is relatively spartan compared to Chrome and Firefox.
 3. Check your IP address both in Tor and in Chrome or Firefox. There are various web site where you can do this. For example: [http://www.whatismyip.com/](http://www.whatismyip.com/)
 
@@ -57,7 +59,7 @@ Unfortunately we won't be able to use TrueCrypt because we require administrativ
 
 **Question 7:** How do these legal cases provide evidence that TrueCrypt actually works?
 
-But suddenly it disappeared. Fortunately there were archives of the software and people are still using it (last usable version is 7.1) The Electronic Frontier Foundation recommends [https://ssd.eff.org/en/module/how-encrypt-your-windows-device](https://ssd.eff.org/en/module/how-encrypt-your-windows-device) It is not as good, and it is meant for Windows. 
+But suddenly it disappeared. Fortunately there were archives of the software and people are still using it (last usable version was 7.1) The Electronic Frontier Foundation recommends [https://ssd.eff.org/en/module/how-encrypt-your-windows-device](https://ssd.eff.org/en/module/how-encrypt-your-windows-device) It is not as good, and it is meant for Windows. 
 
 **Question 8:** Why did TrueCrypt disappear?
 
@@ -73,7 +75,7 @@ A few years back, a group of security PhD students (one of them now a prof at Un
 
 There are many clients that support OTR (none officially unfortunately...) If you have your laptop with you, the easiest would be for you to download one of them. See [https://otr.cypherpunks.ca/software.php](https://otr.cypherpunks.ca/software.php) (Try Adium on OS X)
 
-I have compiled a version of pidgin with the OTR plugin. Copy the file `/seng/seng360/pidgin/local.tar.gz` and uncompress it at the top level of your home directory. It will create a directory called `local` with many files inside it.
+I have compiled a version of pidgin with the OTR plugin. Copy the file `/seng/seng360/lab10/local.tar.gz` and uncompress it at the top level of your home directory. It will create a directory called `local` with many files inside it.
 
 To run it execute:
 
@@ -84,7 +86,7 @@ export LD_LIBRARY_PATH=${HOME}/local/lib:
 
 Add an account to it (it supports almost any protocol) If you don't have one (or prefer not to use one that you already have), create one with `dukgo.com`. You can use the "Add Account" window. Use the protocol XMPP, domain `dukgo.com`, and select the option "Create this account on the server" (it will be available after you select XMPP as the protocol). For more of a detailed walkthrough, check here: [https://duck.co/blog/post/2/using-pidgin-with-xmpp-jabber](https://duck.co/blog/post/2/using-pidgin-with-xmpp-jabber)
 
-At this point, you need to find somebody else in the lab who is using the same protocol as you (so you can both communicate), then follow this tutorial.
+At this point, you need to find somebody else in the lab who is using the same protocol as you (so you can both communicate), then follow the following tutorial step "3. Use OTR for Secure Instant Messaging with Pidgin". You may need to click on that to get it to expand.
 
 [https://securityinabox.org/pidgin_securechat](https://securityinabox.org/pidgin_securechat)
 
@@ -93,14 +95,23 @@ At this point, you need to find somebody else in the lab who is using the same p
 # Part 4: Password Safe #
 
 I am a strong believer that the best way to have secure passwords is to write them down. The challenge is to write them down in a secure location in such a way that they are easy to retrieve and use. PasswordSafe is a good tool for the job (available for Windows, Mac and
-Linux.) [http://passwordsafe.sourceforge.net/](http://passwordsafe.sourceforge.net/). Watch the second video in this page: [http://passwordsafe.sourceforge.net/quickstart.shtml](http://passwordsafe.sourceforge.net/quickstart.shtml)
+Linux.) [https://pwsafe.org/](https://pwsafe.org/). Also watch the following video: [http://video.findmysoft.com/2012/04/24/passwordsafe.mp4](http://video.findmysoft.com/2012/04/24/passwordsafe.mp4)
 
 **Question 12:** Can PasswordSafe be a counter-measure against physical keyloggers (e.g. a keyboard)? Explain.
 
 **Question 13:** What do you consider the main disadvantages of PasswordSafe? (Aside from having your master password stolen and all your usernames/passwords lost at once)
 
+# Appendix #
+
+What we covered above are just some of the tools out there that can protect your privacy - but they're not the only ones. Here are a few more you can investigate at your leisure:
+
+- Mitro (password manager)
+- Ghostery (anti-tracking tool)
+- AdBlock Plus (ad-blocker)
+- HTTPS Everywhere (secure-site switcher)
+
 # Submission #
 
 You will be submitting one file:
 
-- `report.txt` Your answers to the questions
+- `report.txt` Your answers to the 13 questions

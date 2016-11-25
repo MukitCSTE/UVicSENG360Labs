@@ -24,6 +24,8 @@ Once you have your virtual machine running, ssh into it with:
 
 	ssh -p 3030 -l user360 localhost
 
+- Note: If you get some kind of key-mismatch error, go ahead and go to the known key-hosts file (~/.ssh/known_hosts) and remove the old localhost:3030 entry. We're using a different VM, so it'll have a different key)
+
 To become root in the virtual machine you will need to use the command `sudo -s` (use the root password provided). Direct root access via `su` is not enabled on this VM.
 
 | what | user    | password |
@@ -67,6 +69,8 @@ int main() {
 Create this file, name it `vulp.c` and save it in user360's home directory **as user360, not root**. Compile this program as user360:
 
 	gcc -o vulp vulp.c
+
+- Note: If you are using nano, you'll likely need to run "export TERM=xterm" to get nano to work in the VM. You'll need to do that for each terminal session you want to run nano in.
 
 Then you need to make the program be flagged as a setuid type program owned by root. To do this, do the following as user360:
 
