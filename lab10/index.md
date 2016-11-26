@@ -1,6 +1,6 @@
 # Privacy #
 
-Especially with countries like the U.K. passing very agressive surveilance laws, privacy tools become more important than ever. Take a look at this: [http://www.theverge.com/2016/11/23/13718768/uk-surveillance-laws-explained-investigatory-powers-bill](http://www.theverge.com/2016/11/23/13718768/uk-surveillance-laws-explained-investigatory-powers-bill)
+Especially with countries like the U.K. passing very aggressive surveillance laws, privacy tools become more important than ever. Take a look at this: [http://www.theverge.com/2016/11/23/13718768/uk-surveillance-laws-explained-investigatory-powers-bill](http://www.theverge.com/2016/11/23/13718768/uk-surveillance-laws-explained-investigatory-powers-bill)
 
 How can we protect ourselves from others? Whether they are government agencies, thieves, friends or coworkers, we need to prepare ourselves. This week lab will consist of a survey of applications that we can use to protect our online assets. I recommend working in groups of two as some parts of this lab will require a buddy to work with.
 
@@ -16,9 +16,11 @@ Before we start, make sure you understand the following three concepts. You can 
 
 Tor is a Web browser that anonymizes where you are located. 
 
-1. Download it into your home directory: [https://www.torproject.org/download/download-easy.html.en](https://www.torproject.org/download/download-easy.html.en) Use the 64-bit version. It is statically compiled, so you can simply download and uncompress it with the tar command (it uses xz compression). Alternatively, you can grab a copy of it on our shared folder in `/seng/seng360/lab10/tor-browser-linux64-6.0.6_en-US.tar.xz`
-2. Run it. As you can see, it is relatively spartan compared to Chrome and Firefox.
-3. Check your IP address both in Tor and in Chrome or Firefox. There are various web site where you can do this. For example: [http://www.whatismyip.com/](http://www.whatismyip.com/)
+You can grab a copy of it on our shared folder in `/seng/seng360/lab10/tor-browser-linux64-6.0.6_en-US.tar.xz` Alternatively, you can download it into your home directory from here: [https://www.torproject.org/download/download-easy.html.en](https://www.torproject.org/download/download-easy.html.en) Use the 64-bit version.
+
+It is statically compiled, so you can simply download and uncompress it with the tar command (it uses xz compression). Uncompress it (`tar xvfJ <file>`) and then run it. As you can see, it is relatively spartan compared to Chrome and Firefox.
+
+Check your IP address both in Tor and in Chrome or Firefox. There are various web site where you can do this. For example: [https://www.whatismyip.com/](https://www.whatismyip.com/)
 
 **Question 1:** Where is your browser's IP "located"?
 
@@ -75,13 +77,13 @@ A few years back, a group of security PhD students (one of them now a prof at Un
 
 There are many clients that support OTR (none officially unfortunately...) If you have your laptop with you, the easiest would be for you to download one of them. See [https://otr.cypherpunks.ca/software.php](https://otr.cypherpunks.ca/software.php) (Try Adium on OS X)
 
-I have compiled a version of pidgin with the OTR plugin. Copy the file `/seng/seng360/lab10/local.tar.gz` and uncompress it at the top level of your home directory. It will create a directory called `local` with many files inside it.
+I have compiled a version of pidgin with the OTR plugin. Copy the file `/seng/seng360/lab10/pidgin.tar.gz` and uncompress it at the top level of your home directory (`tar zxcv <file>`). It will create a directory called `local` with many files inside it.
 
 To run it execute:
 
 ``` bash
 export LD_LIBRARY_PATH=${HOME}/local/lib:
-~/local/bin/pidgin
+~/local/bin/pidgin &
 ```
 
 Add an account to it (it supports almost any protocol) If you don't have one (or prefer not to use one that you already have), create one with `dukgo.com`. You can use the "Add Account" window. Use the protocol XMPP, domain `dukgo.com`, and select the option "Create this account on the server" (it will be available after you select XMPP as the protocol). For more of a detailed walkthrough, check here: [https://duck.co/blog/post/2/using-pidgin-with-xmpp-jabber](https://duck.co/blog/post/2/using-pidgin-with-xmpp-jabber)
@@ -95,7 +97,7 @@ At this point, you need to find somebody else in the lab who is using the same p
 # Part 4: Password Safe #
 
 I am a strong believer that the best way to have secure passwords is to write them down. The challenge is to write them down in a secure location in such a way that they are easy to retrieve and use. PasswordSafe is a good tool for the job (available for Windows, Mac and
-Linux.) [https://pwsafe.org/](https://pwsafe.org/). Also watch the following video: [http://video.findmysoft.com/2012/04/24/passwordsafe.mp4](http://video.findmysoft.com/2012/04/24/passwordsafe.mp4)
+Linux.) [https://pwsafe.org/](https://pwsafe.org/). Also watch the following video: [https://www.youtube.com/watch?v=uCy5ZUuoCnA](https://www.youtube.com/watch?v=uCy5ZUuoCnA)
 
 **Question 12:** Can PasswordSafe be a counter-measure against physical keyloggers (e.g. a keyboard)? Explain.
 
@@ -109,6 +111,7 @@ What we covered above are just some of the tools out there that can protect your
 - Ghostery (anti-tracking tool)
 - AdBlock Plus (ad-blocker)
 - HTTPS Everywhere (secure-site switcher)
+- Veracrypt (truecrypt fork)
 
 # Submission #
 

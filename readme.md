@@ -1,4 +1,4 @@
-# Labs for UVic SENG360 - Fall 2015
+# Labs for UVic SENG360 - Fall 2016
 
 - [Lab 01: Generating Random Numbers](lab01/index.md)
 - [Lab 02: Public Key Encryption](lab02/index.md)

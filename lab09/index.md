@@ -121,7 +121,9 @@ You are to exploit this race condition vulnerability in the above Set-UID progra
 - Overwrite any file that belongs to root (/etc/shadow) as user360
 - Gain root privileges; namely you should be able to do anything that root can do
 
-Your goal is to create a C program called `attack.c` that can create symbolic links from /tmp/XYZ to the /etc/passwd and /etc/shadow files. You can create a symbolic link on command line via the `ln -s` command. In C, you may call the `symlink` function to create a symlink. Since Linux doesn't allow you to create a link if it already exists, you'll need to delete old symlinks first. You can do that via the `unlink` function. Below is a code snippet showing how to remove a symlink and then make /tmp/XYZ point to /etc/passwd:
+Your goal is to create a C program called `attack.c` that can create symbolic links from /tmp/XYZ to the /etc/passwd and then later to /etc/shadow file. Note that your program should only link to one file at a time - do not try to do both together.
+
+You can create a symbolic link on command line via the `ln -s` command. In C, you may call the `symlink` function to create a symlink. Since Linux doesn't allow you to create a link if it already exists, you'll need to delete old symlinks first. You can do that via the `unlink` function. Below is a code snippet showing how to remove a symlink and then make /tmp/XYZ point to /etc/passwd:
 
 ``` c
 unlink("/tmp/XYZ");
@@ -176,7 +178,7 @@ Addressing race condition bugs is not an easy task because the *check-and-use* p
 
 The basic idea is to repeat access() and open() several time. At each time, we open the file, and at the end, we check if the same file opened is the same file by checking their i-nodes. They should be the same - otherwise notify the user of file tampering.
 
-Use this strategy to modify vuln.c and evaluate the race condition. In order to check i-nodes, consider using the `stat` C function in the `sys/stat.h` library header.
+Use this strategy to modify vulp.c and evaluate the race condition. In order to check i-nodes, consider using the `stat` C function in the `sys/stat.h` library header.
 
 **Question 3:** With your repeating modifications in place, how difficult is it to succeed, if at all? Please include your modified vulp.c source code for this step inline with this question.
 
